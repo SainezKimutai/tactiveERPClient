@@ -1,0 +1,181 @@
+
+
+
+<section class="section">
+        <!-- <ngx-spinner></ngx-spinner> -->
+        <article *ngIf="ImprintLoader" class="imprint-loader login">
+          <div class="imprint-loader-wrap">
+            <div class="imprint-loader-main">
+              <div class="imprint-loader-ball ball-one"></div>
+              <div class="imprint-loader-ball ball-two"></div>
+              <div class="imprint-loader-ball ball-three"></div>
+              <div class="imprint-loader-ball ball-four"></div>
+            </div>
+          </div>
+        </article>
+        
+        
+        
+            <!-- Image logo -->
+          <div class="image-card">
+            <img src="../../assets/images/logo.png" alt="Imprint Africa Logo">
+          </div>
+        
+        
+          <!-- Title -->
+          <div class="title">
+            <h4>Sign Up</h4>
+          </div>
+        
+        
+          <!-- Login Form -->
+          
+  <form #myForm='ngForm' [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="form" *ngIf="InvitedEmail">
+
+
+    <!-- Name -->
+
+    <div class="form-body">
+
+    <div class="form-group">
+
+        <div class="input-group input-group-sm mb-3">
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="user"></fa></span>
+                </div>
+
+                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                formControlName="name"  [class.is-invalid]="form.name.invalid && form.name.touched" placeholder="Name">
+
+                <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+                        <div *ngIf="form.name.errors.required">Name is Required</div>    
+                </div>
+        </div>      
+
+    </div>
+
+
+
+
+
+
+  
+    
+        <!-- Department -->
+        <div class="form-group">
+    
+                <div class="input-group input-group-sm mb-3">
+    
+                        <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="address-card-o"></fa></span>
+                        </div>
+
+                        <select aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                        formControlName="department" class="form-control" required>
+                        <option value="" disabled selected hidden >Choose Department</option>
+                        <option *ngFor="let Team of Teams" value='{{Team.name}}'>{{Team.name}}</option>
+                        
+                        </select>   
+                        
+                        <div *ngIf="submitted && form.department.errors" class="invalid-feedback">
+                                <div *ngIf="form.department.errors.required">Department Required</div>
+                        </div>
+                </div>
+    
+    
+    
+        </div>
+    
+
+
+
+
+
+
+    <!-- Email -->
+    <div class="form-group">
+
+        <div class="input-group input-group-sm mb-3">
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="envelope"></fa></span>
+                </div>
+
+                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                formControlName="email"  [class.is-invalid]="form.email.invalid && form.email.touched" value="InvitedEmail" placeholder="Email" readonly>
+
+                <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+                        <div *ngIf="form.email.errors.required">Email is Required</div>   
+                        <div *ngIf="form.email.errors.email">Email format is incorrect</div> 
+                </div>
+        </div>
+
+    </div>
+
+
+
+        <!-- Password -->
+    <div class="form-group">
+
+
+        <div class="input-group input-group-sm mb-3">
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="key"></fa></span>
+                </div>
+
+                <input [type]="togglePassword" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                formControlName="password" class="form-control" [class.is-invalid]="form.password.invalid && form.password.touched" placeholder="password">
+
+                <div class="input-group-append">
+                        <span class="input-group-text" id="inputGroup-sizing-sm" [hidden]="showPasswordIcon" (click)="showPassword()"><fa name="eye"></fa></span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm" [hidden]="hidePasswordIcon" (click)="hidePassword()"><fa name="eye-slash"></fa></span>
+                </div>
+
+                <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+                        <div *ngIf="form.password.errors.required">Password is required</div>
+                        <div *ngIf="form.password.errors.minlength">Password must be at least 8 characters</div>
+                </div>
+
+        </div>
+
+
+    </div>
+
+        </div>
+
+        <div class="btn-wrap">
+                <button type="submit"  [disabled]="!registrationForm.valid" class="btn btn-sm btn-button-theme">Register</button>
+        </div>
+  </form>
+        
+
+
+ </section>
+        
+        
+        
+        
+        <!-- =============================================================
+         -->
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

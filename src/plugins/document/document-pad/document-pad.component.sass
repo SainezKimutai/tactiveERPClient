@@ -1,0 +1,334 @@
+@import "src/styles.sass"
+
+// ------------------------------------------------
+// Title Section
+.title-section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+
+.title-section .head-wrap
+    width: 50%
+    h4
+        color: themeColor(info)
+        font-size: 14px
+        font-weight: bold
+        text-transform: uppercase
+    
+    p
+        color: color(silk)
+        font-family: Montserrat
+        font-size: 10px
+        padding: 0
+        margin: 0
+
+.title-section .btn-wrap
+    display: flex
+    width: 50%
+
+    .btn
+        margin: auto
+        width: 10em
+        font-size: 10px
+        
+        &:hover
+            border: none
+            box-shadow: 0 0 10px #6969694d
+
+
+
+
+
+
+.body-section
+    margin: 1em
+    background-color: white
+
+.editor-section form .heading
+    background-color: themeColor(info)
+    padding: .5em
+
+    .title
+        font-size: 14px
+        color: white
+
+    .btn 
+        font-size: 12px
+        width: 7em
+        border: solid 1px white
+        color: white
+
+        &:hover
+            border: solid 1px color(warning)
+            color: color(warning)
+
+
+.view-section
+    border: solid 1px greyColor(g200)
+    border-radius: 2px
+
+.view-section .view-title
+    background-color: themeColor(info)
+    padding: .5em
+    text-align: center
+    color: white
+    font-size: 14px
+    font-weight: bold
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .1) 
+
+.view-section .view-body
+    font-size: 12px
+    font-family: 'Montserrat'
+    padding: 1em
+    margin: 0 3em 0 3em
+    border: solid 1px grayColor(g200)
+    overflow: hidden
+    word-break: break-all
+    word-wrap: break-word
+    display: block
+
+
+.view-section .blockquote
+    margin: 0 1em 0 1em
+    padding: 1em
+
+    .blockquote-footer
+        font-size: 10px
+        font-family: Montserrat
+        color: color(info)
+        font-style: italic
+
+        span
+            font-size: 10px
+            font-family: Montserrat
+            color: color(warning)
+            font-style: italic          
+
+
+
+
+.list-section
+    border: solid 1px grayColor(g200)
+    border-radius: 2px
+
+
+.list-section .list-title
+    background-color: themeColor(info)
+    padding: .5em
+    text-align: center
+    color: white
+    font-size: 14px
+    font-weight: bold
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .1) 
+
+.list-section .no-docs
+    background-color: color(info)
+    padding: 2em
+    text-align: center
+    border-radius: 5px
+    margin: 2em 5em
+    font-size: 14px
+
+.list-section .card-group
+    width: 100%
+    background-color: grayColor(g200)
+
+.list-section .card-group .card
+    background-color: white
+    font-family: Montserrat
+    border-radius: 5px
+    min-height: 10em
+    min-width: 260px
+    max-width: 50%
+    padding: .5em
+    margin: .5em
+    cursor: pointer
+    border: none
+    // border: solid 1px grayColor(g300)
+
+    fa[name=book]
+        font-size: 12px
+        color: themeColor(info)
+
+    .title
+        font-family: Montserrat
+        color: color(silk)
+        font-size: 12px
+        
+
+    .action
+        opacity: 0
+        fa[name=pencil]
+            color: blue
+            font-size: 12px
+            padding: .5em
+            border-radius: 50%
+            
+        fa[name=trash]
+            color: red
+            font-size: 12px
+            padding: .5em
+            border-radius: 50%
+
+    &:hover
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, .4)
+        -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, .4)
+        -moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, .4)
+        -ms-box-shadow: 2px 2px 4px rgba(0, 0, 0, .4)
+        -o-box-shadow: 2px 2px 4px rgba(0, 0, 0, .4)
+
+        .action
+            opacity: 1
+
+            fa[name=pencil]
+                color: grayColor(g400)
+                font-size: 12px
+                padding: .5em
+                border-radius: 50%
+
+                &:hover
+                    color: white
+                    font-size: 15px
+                    padding: .5em
+                    border-radius: 50%
+                    background-color: brandColor(brandPrimary)
+
+            fa[name=trash]
+                color: grayColor(g400)
+                font-size: 12px
+                padding: .5em
+                border-radius: 50%
+
+                &:hover
+                    color: white
+                    font-size: 15px
+                    padding: .5em
+                    border-radius: 50%
+                    background-color: brandColor(brandDanger)
+
+
+
+    
+
+    .blockquote
+        margin: 0 1em 0 1em
+        padding: 1em
+
+        .blockquote-footer
+            font-size: 10px
+            font-family: Montserrat
+            color: color(info)
+            font-style: italic
+
+            span
+                font-size: 10px
+                font-family: Montserrat
+                color: color(warning)
+                font-style: italic          
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.saveModal
+    .modal-header
+        background-color: themeColor(info)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+
+        input, select
+            font-size: 10px
+            font-family: Montserrat  
+
+            option
+                font-size: 10px
+                font-family: Montserrat
+
+        .input-group-text
+            cursor: pointer
+            width: 3em
+            color: brandColor(brandInfo)
+            font-family: Montserrat
+
+            fa
+                font-size: 10px
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandSuccess)
+            font-size: 10px
+            font-family: Montserrat
+
+
+.deleteModal  
+    .modal-header
+        background-color: brandColor(brandDanger) !important
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+            
+
+    .modal-body
+
+        h4
+            font-size: 14px
+            font-family: Montserrat
+            text-align: center
+
+        p
+            font-size: 12px
+            color: black
+
+            span
+                margin: 0 .2em 0 .2em
+                color: brandColor(brandPrimary)
+                text-transform: uppercase
+
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandDanger)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+
+
+
+
+
+
+

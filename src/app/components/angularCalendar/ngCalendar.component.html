@@ -1,0 +1,368 @@
+<!-- Title -->
+<section id="title_section" class="d-flex">
+    <div class="col-4 head-wrap">
+        <h4>Calendar</h4>
+        <p>Set Events to your calendar</p>
+    </div>
+
+    <div class="col-8 btn-wrap">
+      <button class="btn btn-sm" (click)="calenderSectionStatus=true; allEventsSectionStatus=false; editEventsSectionStatus=false">To Calendar</button>
+      <button class="btn btn-sm" (click)="openAddEventModal()">Add Event</button>
+      <button class="btn btn-sm" (click)="calenderSectionStatus=false; allEventsSectionStatus=true; editEventsSectionStatus=false;">All Events</button>
+      <button class="btn btn-sm" (click)="calenderSectionStatus=false; allEventsSectionStatus=false; editEventsSectionStatus=true">Edit Events</button>
+
+    </div>
+    
+</section>
+  
+  
+  
+  
+  
+  
+  <!-- Body Section -->
+<section class="body_section">
+
+
+<section class="calender-section" *ngIf="events" [ngClass]="calenderSectionStatus ? 'calender-section' : 'calender-section hide' "> 
+
+<div class="top-navigation">
+
+    <div class="day-navigation col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-previous"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Previous
+        </div>
+        <div
+          class="btn btn-today"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          Today
+        </div>
+        <div
+          class="btn btn-next"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Next
+        </div>
+      </div><!-- .btn group -->
+    </div><!-- .day-navigation -->
+
+
+    <div class="day-display col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div><!-- day-display -->
+
+
+    <div class="period-navigation col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-month"
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month"
+        >
+          Month
+        </div>
+        <div
+          class="btn btn-week"
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week"
+        >
+          Week
+        </div>
+        <div
+          class="btn btn-day"
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day"
+        >
+          Day
+        </div>
+      </div><!-- .btn-group -->
+    </div><!-- .period-navigation -->
+  </div><!-- .top-navigation -->
+
+
+  <div [ngSwitch]="view" class="calender-wrap">
+    <mwl-calendar-month-view
+      [class.custom]="true"
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+     
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      [class.custom]="true"
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+     
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      [class.custom]="true"
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+    
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+  
+
+  
+</section><!-- .calender-Section--> 
+  
+
+
+
+<section class="all-events-section" [ngClass]="allEventsSectionStatus ? 'all-events-section' : 'all-events-section hide' ">
+
+  <div class="title-wrap">
+      <h4>All Events</h4>
+  </div>
+
+  <div class="body-wrap">
+      <div class="event-titles d-flex">
+
+        <div class="title col-3">Title</div>
+        <div class="colors col-1">Colors</div>
+        <div class="start col-3">Start Date</div>
+        <div class="end col-3">End Date</div>
+        <div class="assignedUser col-2">Assigned User</div>
+          
+      </div>
+      <div class="event-item d-flex" *ngFor="let event of events">
+          <div class="title col-3">{{event.title}}</div>
+          <div class="colors col-1">
+              <span class="badge p-2 mr-2" [style.backgroundColor]="event.color.primary">p</span>
+              <span class="badge p-2" [style.backgroundColor]="event.color.secondary">S</span>
+          </div>
+          <div class="dates start col-3" >{{event.start | date: 'fullDate'}}</div>
+          <div class="dates end col-3">{{event.end | date: 'fullDate'}}</div>
+          <div class="title col-2">{{event.assignedUser}}</div>
+      </div>
+  </div>
+
+</section>
+
+
+
+
+<section class="edit-events-section" [ngClass]="editEventsSectionStatus ? 'edit-events-section' : 'edit-events-section hide' ">
+
+    <div class="title-wrap">
+        <h4>Edit Events</h4>
+    </div>
+  
+    <div class="body-wrap">
+        <div class="event-titles d-flex">
+  
+          <div class="title col-2">Title</div>
+          <div class="colors col-2">Colors</div>
+          <div class="start col-3">Start Date</div>
+          <div class="end col-3">End Date</div>
+          <div class="col-1">Save</div>
+          <div class="col-1">Delete</div>
+            
+        </div>
+        <div class="event-item d-flex" *ngFor="let event of events">
+            <div class="title col-2">
+                  <textarea type="text" class="form-control form-control-sm" [(ngModel)]="event.title" (keyup)="refresh.next()">
+                  </textarea>
+            </div>
+
+            <div class="colors col-2">
+                <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()"/>
+                &nbsp;
+                <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()"/>
+            </div>
+
+            <div class="start col-2" >
+                <input
+                class="form-control form-control-sm"
+                type="text"
+                mwlFlatpickr
+                [(ngModel)]="event.start"
+                (ngModelChange)="refresh.next()"
+                [altInput]="true"
+                [convertModelValue]="true"
+                [enableTime]="true"
+                dateFormat="Y-m-dTH:i"
+                altFormat="F j, Y H:i"
+                placeholder="Not set"
+              />
+            </div>
+
+            <div class="end col-2">
+                <input
+                class="form-control form-control-sm"
+                type="text"
+                mwlFlatpickr
+                [(ngModel)]="event.end"
+                (ngModelChange)="refresh.next()"
+                [altInput]="true"
+                [convertModelValue]="true"
+                [enableTime]="true"
+                dateFormat="Y-m-dTH:i"
+                altFormat="F j, Y H:i"
+                placeholder="Not set"
+              />
+            </div>
+
+            <div class="assignedUser col-2">
+
+              <select class="form-control form-control-sm select-user"
+                      type="text"                   
+                      [(ngModel)]="event.assignedUser"
+                      (change)="refresh.next()">
+                        <option *ngFor="let User of Users" value='{{User.name}}'>{{User.name}} : {{User.department}}</option>
+                      </select>
+            </div>
+
+            <div class="save col-1"> <button class="btn btn-success" (click)="saveEditEvent(event)">
+              <fa name="check"></fa>
+            </button>
+          </div>
+
+            <div class="delete col-1"> <button class="btn btn-danger" (click)="deleteEvent(event)">
+                <fa name="trash"></fa>
+              </button>
+            </div>
+
+        </div>
+    </div>
+  
+</section>
+  
+
+
+  <div bsModal #addEventModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog addEventModal modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Event </h4>
+          <button type="button" class="btn close" aria-label="Close"
+          *ngFor="let event of events; let last = last" [ngClass]="{ last: last }" [hidden]="!last"
+          (click)="cancelEvent(event); addEventModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                  
+          
+            <table class="table table-bordered">
+                <thead class="table-head">
+                  <tr>
+                    <th>Title</th>
+                    <th>Primary color</th>
+                    <th>Secondary color</th>
+                    <th>Starts at</th>
+                    <th>Ends at</th>
+                    <th>AssignUser</th>
+                  </tr>
+                </thead>
+            
+                <tbody class="table-body">
+                  <tr *ngFor="let event of events; let last = last" 
+                  [ngClass]="{ last: last }" [hidden]="!last">
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control input-title"
+                        [(ngModel)]="event.title"
+                        (keyup)="refresh.next()"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        class="form-control input-color"
+                        type="color"
+                        [(ngModel)]="event.color.primary"
+                        (change)="refresh.next()"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        class="form-control input-color"
+                        type="color"
+                        [(ngModel)]="event.color.secondary"
+                        (change)="refresh.next()"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        class="form-control input-dates"
+                        type="text"
+                        mwlFlatpickr
+                        [(ngModel)]="event.start"
+                        (ngModelChange)="refresh.next()"
+                        [altInput]="true"
+                        [convertModelValue]="true"
+                        [enableTime]="true"
+                        dateFormat="Y-m-dTH:i"
+                        altFormat="F j, Y H:i"
+                        placeholder="Not set"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        class="form-control input-dates"
+                        type="text"
+                        mwlFlatpickr
+                        [(ngModel)]="event.end"
+                        (ngModelChange)="refresh.next()"
+                        [altInput]="true"
+                        [convertModelValue]="true"
+                        [enableTime]="true"
+                        dateFormat="Y-m-dTH:i"
+                        altFormat="F j, Y H:i"
+                        placeholder="Not set"
+                      />
+                    </td>
+                    <td>
+                      <select class="form-control form-control-sm"
+                      type="text"
+                      class="form-control select-user"
+                      [(ngModel)]="event.assignedUser"
+                      (change)="refresh.next()">
+                        <option *ngFor="let User of Users" value='{{User.name}}'>{{User.name}} : {{User.department}}</option>
+                      </select>
+                  </tr>
+                </tbody>
+              </table>
+
+
+        </div>
+        <div class="modal-footer" *ngFor="let event of events; let last = last" 
+        [ngClass]="{ last: last }" [hidden]="!last">
+            <button type="button" class="btn btn-cancel" (click)="cancelEvent(event); addEventModal.hide()">Cancel</button>
+          <button type="button" class="btn btn-confirm" (click)="submitNewEvent(); addEventModal.hide()">Save</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+
+
+
+</section><!-- .body-section-->
+  

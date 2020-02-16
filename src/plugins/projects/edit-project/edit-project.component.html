@@ -1,0 +1,609 @@
+<!-- Title -->
+<section id="title_section" class="projectsNav">
+  <h4>Project Edit</h4>
+  <p>Edit Details about the project</p>
+</section>
+
+
+
+
+
+
+<!-- Body Section -->
+<section class="body_section" *ngIf="OpennedProject">
+
+
+
+
+
+
+<section id="nav_section" class="d-flex">
+  <button class="btn btn-sm btn-back" (click)="toDetails()">Back</button>
+  <button class="btn btn-sm btn-to-team" (click)="toTeams()">To Teams</button>
+</section>
+
+
+
+
+
+
+<section id="projectClientSection">
+
+  <!-- Client Name -->
+  <div id="clientName" class="">
+      <div class="div_wrap">
+        <h4>{{OpennedProject.clientName}}</h4>
+      </div>
+  </div>   
+
+
+  <!-- Project Name -->
+  <div id="projectName" class="">
+      <div class="div_wrap">
+        <h4>{{OpennedProject.projectName}}</h4>
+      </div>
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+<section id="project_duration_dates_section" *ngIf="OpennedProject">
+
+  <div class="div_wrap">
+    <h4>Duration:<span>{{OpennedProject.projectDuration}} Days</span></h4>
+  </div>
+
+  <div class="div_wrap" *ngIf="OpennedProject.projectDuration">
+    <h4>StartDate<span>
+      {{OpennedProject.projectStartDate.day}}/{{OpennedProject.projectStartDate.month}}/{{OpennedProject.projectStartDate.year}}
+    </span></h4>
+  </div>
+  <div class="div_wrap" *ngIf="OpennedProject.projectDuration">
+    <h4>EndDate<span>
+        {{OpennedProject.projectEndDate.day}}/{{OpennedProject.projectEndDate.month}}/{{OpennedProject.projectEndDate.year}}
+    </span></h4>
+  </div>
+  <div class="div_wrap">
+      <button type="button" class="btn btn-sm btn-edit" *ngIf="!projectCalenderStatus" (click)="projectCalenderStatus=!projectCalenderStatus">Edit</button>
+      <button type="button" class="btn btn-sm btn-close" *ngIf="projectCalenderStatus" (click)="projectCalenderStatus=!projectCalenderStatus">Close</button>
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Project date section -->
+<section id="project_calender_section" *ngIf="projectCalenderStatus">
+
+
+    <div id="duration_wrap"  class="input-group input-group-sm">
+
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="time"></fa></span>
+        </div>
+
+        <input type="number" min="1" placeholder="Duration" [(ngModel)]="projectDuration">
+
+        <div class="input-group-append">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Days</span>
+        </div>
+      
+  </div>
+
+
+
+  <div id="calender_wrapper">
+          <div class="d-flex">
+
+            <h4 class="col-6" *ngIf="projectFromDate">Commencement: <span>{{ projectFromDate.day }}/ {{ projectFromDate.month }}/{{ projectFromDate.year }} </span></h4>
+            <h4 class="col-6" *ngIf="projectToDate">Completion: <span>{{projectToDate.day}}/{{projectToDate.month}}/{{ projectToDate.year }}</span> </h4>
+          </div>
+
+          <ngb-datepicker #projectDatePicker [minDate]="projectMinDate" (select)="onProjectDateSelection($event)" [displayMonths]="2" [dayTemplate]="projectCalender" outsideDays="hidden">
+          </ngb-datepicker>
+
+          <ng-template #projectCalender let-date let-focused="focused" >
+            <span class="custom-day"
+                  [class.focused]="focused"
+                  [class.range]="isProjectDateRange(date)"
+                  [class.disabled]="isProjectDateBeforeMinDate(date)"
+                  [class.faded]="isProjectDateHovered(date) || isProjectDateInside(date)"
+                  (mouseenter)="projectHoveredDate = date"
+                  (mouseleave)="projectHoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+  </div>
+
+
+  <div class="btn_wrapper">
+      <button class="btn btn-sm btn-primary" (click)="saveProjectDurationDates(); projectCalenderStatus=!projectCalenderStatus">SaveChanges</button>
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<form id="project_manager_form" class="form" #myProjectMangerForm='ngForm' [formGroup]="projectManagerForm" *ngIf="OpennedProject"
+[ngClass]="projectManagerFormGroup ? 'border border-info' : ''">
+
+  <div class="d-flex info-wrap">
+        <div class="col-3 name-wrap">
+          <h4>Project Manager</h4>
+        </div>
+        <div class="col-6 value-wrap">
+            <h4>{{OpennedProject.projectManager}}</h4>
+        </div>
+        <div class="col-3 btn-wrap">
+            <button type="button" class="btn btn-sm btn-edit" *ngIf="!projectManagerFormGroup" (click)="projectManagerFormGroup=!projectManagerFormGroup">Edit</button>
+            <button type="button" class="btn btn-sm btn-close" *ngIf="projectManagerFormGroup" (click)="projectManagerFormGroup=!projectManagerFormGroup">Close</button>
+        </div>
+  </div>
+
+  <div id="project_manager_form_group" class="form-group d-flex" *ngIf="projectManagerFormGroup">
+        <select type="text" class="form-control col-6 ml-auto"
+        formControlName="projectManager" [class.is-invalid]="formProjectManager.projectManager.invalid && formProjectManager.projectManager.touched">
+        
+        <option *ngFor="let User of Users" value='{{User.name}}'>{{User.name}} : {{User.department}}</option>
+
+        </select>
+        <div class="col-3 btn-wrap">
+            <button class="btn btn-sm" (click)="submitProjectManager(); projectManagerFormGroup=!projectManagerFormGroup">Save</button>
+        </div>
+  </div>  
+
+</form>
+
+
+
+
+
+
+
+  <!-- Task Section -->
+
+  <article id="task_article" class="d-flex m-0 p-0" *ngIf="OpennedProject">
+
+
+  <section id="task_section" class="">
+
+
+
+    <!-- Task Title -->
+      <div id="task_titles" class="d-flex">
+        <div class="col-3 div_wrap">
+            <h4 class=""><fa name="tasks"></fa>Task Name</h4>
+        </div>
+        
+        <div  class="col-3 div_wrap">
+            <h4 class=""><fa name="users"></fa>Assigned Team</h4>
+        </div>
+
+        <div  class="col-3 div_wrap">
+          <h4 class=""><fa name="user"></fa>Assigned User</h4>
+        </div>
+
+        <div  class="col-3 div_wrap">
+            <h4 class=""><fa name="tasks"></fa>Scheduled Dates</h4>
+        </div>
+        
+        
+      </div>
+
+      <!-- Listing of the Tasks -->
+      <ul class="list-group">
+
+
+        <!-- List of Task --> 
+            <li *ngFor="let task of OpennedProject.task; let i = index" [ngClass]="listClickedStatus === task._id ? 'list-group-item d-flex border border-info' : 'list-group-item d-flex'"
+             (click)="taskDetailsToggle(task._id)">
+            
+                    <div class="col-3 d-flex div_wrap">
+
+                        <!-- <input type="checkbox" name="task" id="task._id" class=""
+                        [checked]="task.taskStatus === 'checked'" onclick="return false"> -->
+
+                        <h4 class="">{{task.taskName}}</h4>
+
+                    </div>
+
+                    <div class="col-3 div_wrap pl-4">
+                        <h4>{{task.assignedTeam}}</h4>
+                    </div>
+
+                    <div class="col-2 div_wrap pl-4">
+                      <h4>{{task.assignedUser}}</h4>
+                    </div>
+
+                    <div id="dates_div" class="col-3 div_wrap pl-4" *ngIf="task.taskDuration">
+                        <h4><span>
+                          {{task.taskStartDate.day}}/{{task.taskStartDate.month}}/{{task.taskStartDate.year}}
+                        </span>To<span>
+                          {{task.taskEndDate.day}}/{{task.taskEndDate.month}}/{{task.taskEndDate.year}}
+                        </span><span>({{task.taskDuration}})</span>days</h4>
+                    </div>
+
+                    <fa name="trash" class="ml-auto col-1 text-danger" (click)="removeProjectTask(i)"></fa>
+            
+            </li> 
+  
+
+      </ul>
+      <div id="totals" class="d-flex">
+        <div class="col-3 div_wrap pl-4">
+            <h4 class=""><span class="first-span">{{totalTasks}}</span></h4>
+        </div>
+        
+        <div  class="col-3 div_wrap pl-4">
+            <h4 class=""><span class="first-span">{{totalTeams}}</span></h4>
+        </div>
+
+        <div  class="col-3 div_wrap pl-4">
+            <h4 class=""><span class="first-span">{{totalProjectAssignedUsers}}</span></h4>
+        </div>
+
+        <div  class="col-3 div_wrap pl-4">
+            <button class="btn btn-sm btn-edit" *ngIf="!addTaskSectionStatus" 
+            (click)="addTaskSectionStatus=!addTaskSectionStatus; addTaskFormStatus=true; addTaskCalenderStatus=false">Add Task</button>
+            <button class="btn btn-sm btn-close" *ngIf="addTaskSectionStatus" (click)="addTaskSectionStatus=!addTaskSectionStatus">Close</button>
+          </div>
+        
+        
+      </div>
+    </section>
+
+
+
+
+
+    <!-- task Details and calender -->
+
+    <section id="task_ditail_setting" [ngClass]="taskDetailsStatus ? '' : 'hide'">
+
+
+            <div id="duration_wrap"  class="input-group input-group-sm mb-3 ">
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="time"></fa></span>
+                </div>
+
+                <input type="number" min="1" placeholder="Duration" [(ngModel)]="taskDuration">
+
+                <div class="input-group-append">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Days</span>
+                </div>
+              
+          </div>
+
+
+
+
+
+        <div id="calender_wrapper">
+            <div id="callender_date" class="d-flex">
+          
+              <h4 class="col-6" *ngIf="taskFromDate">Start: <span>{{ taskFromDate.day }}/ {{ taskFromDate.month }}/{{ taskFromDate.year }} </span></h4>
+              <h4 class="col-6" *ngIf="taskToDate">End: <span>{{taskToDate.day}}/{{taskToDate.month}}/{{ taskToDate.year }}</span> </h4>
+            </div>
+          
+            <ngb-datepicker  #taskDatePicker [minDate]="taskMinDate" [maxDate]="taskMaxDate"  (select)="onTaskDateSelection($event)" [displayMonths]="1" [dayTemplate]="taskCalender" outsideDays="hidden">
+            </ngb-datepicker>
+          
+            <ng-template #taskCalender let-date let-focused="focused" >
+              <span class="custom-day"
+              
+                    [class.focused]="focused"
+                    [class.range]="isTaskDateRange(date)"
+                    [class.disabled]="isTaskDateOutSide(date)"
+                    [class.faded]="isTaskDateHovered(date) || isTaskDateInside(date)"
+                    (mouseenter)="taskHoveredDate = date"
+                    (mouseleave)="taskHoveredDate = null">
+                {{ date.day }}
+              </span>
+            </ng-template>
+
+            <div class="btn-wrap text-center">
+              <button class="btn btn-sm" (click)="changeTasksDurationDates()">Save</button>
+            </div>
+
+
+            <form id="assignedUserForm" [formGroup]=assignedUserForm>
+              <div class="form-group">
+
+                  <label for="">Assign task to a user</label>
+
+                  <select name="" id="" class="form-control" formControlName="assignedUser"
+                  [class.is-invalid]="formAssignedUser.assignedUser.invalid && formAssignedUser.assignedUser.touched">
+
+                    <option value="" disabled selected hidden >Select ---</option>
+                    <option *ngFor="let User of Users" value='{{User.name}}' [hidden]="User.department != taskClickedTeamStatus">{{User.name}} : {{User.department}}</option>
+
+                  </select>
+              </div>
+            </form>
+
+
+
+            <div class="btn-wrap text-center">
+              <button class="btn btn-sm" (click)="changeAssignedUser()">Save</button>
+            </div>
+
+          </div>
+
+
+
+    </section>
+
+
+  </article>
+  
+
+
+
+
+
+
+
+
+
+<!-- Add Tasks Section -->
+<section id="addTaskSection" *ngIf="addTaskSectionStatus">
+
+  <!-- Define Tasks -->
+  <form id="myAddTaskForm" #myAddTaskForm='ngForm' [formGroup]="addTaskForm" *ngIf="addTaskFormStatus">
+  
+      <div id="head">
+          <h4>You are adding a task to<span>{{OpennedProject.projectName}}</span>project of<span>{{OpennedProject.clientName}}</span></h4>
+      </div>
+  
+      <div class="form-group">
+          <input type="text" #taskDefineInput class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+          formControlName="taskName" [class.is-invalid]="formAddTask.taskName.invalid && formAddTask.taskName.touched" required placeholder="Task">
+      </div>
+  
+      <div class="form-group">
+          <select type="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+          formControlName="assignedTeam" [class.is-invalid]="formAddTask.assignedTeam.invalid && formAddTask.assignedTeam.touched"
+              required>
+          
+              <option value="" disabled selected hidden >Select Team---</option>
+              <option *ngFor="let Team of Teams" value='{{Team.name}}'>{{Team.name}}</option>
+          
+          </select> 
+      </div>
+
+      <div class="form-group">
+        <select type="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+        formControlName="assignedUser" [class.is-invalid]="formAddTask.assignedUser.invalid && formAddTask.assignedUser.touched"
+            required>
+        
+            <option value="" disabled selected hidden >Select User---</option>
+            <option *ngFor="let User of Users" value='{{User.name}}'>{{User.name}}</option>
+        
+        </select> 
+    </div>
+  
+      <div class="d-flex">
+          <button [disabled]="!addTaskForm.valid" type="button" class="btn btn-sm btn-success mr-auto" (click)="addTaskFormStatus=false; addTaskCalenderStatus=true">Set Dates</button>
+      </div> 
+  
+  </form>
+  
+  
+  
+  
+  
+  
+  
+  <div id="date_setting" *ngIf="addTaskCalenderStatus">
+  
+          <div id="duration_wrap"  class="input-group input-group-sm mb-3 ">
+  
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="time"></fa></span>
+                  </div>
+  
+                  <input type="number" min="1" placeholder="Duration" [(ngModel)]="taskDuration">
+  
+                  <div class="input-group-append">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Days</span>
+                  </div>
+                
+            </div>
+  
+  
+  
+  
+  
+          <div id="calender_wrapper">
+              <div id="callender_date" class="d-flex">
+            
+                <h4 class="col-6" *ngIf="taskFromDate">Start: <span>{{ taskFromDate.day }}/ {{ taskFromDate.month }}/{{ taskFromDate.year }} </span></h4>
+                <h4 class="col-6" *ngIf="taskToDate">End: <span>{{taskToDate.day}}/{{taskToDate.month}}/{{ taskToDate.year }}</span> </h4>
+              </div>
+            
+              <ngb-datepicker  #taskDatePicker [minDate]="taskMinDate" [maxDate]="taskMaxDate"  (select)="onTaskDateSelection($event)" [displayMonths]="1" [dayTemplate]="taskCalender" outsideDays="hidden">
+              </ngb-datepicker>
+            
+              <ng-template #taskCalender let-date let-focused="focused" >
+                <span class="custom-day"
+                
+                      [class.focused]="focused"
+                      [class.range]="isTaskDateRange(date)"
+                      [class.disabled]="isTaskDateOutSide(date)"
+                      [class.faded]="isTaskDateHovered(date) || isTaskDateInside(date)"
+                      (mouseenter)="taskHoveredDate = date"
+                      (mouseleave)="taskHoveredDate = null">
+                  {{ date.day }}
+                </span>
+              </ng-template>
+  
+          
+            </div>
+            <div class="d-flex">
+                  <button class="btn btn-sm btn-success mr-auto" (click)="addTask()">Add Tasks</button>
+          </div> 
+  
+  
+  </div>
+  
+  
+  </section>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- revenue priority -->
+
+  <form id="revenuePriorForm" *ngIf="OpennedProject" #myRevenuePriorForm='ngForm' [formGroup]="revenuePriorForm" class="form">
+
+  <div class="form-title">
+      <h4>Expected Revenue and Priority</h4>
+  </div>
+
+  <section id="revenuePrioritySection">
+
+
+        <div id="revenueFormGroup" class="form-group">
+
+            <div class="input-group input-group-sm" >
+      
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="usd"></fa></span>
+                    </div>
+      
+                    <input id="revenueInput" type="number" min="1" data-type="currency" class="form-control text-success" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                    formControlName="revenue"  [class.is-invalid]="formRevenuePrior.revenue.invalid && formRevenuePrior.revenue.touched" value="{{OpennedProject.revenue}}">
+      
+            </div>
+      
+          </div>
+
+
+
+        <div id="priorityFormGroup" class="form-group">
+
+        <div class="input-group input-group-sm" >
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="star"></fa></span>
+                </div>
+
+                
+                <div id="radio_wrap" >
+                    <!-- <label>Low</label> -->
+                    <fa name="star"  [ngClass]="projPriority >= '1' ? 'text-primary' : 'text-secondary'" (click)="selectPriority(1)" ></fa> 
+                </div>
+
+                <div id="radio_wrap">
+                    <!-- <label>Medium</label> -->
+                    <fa name="star"  [ngClass]="projPriority >= '2' ? 'text-primary' : 'text-secondary'" (click)="selectPriority(2)" ></fa>
+                </div>
+
+                <div id="radio_wrap" >
+                    <!-- <label>High</label> -->
+                    <fa name="star"  [ngClass]="projPriority >= '3' ? 'text-primary' : 'text-secondary'" (click)="selectPriority(3)" ></fa> 
+                </div>         
+
+        </div>
+
+        <div class="div_wrap">
+
+            <button class="btn btn-sm" (click)="saveRevenuePrioroty()">Save</button>
+
+        </div>
+
+        </div>
+
+
+    </section>
+
+
+
+  </form>
+
+
+
+
+
+
+
+<!-- // Modals -->
+<section class="modal_section">
+
+  <div class="delete_btn_div">
+    <button type="button" class="btn" data-toggle="modal" (click)="dangerModal.show()">
+        Delete Project
+    </button>
+
+  </div>
+
+  <div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Are you sure ?</h4>
+            <button type="button" class="btn close" (click)="dangerModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>You are about to delete<span>{{OpennedProject.projectName}}</span>project for<span>{{OpennedProject.clientName}}</span></p>
+            <p>This action is IRRIVERSABLE.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" (click)="dangerModal.hide()">No</button>
+            <button type="button" class="btn btn-confirm" (click)="deleteProject(); dangerModal.hide()">YES</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+</section>
+
+
+
+
+
+</section><!-- /.body_section -->

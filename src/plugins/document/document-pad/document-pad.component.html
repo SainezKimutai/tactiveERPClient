@@ -1,0 +1,137 @@
+<!-- Title -->
+<section class="title-section d-flex">
+        <div class="head-wrap">
+                <h4>Note Pad</h4>
+                <p>Create Small Text Notes</p>
+        </div>
+        <div class="btn-wrap">
+        <button class="btn btn-sm btn-outline-info" (click)="listDocuments()">List Documents</button>
+        <button class="btn btn-sm btn-outline-info" (click)="createNew()">Create New</button>
+        </div>
+       
+</section>
+      
+    
+<section class="body-section">
+<!-- <ngx-spinner></ngx-spinner> -->
+
+
+
+<section class="editor-section" *ngIf="editorSectionStatus">
+    
+    <form #editorForm='ngForm' *ngIf='docToBeEdited'>
+        <div class="heading d-flex">
+                <div class="mr-auto title">{{docToBeEdited.title}}</div>
+                <button [disabled]="!editorForm.valid" class="btn btn-sm ml-auto" (click)="saveAsDoc()">Save As</button>
+                <button [disabled]="!editorForm.valid" class="btn btn-sm ml-auto" (click)="saveDoc(docToBeEdited._id)">Save</button>
+        </div>
+
+        <div class="form-group">
+            <quill-editor [style]='editorStyling' [modules]="Quillconfig" #editor="ngModel" [(ngModel)]="docToBeEdited.content" name="editor" required></quill-editor>
+        </div>
+
+    </form>
+</section>
+
+
+
+<section class="view-section" *ngIf="viewSectionStatus">
+
+        <div class="view-title">{{docOpened.title}} </div>
+
+        <div class="view-body" [innerHTML]="docOpened.content | sanitizeHtml"></div>
+
+        <blockquote class="blockquote d-flex">
+                <footer class="blockquote-footer ml-auto">created by {{docOpened.createdBy}}&nbsp;&nbsp;<span>{{docOpened.createdOn | date:'medium' }}</span>  </footer>
+        </blockquote>
+
+</section>
+
+
+<section class="list-section" *ngIf="listSectionStatus">
+
+        <div class="list-title">List of Documents</div>
+
+        <div class="no-docs" *ngIf='PadDocuments.length === 0'>
+            No Documents
+        </div>
+    
+        <div class="card-group" *ngIf='PadDocuments'>
+
+            <div class="card mr-auto" *ngFor="let PadDocument of PadDocuments" (click)="viewDocument(PadDocument._id)">
+                    <fa class="book" name='book'></fa>
+                    <h4 class="title">{{PadDocument.title}}</h4>
+                    <blockquote class="blockquote">
+                            <footer class="blockquote-footer">By {{PadDocument.createdBy}}&nbsp;&nbsp;<span>{{PadDocument.createdOn | date:'medium' }}</span>  </footer>
+                    </blockquote>
+                    <div class="action d-flex">
+                        <fa name='pencil' class="mr-auto" (click)="editDocument(PadDocument._id)"></fa>
+                        <fa name='trash' class="ml-auto" (click)="deleteDocument(PadDocument._id)"></fa>
+                    </div>
+                </div>    
+        </div>
+    
+    
+</section>
+
+
+
+
+</section> <!-- Body Section-->
+
+
+
+
+
+
+<div bsModal #saveModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog saveModal" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Document Name</h4>
+            <button type="button" class="btn close" (click)="saveModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="form" [formGroup]="saveTitleForm">
+            <div class="form-group">
+                <input type="text" class="form-control"
+                formControlName="title" [class.is-invalid]="formSaveTitle.title.invalid && formSaveTitle.title.touched">
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" (click)="saveModal.hide()">Cancel</button>
+            <button type="button" [disabled]="!saveTitleForm.valid"class="btn btn-confirm" (click)="submitNewDoc(); saveModal.hide()">Save</button>
+        </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog deleteModal" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Delete</h4>
+            <button type="button" class="btn close" (click)="deleteModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" *ngIf="docToBeDeleted">
+            <h4>Are You sure ?</h4>
+            <p>You are about to delete <span>{{docToBeDeleted.title}}</span> written by <span>{{docToBeDeleted.createdBy}}</span>.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" (click)="deleteModal.hide()">Cancel</button>
+            <button type="button" class="btn btn-confirm" (click)="submitDeleted(); deleteModal.hide()">Delete</button>
+        </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+    

@@ -1,0 +1,1153 @@
+@import "src/styles.sass"
+
+// ------------------------------------------------
+
+// Title Section
+.title-section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+    display: flex
+    align-items: stretch
+
+    .head-wrap
+        h4
+            color: themeColor(info)
+            font-size: 14px
+            font-family: Montserrat
+            font-weight: bold
+            text-transform: uppercase
+        
+        p
+            color: color(silk)
+            font-size: 12px
+            font-family: Montserrat
+            padding: 0
+            margin: 0
+
+    .btn-wrap
+        display: flex
+        width: 100%
+
+        .btn
+            margin: auto
+            width: 10em
+            font-size: 12px
+            font-family: Montserrat
+            
+            &:hover
+                border: none
+                box-shadow: 0 0 10px #6969694d
+
+.body-section
+    margin: 1em
+    background-color: transparent
+    
+.edit-section
+    background-color: white
+    border-radius: 5px
+    border: solid 1px grayColor(g200)
+    width: 100%
+    max-width: 1350px
+    margin: auto
+
+.edit-section .heading
+    background-color: themeColor(info)
+    padding: .5em
+    font-family: 12px
+    font-weight: bold   
+
+    .title
+        font-size: 14px
+        font-family: Montserrat
+        color: white
+
+    .btn 
+        font-size: 12px
+        width: 7em
+        border: solid 1px white
+        color: white
+        font-size: 12px
+        font-family: Montserrat
+
+        &:hover
+            border: solid 1px color(warning)
+            color: color(warning)
+
+
+.edit-section .form-wrap
+    margin: .5em
+    border: solid 1px grayColor(g200)
+    border-radius: 5px
+
+.edit-section .form-wrap .form-top-wrap
+    display: flex
+    flex-direction: column
+    // text-align: left
+
+
+    .form-top-item
+        width: 100%
+        padding: .5em
+        display: flex
+        align-items: stretch
+
+        @include desktop_md
+            display: flex
+            flex-direction: column
+            text-align: left
+
+        .form-group
+            display: flex
+            flex-direction: column
+            text-align: left
+            width: 100%
+
+            label
+                font-size: 12px
+                font-family: Montserrat
+                font-weight: bold
+
+
+            input, select
+                border: none
+                border-bottom: solid 1px grayColor(g400)
+                width: 15em
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandPrimary)
+                cursor: pointer
+
+                &:hover
+                    border-bottom: solid 1px brandColor(brandPrimary)
+
+                &:focus
+                    outline: none
+
+.edit-section .form-wrap .form-mid-wrap
+    width: 100%
+    min-width: desktop_md   
+    overflow-y: scroll
+
+
+    .title-wrap
+        display: flex
+        align-items: stretch
+        background-color: brandColor(brandSecondary)
+        padding: .5em 0
+
+        div
+            width: 100%
+            font-size: 12px
+            font-family: Montserrat
+            font-weight: bold
+            padding: .5em
+
+        .action
+            width: 5em
+            font-size: 12px
+            font-family: Montserrat
+            font-weight: bold
+            padding: .5em
+
+    .preview-wrap
+        display: flex
+        align-items: stretch
+        background-color: grayColor(g200)
+        margin: .2em 0
+
+        div
+            width: 100%
+            font-size: 12px
+            font-family: Montserrat
+            color: brandColor(brandPrimary)       
+            padding: .5em
+
+            span
+                color: black
+
+        .action
+            width: 5em
+
+            fa
+                color: color(secondary)
+                font-size: 12px
+                cursor: pointer
+                &:hover
+                    color: color(danger)
+                    font-size: 15px
+
+    .input-wrap
+        border: solid 1px black
+        border-radius: 5px
+        padding: 1em
+        margin: 1em .5em 2em .5em
+
+        .title
+            width: 100%
+            text-align: left
+            padding-left: .5em
+            font-weight: bold
+            font-size: 14px
+            font-family: Montserrat
+            color: black
+
+        .wrap
+            display: flex
+            align-items: stretch
+
+            .form-group
+                width: 100%
+                padding: .5em
+                margin: auto
+                max-width: 15em
+
+                input, select
+                    border: none
+                    border-bottom: solid 1px grayColor(g400)
+                    width: 15em
+                    font-size: 12px
+                    font-family: Montserrat
+                    color: color(primary)
+                    width: 80%
+                    cursor: pointer
+
+                    &:hover
+                        border-bottom: solid 1px brandColor(brandPrimary)
+
+                    &:focus
+                        outline: none
+        .btn-wrap
+            display: flex
+            align-items: stretch
+            text-align: center
+            width: 100%
+            margin: 1em
+
+            .btn
+                border: solid 1px grayColor(g700)
+                background-color: transparent
+                font-size: 12px
+                font-family: Montserrat
+                margin: 0 1em
+                margin: auto
+                width: 10em     
+                cursor: pointer
+                color: grayColor(g700)
+
+                &:hover
+                    border: none
+                    background-color:  brandColor(brandWarning)
+                    box-shadow: 1px 2px 3px rgba(0,0,0,.2)
+                    color: white
+                
+    
+    .total-wrap
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin: 1em 0
+
+        .wrap
+            width: 30em
+            display: flex
+            align-items: stretch
+            border: solid 1px grayColor(g200)
+            border-radius: 5px
+
+            .wrap-title
+                text-align: right
+                padding: .2em
+                width: 100%
+
+                h4
+                    font-size: 12px
+                    font-family: Montserrat
+
+            .wrap-value
+                text-align: left
+                padding: .2em
+                width: 100%
+                color: brandColor(brandPrimary)
+
+                h4
+                    font-size: 12px
+                    font-family: Montserrat
+
+
+    .invoice-type-div
+        display: flex
+        align-items: stretch
+        margin: 3em .5em 2em .5em
+
+        .type-wrap
+            display: flex
+            flex-direction: column
+            text-align: center
+            width: 13em
+            margin: auto
+
+            label
+                font-family: Montserrat
+                font-size: 12px
+                font-weight: bold
+            
+            input
+                margin: auto
+                font-size: 12px
+                font-family: Montserrat
+
+
+    .accomodation-preview-wrap
+        background-color: whitesmoke
+        padding: 1em
+
+        .detail
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+            margin: .5em
+            padding: .5em
+            background-color: grayColor(g200)
+
+            .wrap
+                display: flex
+                align-items: stretch
+
+                .item
+                    margin: auto
+
+                    label
+                        font-family: Montserrat
+                        font-size: 14px
+                        font-weight: bold
+
+                    h4
+                        font-family: Montserrat
+                        font-size: 13px
+                    fa
+                        color: color(secondary)
+                        font-size: 12px
+                        cursor: pointer
+                        &:hover
+                            color: color(danger)
+                            font-size: 15px
+
+
+
+    .accomodation-input-wrap
+        border: solid 1px brandColor(brandPrimary)
+        border-radius: 5px
+        padding: 1em
+        margin: 1em .5em 2em .5em
+        transition: 1s
+
+        &.shrink
+            display: none
+
+        .title
+            width: 100%
+            text-align: left
+            padding-left: .5em
+            font-weight: bold
+            font-size: 14px
+            font-family: Montserrat
+            color: black
+
+        .wrap
+            display: flex
+            align-items: stretch
+
+            .form-group
+                width: 100%
+                padding: .5em
+                margin: auto
+                max-width: 15em
+
+                input, select
+                    border: none
+                    border-bottom: solid 1px grayColor(g400)
+                    width: 15em
+                    font-size: 12px
+                    font-family: Montserrat
+                    color: color(primary)
+                    width: 80%
+                    cursor: pointer
+
+                    &:hover
+                        border-bottom: solid 1px brandColor(brandPrimary)
+
+                    &:focus
+                        outline: none
+        .btn-wrap
+            display: flex
+            align-items: stretch
+            text-align: center
+            width: 100%
+            margin: 1em
+
+            .btn
+                border: solid 1px grayColor(g700)
+                background-color: transparent
+                font-size: 12px
+                font-family: Montserrat
+                margin: 0 1em
+                margin: auto
+                width: 10em     
+                cursor: pointer
+                color: grayColor(g700)
+
+                &:hover
+                    border: none
+                    background-color:  brandColor(brandWarning)
+                    box-shadow: 1px 2px 3px rgba(0,0,0,.2)
+                    color: white
+
+
+    .exclusion-preview-wrap, .inclusion-preview-wrap
+        margin: 1em
+        width: fit-content
+        min-width: 20em
+        background-color: grayColor(g200)
+        border-radius: 5px
+        padding: 1em
+
+        h4
+            font-size: 14px
+            font-family: Montserrat
+            color: teal
+        
+        ul
+            li
+                display: flex
+                align-items: stretch
+
+                h4
+                    margin-right: auto
+                    font-size: 12px
+                    font-family: Montserrat
+                
+                fa
+                    margin-left: auto
+                    color: color(secondary)
+                    font-size: 12px
+                    cursor: pointer
+                    &:hover
+                        color: color(danger)
+                        font-size: 15px
+
+
+    .exclusion-input-wrap
+        border: solid 1px color(info)
+
+        .title
+            width: 100%
+            text-align: left
+            padding-left: .5em
+            font-weight: bold
+            font-size: 14px
+            font-family: Montserrat
+            color: black
+
+    .inclusion-input-wrap
+        border: solid 1px color(success)
+
+        .title
+            width: 100%
+            text-align: left
+            padding-left: .5em
+            font-weight: bold
+            font-size: 14px
+            font-family: Montserrat
+            color: balck
+
+
+
+    .exclusion-input-wrap, .inclusion-input-wrap
+        border-radius: 5px
+        padding: 1em
+        margin: 1em .5em 2em .5em
+    
+        .form-group
+            width: 100%
+            padding: .5em
+            margin: auto
+            max-width: 15em
+
+            input
+                border: none
+                border-bottom: solid 1px grayColor(g400)
+                width: 15em
+                font-size: 12px
+                font-family: Montserrat
+                color: color(primary)
+                width: 80%
+                cursor: pointer
+
+                &:hover
+                    border-bottom: solid 1px brandColor(brandPrimary)
+
+                &:focus
+                    outline: none
+
+        .btn-wrap
+            display: flex
+            align-items: stretch
+            text-align: center
+            width: 100%
+            margin: 1em
+
+            .btn
+                border: solid 1px grayColor(g700)
+                background-color: transparent
+                font-size: 12px
+                font-family: Montserrat
+                margin: 0 1em
+                margin: auto
+                width: 10em     
+                cursor: pointer
+                color: grayColor(g700)
+
+                &:hover
+                    border: none
+                    background-color:  brandColor(brandWarning)
+                    box-shadow: 1px 2px 3px rgba(0,0,0,.2)
+                    color: white
+
+
+
+
+
+
+
+.list-section
+    border: solid 1px grayColor(g200)
+    border-radius: 2px
+
+
+.list-section .list-title
+    background-color: themeColor(info)
+    padding: .5em
+    text-align: center
+    color: white
+    font-size: 14px
+    font-family: Montserrat
+    font-weight: bold
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .1) 
+
+.list-section .no-invoices
+    background-color: color(info)
+    padding: 2em
+    text-align: center
+    border-radius: 5px
+    margin: 2em 5em
+    font-size: 14px
+    font-family: Montserrat
+
+.list-section .card-group
+    width: 100%
+    background-color: grayColor(g200)
+
+.list-section .card-group .card
+    background-color: white
+    font-family: Montserrat
+    border-radius: 5px
+    min-height: 10em
+    min-width: 260px
+    max-width: 50%
+    padding: .5em
+    margin: .5em
+    cursor: pointer
+    border: solid 1px grayColor(g300)
+
+    fa-icon
+        font-size: 20px
+        color: brandColor(brandPrimary)
+
+
+    .title
+        font-family: Montserrat
+        font-size: 14px
+        
+
+    .action
+        opacity: 0
+        fa[name=pencil]
+            color: blue
+            font-size: 12px
+            padding: .5em
+            border-radius: 50%
+            
+        fa[name=trash]
+            color: red
+            font-size: 12px
+            padding: .5em
+            border-radius: 50%
+
+    &:hover
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, .4)
+
+        .action
+            opacity: 1
+
+            fa[name=pencil]
+                color: grayColor(g400)
+                font-size: 12px
+                padding: .5em
+                border-radius: 50%
+
+                &:hover
+                    color: white
+                    font-size: 15px
+                    padding: .5em
+                    border-radius: 50%
+                    background-color: brandColor(brandPrimary)
+
+            fa[name=trash]
+                color: grayColor(g400)
+                font-size: 12px
+                padding: .5em
+                border-radius: 50%
+
+                &:hover
+                    color: white
+                    font-size: 15px
+                    padding: .5em
+                    border-radius: 50%
+                    background-color: brandColor(brandDanger)
+
+    
+
+    .blockquote
+        margin: 0 1em 0 1em
+        padding: 1em
+
+        .blockquote-footer
+            font-size: 11px
+            font-family: Montserrat
+            color: color(info)
+            font-style: italic
+
+            span
+                font-size: 11px
+                font-family: Montserrat
+                color: color(warning)
+                font-style: italic   
+
+
+
+.view-section
+    border: solid 1px grayColor(g200)
+    border-radius: 2px
+    text-align: center
+    width: 100%
+    min-width: $desktop_md   
+    overflow-y: scroll
+
+
+.view-section .view-actions
+    background-color: white
+    padding: .5em
+    text-align: center
+    display: flex
+    align-items: stretch
+    margin: 0 0 3em 0
+
+    .btn
+        margin: auto
+        color: white
+        font-size: 14px
+        font-family: Montserrat
+        font-weight: bold
+        border: none
+        width: 10em
+        color: themeColor(info)
+        box-shadow: 2px 2px 0px whitesmoke
+
+        fa
+            margin: 0 1em 0 0
+
+        &:hover
+            color: brandColor(brandWarning)
+
+.view-section .view-body
+    font-size: 12px
+    font-family: Montserrat
+    padding: 1em
+    margin: 0 3em 0 3em
+    background-color: white
+    margin: auto
+    max-width: 996px
+    min-width: desktop_md
+    width 100%
+
+
+.view-section .view-body .logo
+    width: 100%
+    height: 150px
+    margin: 0 0 2em 0
+    img
+        min-width: 100%
+        height: 150px
+
+.view-section .view-body .top-wrap
+    display: flex
+    align-items: stretch
+    width: 100%
+    margin: 0
+
+    .invoice
+        width: 40%
+        text-align: left
+
+        .invoice-to
+            color: teal
+            font-family: Montserrat
+            font-size: 18px
+            font-weight: bold
+        h4
+            font-family: Montserrat
+            font-size: 12px
+
+    .invoice-details
+        width: 60%
+
+        .head
+            color: teal
+            font-family: Montserrat
+            font-size: 19px
+            font-weight: bold
+
+        .div-wrap
+            display: flex
+            align-items: stretch
+            width: 100%
+            margin: 1em 0 1em 0
+
+            .wrap
+                width: 100%
+                
+                label
+                    font-family: Montserrat
+                    font-size: 14px
+                    font-weight: bold
+                    margin: 0 0 .5em 0
+                hr
+                    width: 10em
+                    padding: 0
+                    margin: 0
+
+                h4
+                    font-family: Montserrat
+                    font-size: 12px
+                    text-transform: capitalize
+
+
+.view-section .view-body .flight-wrap
+    margin: 3em 0 0 0
+
+    .head
+        display: flex
+        align-items: stretch
+        background-color: teal
+        margin: 0 0 0 0
+        padding: .5em
+
+        div
+            width: 100%
+            color: white
+            font-weight: bold
+            
+    .details
+        display: flex
+        align-items: stretch
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+        margin: 0 0 .5em 0
+        background-color: grayColor(g200)
+
+        div
+            width: 100%
+            padding: .5em
+            font-family: Montserrat
+            font-size: 13px
+
+            span
+                color: teal
+                font-weight: bold
+        .currency
+            // font-weight: bold
+            // text-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+
+.view-section .view-body .payment
+    display: flex
+    align-items: stretch
+    margin: 3em 0 3em 0
+
+    .method
+        width: 100%
+        text-align: left
+
+        .head
+            color: teal
+            font-family: Montserrat
+            font-size: 18px
+            font-weight: bold
+
+        h5
+            font-family: Montserrat
+            font-size: 14px
+            font-weight: bold
+
+        h4
+            font-family: Montserrat
+            font-size: 12px
+
+            span
+                font-family: Montserrat
+                font-size: 12px
+                font-weight: bold
+
+
+    .amount
+        width: 100%
+        display: flex
+        flex-direction: column
+
+        div
+            display: flex
+            align-items: stretch
+            font-family: Montserrat
+            font-size: 12px
+            width 100%
+            padding: .5em
+
+            h5
+                width: 100%
+                font-family: Montserrat
+                font-size: 12px
+                text-align: left
+
+            h4
+                width: 100%
+                font-family: Montserrat
+                font-size: 12px
+                text-align: left
+        .total
+            display: flex
+            align-items: stretch
+            background-color: grayColor(g200)
+            color: black
+            font-family: Montserrat
+            font-size: 12px
+            width 100%
+            padding: .5em
+
+            h5
+                width: 100%
+                font-family: Montserrat
+                font-size: 12px
+                text-align: left
+                color: teal
+                font-weight: bold
+
+            h4
+                width: 100%
+                font-family: Montserrat
+                font-size: 12px
+                text-align: left
+                // font-weight: bold
+                // text-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+
+
+
+
+
+.view-section .accomodation
+    margin: 3em 0 0 0
+    .head
+        background-color: teal
+        margin: 0 0 0 0
+        padding: .5em
+        width: 100%
+        color: white
+        font-weight: bold
+
+
+    .detail
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+        margin: 0 0 .5em 0
+        padding: .5em
+        background-color: grayColor(g200)
+
+        hr
+            margin: .5em 0
+
+        .wrap
+            display: flex
+            align-items: stretch
+            width: 100%
+
+            .item
+                width: 20%
+
+                label
+                    font-family: Montserrat
+                    font-size: 12px
+                    font-weight: bold
+
+                h4
+                    font-family: Montserrat
+                    font-size: 12px
+
+
+
+.view-section .airline-details
+    width: 100%
+    font-family: Montserrat
+    font-size: 12px
+    text-align: left
+    font-weight: bold
+    color: teal
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+    margin: 3em 0 1em 0
+
+
+.view-section .inclusion-payment
+    display: flex
+    align-items: stretch
+    width: 100%
+
+.view-section .inclusion-payment .Inclusive
+    margin: 0 .5em 3em 0
+    width: 100%
+    min-width: 20em
+    text-align: left
+    .head
+        background-color: teal
+        margin: 0 0 0 0
+        padding: .5em
+        width: 100%
+        color: white
+        font-weight: bold
+    .detail
+        text-align: left
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+        margin: 0 0 .5em 0
+        padding: .5em
+        background-color: grayColor(g200)
+
+        h4
+            font-size: 12px
+            font-family: Montserrat
+
+
+.view-section .inclusion-payment .payment
+    margin: 0 0 3em .5em
+    width: 100%
+    min-width: 20em
+    text-align: left
+    display: flex
+    flex-direction: column
+
+    .head
+        background-color: grayColor(g400)
+        margin: 0 0 0 0
+        padding: .5em
+        width: 100%
+        color: grayColor(g900)
+        font-weight: bold
+    .detail
+        text-align: left
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+        margin: 0 0 .5em 0
+        padding: .5em
+        background-color: grayColor(g200)
+
+        p
+            font-size: 12px
+            font-family: Montserrat
+
+
+.view-section .exclusive-cancellation
+    display: flex
+    align-items: stretch
+    width: 100%
+
+.view-section .exclusive-cancellation .Exclusive
+    margin: 0 .5em 3em 0
+    width: 100%
+    min-width: 20em
+    text-align: left
+    display: flex
+    flex-direction: column
+
+
+    .head
+        background-color: teal
+        margin: 0 0 0 0
+        padding: .5em
+        width: 100%
+        color: white
+        font-weight: bold
+    .detail
+        text-align: left
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+        margin: 0 0 .5em 0
+        padding: .5em
+        background-color: grayColor(g200)
+
+        h4
+            font-size: 12px
+            font-family: Montserrat
+
+.view-section .exclusive-cancellation .cancellation
+    margin: 0 0 3em .5em
+    width: 100%
+    min-width: 20em
+    text-align: left
+    display: flex
+    flex-direction: column
+
+
+    .head
+        background-color: grayColor(g400)
+        margin: 0 0 0 0
+        padding: .5em
+        width: 100%
+        color: grayColor(g900)
+        font-weight: bold
+    .detail
+        text-align: left
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, .2)
+        margin: 0 0 .5em 0
+        padding: .5em
+        background-color: grayColor(g200)
+
+        p
+            font-size: 12px
+            font-family: Montserrat
+
+        .wrap
+            display: flex
+            align-items: stretch
+            width: 100%
+
+            .duration, .penalty
+                font-size: 12px
+                font-family: Montserrat
+                width: 50%
+
+
+
+
+.view-section .blockquote
+    margin: 0 1em 0 1em
+    padding: 1em
+
+    .blockquote-footer
+        font-size: 11px
+        font-family: Montserrat
+        color: color(info)
+        font-style: italic
+
+        span
+            font-size: 11px
+            font-family: Montserrat
+            color: color(warning)
+            font-style: italic   
+
+
+
+
+.mailModal
+    .modal-header
+        background-color: brandColor(brandPrimary)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+
+        input, select
+            font-size: 10px
+            font-family: Montserrat  
+
+            option
+                font-size: 10px
+                font-family: Montserrat
+
+        .input-group-text
+            cursor: pointer
+            width: 3em
+            color: brandColor(brandInfo)
+            font-family: Montserrat
+
+            fa
+                font-size: 10px
+
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandSuccess)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+
+
+
+
+
+
+.deleteModal  
+    .modal-header
+        background-color: brandColor(brandDanger) !important
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+            
+
+    .modal-body
+
+        h4
+            font-size: 14px
+            font-family: Montserrat
+            text-align: center
+
+        p
+            font-size: 12px
+            font-family: Montserrat
+            color: black
+
+            span
+                margin: 0 .2em 0 .2em
+                color: brandColor(brandPrimary)
+                text-transform: uppercase
+
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 11px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandDanger)
+            font-size: 11px
+            font-family: Montserrat
+
+
+.ngbDatepicker
+    font-size: 12px

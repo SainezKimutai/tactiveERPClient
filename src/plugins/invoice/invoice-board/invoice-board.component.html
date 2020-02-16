@@ -1,0 +1,683 @@
+<!-- Title -->
+<section class="title-section">
+
+    <div class="col-4 head-wrap">
+        <h4>Quotations</h4>
+        <p>Send quotations to your customers</p>
+    </div>
+
+    <div class="col-8 btn-wrap">
+
+      <button [ngClass]="listSectionStatus ? 'btn btn-sm btn-warning' : 'btn btn-sm btn-outline-info'" 
+      (click)="toListInvoice()">List Quotations</button>
+  
+      <button [ngClass]="createSectionStatus ? 'btn btn-sm btn-warning' : 'btn btn-sm btn-outline-info'"
+      (click)="toNewInvoice()">Create New</button>
+
+    </div>
+    
+</section>
+  
+  
+<section class="body-section">
+<!-- <ngx-spinner></ngx-spinner> -->
+
+
+
+<section class="edit-section" *ngIf="createSectionStatus">
+<form #myInvoiceForm="ngForm" class="form">
+
+    <div class="heading d-flex">
+        <div class="mr-auto title">Quotation Form</div>
+        <button class="btn btn-sm ml-auto" (click)="generateInvoice()">Save</button>
+    </div>
+
+    <div class="form-wrap">
+
+            <div class="form-top-wrap">
+                <div class="form-top-item">
+                    <div class="form-group">
+                        <label for="">Customer Name</label>
+                        <input type="text" class="" #customerNameInput [ngbTypeahead]="clientAutoComplete"
+                        name="customerName"  [(ngModel)]="invoiceForm.customerName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Payments Terms</label>
+                        <select type="text" class="" #paymentTermsInput
+                        name="paymentTerms"  [(ngModel)]="invoiceForm.paymentTerms"> 
+
+                        <option value="Immediate Payment">Immediate Payment</option>
+                        <option value="15 Days">15 Days</option>
+                        <option value="30 Net Days">30 Net Days</option>
+                        <option value="45 Days">45 Days</option>
+                        <option value="2 Months">2 Months</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-top-item">
+                        <div class="form-group">
+                               
+                                <label for="">Quotation Date</label>
+                                <input id="invoiceDate" #invoiceDateInput #dp="bsDatepicker"
+                                bsDatepicker 
+                                [bsConfig]="{containerClass:'theme-orange'}"
+                                name="invoiceDate"  [(ngModel)]="invoiceForm.invoiceDate">
+                                
+                               
+                        </div>
+                        <div class="form-group">
+                                <label for="">Due Date</label>
+                                <input #dueDateInput [bsConfig]="{containerClass:'theme-orange'}"
+                                #dp="bsDatepicker" bsDatepicker #dueDateInput
+                                name="dueDate"  [(ngModel)]="invoiceForm.dueDate">
+                               
+                        </div>
+                </div>
+
+            </div>
+
+
+            <div class="form-mid-wrap">
+
+                <div class="title-wrap" [hidden]="Items.length === 0">
+                    <div>Flight</div>
+                    <div>Route</div>
+                    <div>Date</div>
+                    <div>Time</div> 
+                    <div>Class</div>
+                    <div>Persons</div>
+                    <div>TotalCost</div>
+                    <div class="action"></div>
+                </div>
+                <div class="preview-wrap" [hidden]="Items.length === 0" *ngFor="let item of Items; let i = index">
+    
+                        <div>{{item.flight}}</div>
+                        <div>{{item.from}} <span>to</span> {{item.to}}</div>
+                        <div>{{item.date | date: 'mediumDate'}}</div> 
+                        <div>{{item.departure}} <span>to</span> {{item.arrival }}</div>
+                        <div>{{item.class }}</div>
+                        <div>{{item.totalPersons}} (ad {{item.persons.adult}}, ch {{item.persons.child}}, in {{item.persons.infant}})</div>
+                        <div>{{item.totalCost}}</div>
+                        <div class="action"><fa name="trash" (click)="deleteFromFlight(i)"></fa></div>
+
+                </div>
+
+                <div class="input-wrap" [hidden]='inputArrayFields'>
+                    <div class="title"> Flight Tickets </div>
+                    <div class="wrap">
+                        <div class="form-group">
+                            <input type="text"
+                            name="flight" #flightInput  [(ngModel)]="invoiceFormItems.flight" placeholder="Flight">
+                        </div>
+                        <div class="form-group">
+                                <input type="text" class="" 
+                                name="from"  [(ngModel)]="invoiceFormItems.from" placeholder="From">
+                        </div>
+                        <div class="form-group">
+                                <input type="text" 
+                                name="to"  [(ngModel)]="invoiceFormItems.to" placeholder="To">
+                        </div>
+                        <div class="form-group">
+                                <input type="text" #dp="bsDatepicker" bsDatepicker
+                                [bsConfig]="{containerClass:'theme-orange'}"
+                                name="date"  [(ngModel)]="invoiceFormItems.date"  placeholder="Date"> 
+                                
+                        </div>
+                        <div class="form-group">
+                                <input type="text" atp-time-picker
+                                name="departure" theme="material-orange"  [(ngModel)]="invoiceFormItems.departure"  placeholder="Departure">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" atp-time-picker  
+                            name="arrival" theme="material-orange" [(ngModel)]="invoiceFormItems.arrival"  placeholder="Arrival">
+                        </div>
+                        <div class="form-group">
+                            <input type="text"
+                            name="class"  [(ngModel)]="invoiceFormItems.class"  placeholder="Class">
+                        </div>
+
+                    </div>
+                    <div class="wrap">
+                        <div class="form-group">
+                            <input type="number"
+                            name="costPerPerson" min="0"  [(ngModel)]="invoiceFormItems.costPerPerson"  placeholder="Cost Per Person">
+                        </div>
+                        <div class="form-group">
+                            <input type="number"
+                            name="adult" min="0"  [(ngModel)]="invoiceFormItems.persons.adult"  placeholder="No. of Adults">
+                        </div>
+                        <div class="form-group">
+                                <input type="number"
+                                name="child" min="0"  [(ngModel)]="invoiceFormItems.persons.child"  placeholder="No. of Children">
+                            </div>
+                        <div class="form-group">
+                                <input type="number"
+                                name="infant" min="0"  [(ngModel)]="invoiceFormItems.persons.infant"  placeholder="No. of Infants">
+                        </div>
+
+                    </div>
+                    <div class="btn-wrap">
+                            <button class="btn btn-add" (click)="addItem()">Add</button>
+                            <button class="btn btn-save" (click)="saveItemProceed()">Save & Procced</button>
+                    </div>
+                
+                </div>
+
+                <div class="total-wrap">
+                    <div class="wrap">
+                        <div class="wrap-title">
+                        <h4>Total Amount:</h4>
+                        </div>
+                        <div class="wrap-value">
+                            <h4>{{TotalAmount | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="invoice-type-div">
+                        <div class="type-wrap">
+                            <label>Flights Tickets</label>
+                            <input  type="radio" name="invoiceType" value="ticket"
+                            [(ngModel)]="invoiceForm.invoiceType">
+                        </div>
+                        <div class="type-wrap">
+                            <label>InBound Flights</label>
+                            <input  type="radio" name="invoiceType" value="inBound"
+                            [(ngModel)]="invoiceForm.invoiceType">
+                        </div>
+                        <div class="type-wrap">
+                            <label>OutBound Flights</label>
+                            <input type="radio" name="invoiceType" value="outBound"
+                            [(ngModel)]="invoiceForm.invoiceType">
+                        </div>
+                        
+                </div>
+
+                <div class="accomodation-preview-wrap" [hidden]="AccItems.length === 0">
+                    <div class="detail" *ngFor="let item of AccItems; let x = index">
+                        <div class="wrap">
+                            <div class="item">
+                                <label>Hotel</label>
+                                <h4>{{item.hotel}}</h4>
+                            </div>
+                            <div class="item">
+                                <label>RoomType</label>
+                                <h4>{{item.roomType}}</h4>
+                            </div>
+                            <div class="item">
+                                <label>Meal Plan</label>
+                                <h4>{{item.mealPlan}}</h4>
+                            </div>
+                            <div class="item">
+                                <label>City</label>
+                                <h4>{{item.city}}</h4>
+                            </div>
+                            <div class="item">
+                                <label>Nights</label>
+                                <h4>{{item.nights}}</h4>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="wrap">
+                            <div class="item">
+                                <label>Single</label>
+                                <h4>{{item.single | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4>
+                            </div>
+                            <div class="item">
+                                <label>Double</label>
+                                <h4>{{item.double | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4>
+                            </div>
+                            <div class="item">
+                                <label>Child with Bed</label>
+                                <h4>{{item.childWithBed | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4>
+                            </div>
+                            <div class="item">
+                                <fa name="trash" (click)="deleteFromDetails(x)"></fa>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div [ngClass]="AccomodationInputArrayFields ? 'accomodation-input-wrap shrink' : 'accomodation-input-wrap' " [hidden]="invoiceForm.invoiceType === 'ticket'">
+                    <div class="title"> Details </div>
+                    <div class="wrap">
+                        <div class="form-group">
+                            <input type="text" name="hotel"  [(ngModel)]="invoiceFormAccomodation.hotel"  placeholder="Hotel Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="roomType"  [(ngModel)]="invoiceFormAccomodation.roomType"  placeholder="RoomType">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="mealPlan"  [(ngModel)]="invoiceFormAccomodation.mealPlan"  placeholder="Meal Plan">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="city"  [(ngModel)]="invoiceFormAccomodation.city"  placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" min="1" name="nights"  [(ngModel)]="invoiceFormAccomodation.nights"  placeholder="Nights">
+                        </div>
+                    </div>
+                    <div class="wrap">
+                        <div class="form-group">
+                            <input type="number" min="0" name="single" [(ngModel)]="invoiceFormAccomodation.single"  placeholder="Cost for Single">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" min="0" name="double" [(ngModel)]="invoiceFormAccomodation.double"  placeholder="Cost for double">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" min="0" name="childWithBed" [(ngModel)]="invoiceFormAccomodation.childWithBed"  placeholder="Child with bed">
+                        </div>
+                    </div>
+
+                    <div class="btn-wrap">
+                            <button class="btn btn-add" (click)="addAccomodationItem()">Add</button>
+                            <button class="btn btn-save" (click)="saveAccomodationItemProceed()">Save & Procced</button>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="inclusion-preview-wrap" [hidden]="InclutionItems.length === 0">
+                    <h4>Inclusion</h4>
+                    <ul>
+                        <li *ngFor="let item of InclutionItems; let y = index">
+                            <h4>{{item.content}}</h4>
+                            <fa name="trash" (click)="deleteFromInclusion(y)"></fa>
+
+                            </li>
+                    </ul>
+                </div>
+
+                <div class="inclusion-input-wrap" [hidden]="InclutionInputField">
+                        <div class="title"> Inclusion </div>
+                        <div class="form-group">
+                                <input type="text" name="content" [(ngModel)]="invoiceFormAirlineInclusion.content"  placeholder="Type Inclusion">
+                        </div>
+                    <div class="btn-wrap">
+                            <button class="btn btn-add" (click)="addInclusionItem()">Add</button>
+                            <button class="btn btn-save" (click)="saveInclusionItemProceed()">Save & Procced</button>
+                    </div>
+                </div>
+
+
+                <div class="exclusion-preview-wrap" [hidden]="ExclutionItems.length === 0">
+                        <h4>Exclusion</h4>
+                        <ul>
+                            <li *ngFor="let item of ExclutionItems; let z = index">
+                               <h4>{{item.content}}</h4>
+                               <fa name="trash" (click)="deleteFromExclusion(z)"></fa>
+                            </li>
+                        </ul>
+                </div>
+
+                <div class="exclusion-input-wrap" [hidden]="ExclutionInputField">
+                        <div class="title"> Exclusion </div>
+                    <div class="form-group">
+                            <input type="text" name="content" [(ngModel)]="invoiceFormAirlineExclusion.content"  placeholder="Type Exclusion">
+                    </div>
+                    <div class="btn-wrap">
+                            <button class="btn btn-add" (click)="addExclusionItem()">Add</button>
+                            <button class="btn btn-save" (click)="saveExclusionItemProceed()">Save & Procced</button>
+                    </div>
+                </div>
+
+            </div> <!-- class="form-mid-wrap"-->
+    </div> <!-- form-wrap -->
+
+</form>
+
+</section>
+
+
+
+
+
+<section class="list-section" *ngIf="listSectionStatus">
+
+    <div class="list-title">List of Quotations</div>
+
+    <div class="no-invoices" *ngIf='Invoices.length === 0'>
+        No Quotations
+    </div>
+
+    <div class="card-group" *ngIf='Invoices'>
+
+        <div class="card mr-auto" *ngFor="let Invoice of Invoices" (click)="viewInvoice(Invoice._id)">
+                <fa-icon [icon]="faFileInvoice"></fa-icon>
+                <h4 class="title">{{Invoice.customerName}}</h4>
+                <blockquote class="blockquote">
+                        <footer class="blockquote-footer">By {{Invoice.salesPerson}}&nbsp;&nbsp;<span>{{Invoice.createdOn | date:'medium' }}</span>  </footer>
+                </blockquote>
+                <div class="action d-flex">
+                    <fa name='pencil' class="mr-auto" (click)="editInvoice(Invoice._id)"></fa>
+                    <fa name='trash' class="ml-auto" (click)="deleteInvoice(Invoice._id)"></fa>
+                </div>
+            </div>    
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+      
+
+
+<section class="view-section" *ngIf="viewSectionStatus">
+
+        <div class="view-actions">
+            <button class="btn btn-sm" (click)="previewInvoice()"><fa name="eye"></fa>Preview</button>
+            <button class="btn btn-sm" (click)="downLoadInvoice()"><fa name="download"></fa>Download</button>
+            <button class="btn btn-sm" (click)="shareInvoice()"><fa name="share"></fa>Email</button>
+            <button class="btn btn-smy" (click)="printInvoice()"><fa name="print"></fa>Print</button>
+        </div>
+
+        <div #myTemplate class="view-body" *ngIf="invoiceViewed">
+
+            <div class="logo">
+                <img *ngIf="invoiceViewed.invoiceType === 'inBound'" src="assets/images/inBound.PNG" alt="invoice logo">
+                <img *ngIf="invoiceViewed.invoiceType === 'outBound'" src="assets/images/outBound.PNG" alt="invoice logo">
+                <img *ngIf="invoiceViewed.invoiceType === 'ticket'" src="assets/images/outBound.PNG" alt="invoice logo">
+            </div>
+
+            <div id="myTemplate">
+            <div class="top-wrap">
+                <div class="invoice">
+                    <h4 class="invoice-to">Quotation To</h4>
+                    <h4>{{invoiceViewed.customerName}}</h4>
+                </div>
+                <div class="invoice-details">
+                    <h4 class="head">Quotation Details</h4>
+                    <div class="div-wrap">
+                        <div class="wrap">
+                            <label>Quotation No</label>
+                          
+                            <h4>{{invoiceViewed.invoiceNumber}}</h4>
+                        </div>
+                        <div class="wrap">
+                            <label>Date</label>
+                        
+                            <h4>{{invoiceViewed.invoiceDate | date: 'mediumDate'}}</h4>
+                        </div>
+                        <div class="wrap">
+                            <label>Due</label>
+                      
+                            <h4>{{invoiceViewed.dueDate | date: 'mediumDate'}}</h4>
+                        </div>
+                    </div>
+
+                    <div class="div-wrap">
+                        <div class="wrap">
+                            <label>Type</label>
+                        
+                            <h4>{{invoiceViewed.invoiceType}}</h4>
+                        </div>
+                        <div class="wrap">
+                            <label>SalesPerson</label>
+                       
+                            <h4>{{invoiceViewed.salesPerson}}</h4>
+                        </div>
+                        <div class="wrap">
+                            <label>Payment Terms</label>
+                            <h4>{{invoiceViewed.paymentTerms}}</h4>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="flight-wrap">
+                <div class="head">
+                    <div>Flight</div>
+                    <div>Route</div>
+                    <div>Date</div>
+                    <div>Time</div> 
+                    <div>Class</div>
+                    <div>Persons</div>
+                    <div>TotalCost</div>
+
+                </div>
+
+                <div class="details" *ngFor="let item of invoiceViewed.items">
+                        <div>{{item.flight}}</div>
+                        <div>{{item.from}} <span>to</span> {{item.to}}</div>
+                        <div>{{item.date | date: 'mediumDate'}}</div> 
+                        <div>{{item.departure}} <span>to</span> {{item.arrival }}</div>
+                        <div>{{item.class }}</div>
+                        <div>{{item.totalPersons}} (ad {{item.persons.adult}}, ch {{item.persons.child}}, in {{item.persons.infant}})</div>
+                        <div class="currency">{{item.totalCost | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</div>
+                </div>
+
+            </div>
+
+            <div class="payment">
+                <div class="method">
+                    <!-- <h4 class="head">Payment Method</h4>
+                    <h5>Bank</h5>
+                    <h4>Bank Name: <span>Corporative</span></h4>
+                    <h4>Branch Code: <span>Juja 2839</span></h4>
+                    <h4>Account No: <span>AC4F23SD83S933</span> </h4> -->
+                </div>
+                <div class="amount">
+                    <div class="total"> <h5>Grand Total:</h5> <h4 class="currency">{{invoiceViewed.totalAmount | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4></div>
+                </div>
+            </div>
+
+            <div class="accomodation" [hidden]="invoiceViewed.accomodation.length === 0">
+                <div class="head">Details</div>
+                <div class="detail" *ngFor="let item of invoiceViewed.accomodation">
+                    <div class="wrap">
+                        <div class="item">
+                            <label>Hotel</label>
+                            <h4>{{item.hotel}}</h4>
+                        </div>
+                        <div class="item">
+                            <label>RoomType</label>
+                            <h4>{{item.roomType}}</h4>
+                        </div>
+                        <div class="item">
+                            <label>Meal Plan</label>
+                            <h4>{{item.mealPlan}}</h4>
+                        </div>
+                        <div class="item">
+                            <label>City</label>
+                            <h4>{{item.city}}</h4>
+                        </div>
+                        <div class="item">
+                            <label>Nights</label>
+                            <h4>{{item.nights}}</h4>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="wrap">
+                           
+                        <div class="item">
+                            <label>Single</label>
+                            <h4>{{item.single | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4>
+                        </div>
+                        <div class="item"></div>
+                        <div class="item">
+                            <label>Double</label>
+                            <h4>{{item.double | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4>
+                        </div>
+                        <div class="item"></div>
+                        <div class="item">
+                            <label>Child with Bed</label>
+                            <h4>{{item.childWithBed | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="airline-details">Airline Details</div>
+
+            <div class="inclusion-payment">
+            <div class="Inclusive">
+                <div class="head">Inclusions</div>
+                <div class="detail">
+                <h4 *ngFor="let item of invoiceViewed.airlineInclusion">
+                    {{item.content}}
+                </h4>
+                </div>
+            
+            </div>
+
+            <div class="payment">
+                <div class="head">Payment Policy</div>
+                <div class="detail">
+                    <p>Our Payment policy is as follows</p>
+                    <p>
+                    For International and Domestic Air tickets a 100 % prepayment must be received at the time of confirmation of the booking. These are subject to penalties of all various kinds and therefore please confer with us to ascertain what is applicable.
+                    </p>
+                    <p>Payments are required as follows unless otherwise agreed</p>
+                    <p>
+                    50 % deposit upon confirmation of the Safari if booked more than 90 days in advance. Balance payable 60 days prior to arrival. In case the Safari is booked within 59 days, full prepayment is required at the time of booking. All Bank Charges are to be borne by the clients or agents.
+                    </p>
+                </div>
+
+            </div>
+
+            </div>
+
+            <div class="exclusive-cancellation">
+
+            <div class="Exclusive">
+                    <div class="head">Exclusions</div>
+                    <div class="detail">
+                        <h4 *ngFor="let item of invoiceViewed.airlineExclusion">
+                            {{item.content}}
+                        </h4>
+                   </div>
+            </div>
+
+            
+            <div class="cancellation">
+                    <div class="head">Cancellation Policy</div>
+                    <div class="detail">
+                        <p>The following Cancellation policy is application</p>
+                        <div class="wrap">
+                            <p class="duration">Over 90 days</p>
+                            <p class="penalty">Nil Penalty</p>
+                        </div>
+                        <div class="wrap">
+                            <p class="duration">89- 60 days </p>
+                            <p class="penalty">20 % Penalty</p>
+                        </div>
+                        <div class="wrap">
+                            <p class="duration">59- 45 days</p>
+                            <p class="penalty">33 % Penalty</p>
+                        </div>
+                        <div class="wrap">
+                            <p class="duration">44- 30 days</p>
+                            <p class="penalty">50 % Penalty</p>
+                        </div>
+                        <div class="wrap">
+                            <p class="duration">29- 15 days</p>
+                            <p class="penalty">75 % Penalty</p>
+                        </div>
+                        <div class="wrap">
+                            <p class="duration">Less than 14 days</p>
+                            <p class="penalty">No refund at all</p>
+                        </div>
+                    </div>
+    
+            </div>
+
+            </div>
+
+        </div>
+
+        </div>
+
+
+        <blockquote class="blockquote d-flex">
+                <footer class="blockquote-footer ml-auto">created by {{invoiceViewed.salesPerson}}&nbsp;&nbsp;<span>{{invoiceViewed.createdOn | date:'medium' }}</span>  </footer>
+        </blockquote>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog deleteModal" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Delete</h4>
+            <button type="button" class="btn close" (click)="deleteModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" *ngIf="InvoiceToBeDeleted">
+            <h4>Are You sure ?</h4>
+            <p>You are about to delete <span>{{InvoiceToBeDeleted.customerName}}</span> written by <span>{{InvoiceToBeDeleted.salesPerson}}</span>.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" (click)="deleteModal.hide()">Cancel</button>
+            <button type="button" class="btn btn-confirm" (click)="submitDeleteInvoice(); deleteModal.hide()">Delete</button>
+        </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    
+
+</section> <!-- Body -->
+
+
+
+<div bsModal #mailModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog mailModal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" >Please Input Recievers mail</h4>
+          <button type="button" class="btn close" (click)="mailModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form" [formGroup]="mailForm">
+            <div class="form-group">
+  
+              <div class="input-group input-group-sm">
+  
+                  <input type="email" class="form-control"
+                  formControlName="email" [class.is-invalid]="formMail.email.invalid && formMail.email.touched">
+
+              </div>
+               
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-cancel" (click)="editPasswordModal.hide()">No</button> -->
+          <button type="button" [disabled]="!mailForm.valid"class="btn btn-confirm" (click)="submitEmail(); mailModal.hide()">Send</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+

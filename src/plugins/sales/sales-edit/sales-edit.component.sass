@@ -1,0 +1,658 @@
+@import "src/styles.sass"
+
+
+// ------------------------------------------------
+
+// Title Section
+#title_section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+    
+#title_section h4
+    color: themeColor(info)
+    font-size: 14px
+    font-weight: bold
+    text-transform: uppercase
+    
+#title_section p
+    color: color(silk)
+    font-family: Montserrat
+    font-size: 10px
+    padding: 0
+    margin: 0
+
+
+
+
+
+
+
+
+
+
+article
+    margin: 1em
+    background-color: transparent
+
+    #projectClientSection
+        display: flex
+        align-items: stretch
+        background-color: brandColor(brandSecondary)
+        margin: 0 0 0 0
+        padding: 0
+
+        @include desktop_md
+            flex-direction: column
+            align-items: baseline        
+
+
+        #clientName
+            width: 100%
+            margin: 0
+            
+
+            .div_wrap
+                text-align: center
+                min-width: 150px
+                width: fit-content
+                padding: .5em 1em .5em 1em
+                
+                h4
+                    font-size: 11px
+                    font-weight: bold
+                    font-family: Montserrat
+                    margin: auto
+                    color: color(nevyBlueTheme)
+                    text-transform: uppercase
+                    text-shadow: 0 1px 3px rgba(0,0,0,.3)
+
+        #projectName
+            width: 100%
+            margin: 0
+
+            .div_wrap
+                text-align: center
+                min-width: 150px
+                width: fit-content
+                padding: .5em 1em .5em 1em
+
+                h4
+                    font-size: 11px
+                    font-weight: bold
+                    font-family: Montserrat
+                    margin: auto
+                    color: color(nevyBlueTheme)
+                    text-transform: uppercase
+                    text-shadow: 0 1px 3px rgba(0,0,0,.3)
+            
+    #project_duration_dates_section
+        background: white
+        padding: .5em
+        display: flex
+        align-items: stretch
+        border: solid 1px grayColor(g300)
+
+        @include desktop_md
+            flex-direction: column
+            align-items: baseline
+
+        .div_wrap
+            width: 100%
+            padding: .5em 1em .5em 0
+
+            h4
+                font-size: 10px
+                font-weight: bold
+                font-family: Montserrat
+                margin: .7em 0 auto 0 !important
+                text-transform: capitalize
+
+                span
+                    font-size: 10px
+                    font-family: Montserrat
+                    // margin: auto 0 auto .5em
+                    color: color(orangeTheme)
+
+
+            .btn-edit
+                font-size: 10px
+                font-family: Montserrat             
+                text-transform: uppercase
+                margin: auto 0 auto 0
+                background-color: brandColor(brandLight) !important
+                color: black
+                width: 7em
+
+                &:hover
+                    width: 7em
+                    background-color: brandColor(brandPrimary) !important
+                    border: none
+                    color: white
+            .btn-close
+                font-size: 10px
+                font-family: Montserrat             
+                text-transform: uppercase
+                margin: auto 0 auto 0
+                background-color: brandColor(brandDanger) !important
+                color: black
+                width: 7em
+
+    
+
+
+    #project_calender_section
+        margin: 1em 0 1em 15%
+        height: 400px
+        -webkit-transition: all 0.5s // For Safari 3.1 to 6.0 
+        transition: all 0.5s
+        width: fit-content
+        padding: .5em
+        background-color: white
+        box-shadow: 0 1px 3px rgba(0,0,0,.3)
+
+        &.hide
+            margin-bottom: -400px
+            opacity: 0
+
+
+        #duration_wrap
+            width: fit-content
+
+            .input-group-prepend
+                span
+                    font-size: 10px
+                    font-family: Montserrat
+                    color: color(info)
+
+            input
+                font-size: 10px
+                font-family: Montserrat
+                padding: .5em
+                color: color(success)
+
+
+            .input-group-prepend
+                span
+                    font-size: 10px
+                    font-family: Montserrat
+                    color: color(info)
+
+        #calender_wrapper
+            div
+                h4
+                    font-size: 10px
+                    font-family: Montserrat
+                    padding: .5em
+                    color: color(success)
+
+                    span
+                        font-size: 10px
+                        font-family: Montserrat
+                        color: color(info)
+
+            ngb-datepicker
+                font-size: 10px
+                font-family: Montserrat
+
+                .custom-day 
+                    text-align: center
+                    padding: 0.185rem 0.25rem
+                    display: inline-block
+                    height: 2rem
+                    width: 2rem
+                
+                .custom-day.focused 
+                    background-color: #e6e6e6
+                
+                .custom-day.range, .custom-day:hover
+                    background-color: rgb(2, 117, 216)
+                    color: white
+                
+                .custom-day.faded
+                    background-color: rgba(2, 117, 216, 0.5)
+
+                .custom-day.disabled
+                    color: gray
+                    opacity: .3
+                    
+                .custom-day.disabled:hover
+                    color: gray
+                    opacity: .3
+                    background-color: white!important
+
+
+        .btn_wrapper
+            text-align: center
+            padding: 2px
+            .btn
+                font-size: 10px
+                font-family: Montserrat
+
+
+
+
+
+
+    #project_manager_form
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .1)
+        margin: 0 0 1em 0
+        background-color: white
+
+        .info-wrap
+
+            .name-wrap
+                padding: .5em 0 0 1em  
+                background-color: brandColor(brandSecondary)
+                h4
+                    font-size: 10px
+                    font-weight: bold
+                    font-family: Montserrat             
+                    text-transform: capitalize
+                    margin: 1em auto 
+
+            .value-wrap  
+                padding: .5em 0 0 1em  
+                h4
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: capitalize
+                    margin: 1em auto 
+                    color: black
+
+            .btn-wrap 
+                  
+                .btn-edit
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    margin: 1em auto
+                    background-color: brandColor(brandLight) !important
+                    color: black
+                    width: 7em
+    
+                    &:hover
+                        width: 7em
+                        background-color: brandColor(brandPrimary) !important
+                        border: none
+                        color: white
+                .btn-close
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    margin: 1em auto
+                    background-color: brandColor(brandDanger) !important
+                    color: black
+                    width: 7em
+
+        .form-group
+            
+            select
+                margin: auto 0 auto 0
+                font-size: 10px
+                font-family: Montserrat 
+                text-transform: capitalize
+
+                option
+                    text-transform: capitalize
+
+            .btn-wrap
+
+                .btn
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    color: white
+                    margin: 1em auto
+                    width: 7em
+                    background-color: brandColor(brandSuccess) !important
+
+
+
+
+
+
+
+
+
+
+
+    // Tasks Section
+    #task_section
+        margin: 0 0 1em 0
+        background-color: white
+        border: solid 1px grayColor(g300)
+        width: 100%
+        border-radius: 2px
+
+        #task_titles
+            padding: 0
+            background-color: brandColor(brandSecondary)
+                
+            .div_wrap
+                padding: 5px
+
+                h4
+                    font-size: 12px
+                    font-weight: bold
+                    font-family: Montserrat
+
+                    fa
+                        color: color(info)
+                        margin-right: .5em
+
+        // List tasks
+        .list-group
+            margin: 0   
+            border-radius: 0
+
+            .list-group-item
+                border: none
+                border-bottom: solid 1px grayColor(g300)
+                padding: .5em 0 .5em 0
+                border-radius: 0
+                cursor: pointer
+                background-color: transparent
+                // margin: 0 .5em .5em .5em
+                margin: 0
+
+                &:hover
+                    box-shadow: 0 5px 5px rgba(0, 0, 0, .3)
+
+                .div_wrap
+                    padding: 5px
+                    
+
+                    input
+                        margin: auto .5em auto 0  
+                        
+                    
+                    h4
+                        margin: auto 0 auto 0
+                        font-size: 10px
+                        font-family: Montserrat
+    
+                        &:first-letter
+                            text-transform: capitalize  
+                #dates_div
+
+                    h4      
+                        span
+                            margin: 0 .5em 0 .5em
+                            color: color(orangeTheme)
+
+        #totals
+            padding: 0
+            background-color: brandColor(brandSecondary)
+            
+        
+            .div_wrap
+                padding: 5px
+
+                h4
+                    font-size: 14px
+                    font-family: Montserrat
+
+                    .first-span
+                        text-shadow: 5px 5px 5px rgba(0,0,0,.3)
+                        color: brandColor(brandPrimary)
+                        font-weight: bold
+                        margin: 0 .5em 0 .5em
+                    .second-span
+                        color: brandColor(brandDark)
+                        margin: 0 .5em 0 .5em
+
+
+
+    #task_ditail_setting.hide
+        margin-right: -330px
+        height: 0
+
+    #task_ditail_setting
+        margin: 0 0 10px 10px
+        box-shadow: 0 0 3px rgba(0,0,0,.3)
+        background-color: white
+        -webkit-transition: all 0.5s // For Safari 3.1 to 6.0 
+        transition: all 0.5s
+        padding: 3px
+        width: 320px
+
+
+        #duration_wrap
+
+            .input-group-prepend
+                span
+                    font-size: 10px
+                    font-family: Montserrat
+                    color: color(info)
+
+            input
+                font-size: 10px
+                font-family: Montserrat
+                padding: .5em
+                color: color(success)
+
+
+            .input-group-prepend
+                span
+                    font-size: 10px
+                    font-family: Montserrat
+                    color: color(info)
+
+
+        #calender_wrapper
+
+            #callender_date
+
+                h4
+                    font-size: 10px
+                    font-family: Montserrat
+                    padding: .5em
+                    color: color(success)
+
+                    span
+                        font-size: 10px
+                        font-family: Montserrat
+                        color: color(info)
+
+            ngb-datepicker
+                font-size: 10px
+                font-family: Montserrat
+
+                .custom-day 
+                    text-align: center
+                    padding: 0.185rem 0.25rem
+                    display: inline-block
+                    height: 2rem
+                    width: 2rem
+                
+                .custom-day.focused 
+                    background-color: #e6e6e6
+                
+                .custom-day.range, .custom-day:hover
+                    background-color: rgb(2, 117, 216)
+                    color: white
+                
+                .custom-day.faded
+                    background-color: rgba(2, 117, 216, 0.5)
+
+                .custom-day.disabled
+                    color: gray
+                    opacity: .3
+                .custom-day.disabled:hover
+                    color: gray
+                    opacity: .3
+                    background-color: white!important
+
+            #assignedUserForm
+                margin: 1em 0 1em 0
+
+                .form-group
+
+                    label
+                        margin: 0 0 0 1em
+                        font-size: 10px
+                        font-weight: bold
+                        font-family: Montserrat 
+
+            
+                    select
+                        margin: auto 0 auto 0
+                        font-size: 10px
+                        font-family: Montserrat 
+                        text-transform: capitalize
+                        background-color: grayColor(g200)
+
+                        option
+                            text-transform: capitalize
+
+            .btn-wrap
+                .btn
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    box-shadow: 0 0 10px rgba(0,0,0,.3)
+                    color: white
+                    margin: 1em auto
+                    width: 7em
+                    background-color: brandColor(brandSuccess) !important
+
+
+
+// revenue Priotity Section
+#revenuePriorForm
+    border: solid 1px grayColor(g300)
+    border-radius: 2px
+    margin: 0 0 1em 0
+
+
+#revenuePriorForm .form-title
+    background: brandColor(brandSecondary)
+    padding: .5em
+#revenuePriorForm .form-title h4
+    font-size: 12px
+    font-family: Montserrat
+
+
+#revenuePrioritySection
+    margin: 0 0 0 0
+    background-color: white
+    padding: .5em .5em .5em 1em
+    border-radius: 2px
+
+#revenuePrioritySection #revenueFormGroup
+    width: 200px
+
+#revenuePrioritySection #revenueFormGroup .input-group-text
+    background-color: white
+    font-size: 10px
+    font-family: Montserrat
+
+#revenuePrioritySection #revenueFormGroup input
+    background-color: white
+    font-size: 10px
+    font-family: Montserrat
+
+#revenuePrioritySection #priorityFormGroup
+    width: 500px
+
+#revenuePrioritySection #priorityFormGroup .input-group-text
+    background-color: white
+    font-size: 10px
+    font-family: Montserrat
+    margin: 0 .5em 0 0
+
+#revenuePrioritySection #priorityFormGroup #radio_wrap
+    padding: auto
+    margin: 0 2em 0 0
+    font-size: 12px
+
+#revenuePrioritySection #priorityFormGroup label
+    margin: 0 .5em 0 0
+    font-size: 12px
+    font-family: Montserrat
+            
+#revenuePrioritySection #priorityFormGroup input
+    font-size: 10px
+    font-family: Montserrat
+#revenuePrioritySection #priorityFormGroup .input-group-text
+    font-size: 10px
+    font-family: Montserrat
+    cursor: pointer
+#revenuePrioritySection .div_wrap
+    padding: 1em 0 0 0 
+    
+    .btn
+        font-size: 10px
+        font-family: Montserrat
+        box-shadow: 0 0 10px rgba(0,0,0,.3)
+        text-transform: uppercase
+
+
+
+
+
+
+// Buton Section
+#button_section
+    margin: 0 0 2em 0
+    padding: 1em
+    background-color: white
+    border: solid 1px grayColor(g300)
+    border-radius: 2px
+
+#button_section #button_group
+    width: 97.5%
+        
+#button_section #button_group .div_wrap
+    padding: 0
+
+#button_section #button_group .div_wrap .btn
+    font-size: 10px
+    font-family: Montserrat
+    box-shadow: 0 0 10px rgba(0,0,0,.3)
+    text-transform: uppercase
+    
+
+        
+
+.deleteModal  
+    .modal-header
+        background-color: brandColor(brandDanger) !important
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+            
+
+    .modal-body
+
+        h4
+            font-size: 14px
+            font-family: Montserrat
+            text-align: center
+
+        p
+            font-size: 12px
+            color: black
+
+            span
+                margin: 0 .2em 0 .2em
+                color: brandColor(brandPrimary)
+                text-transform: uppercase
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandDanger)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+
+

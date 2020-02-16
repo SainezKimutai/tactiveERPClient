@@ -1,0 +1,235 @@
+// Global Color Themes
+@import "~bootstrap/dist/css/bootstrap.css"
+
+$colors: ( nevyBlueTheme: #030451, orangeTheme: #F28500, gray: #6c757d, gray-dark: #343a40, primary: #007bff, secondary: #6c757d, success: #28a745, info: #17a2b8, warning: #ffc107, danger: #dc3545, dark: #35424a, silk:#7D7D7D )
+
+$brandColors: ( brandPrimary: #20a8d8, brandSecondary: #c8ced3, brandSuccess: #4dbd74, brandDanger: #f86c6b, brandWarning: #ffc107, brandInfo: #63c2de, brandLight: #f0f3f5, brandDark: #2f353a,  )
+    
+$grayColors: (g100: #f0f3f5, g200: #e4e7ea, g300: #c8ced3, g400: #acb4bc, g500: #8f9ba6, g600: #73818f, g700: #5c6873, g800: #2f353a, g900: #23282c)
+
+$themeColors: (info: #02b0cc)
+
+// Color function
+@function color($color-name) 
+    @return map-get($colors , $color-name)
+    
+@function brandColor($color-name) 
+    @return map-get($brandColors , $color-name)
+
+@function grayColor($color-name) 
+    @return map-get($grayColors , $color-name)
+
+@function themeColor($color-name) 
+    @return map-get($themeColors , $color-name)
+    
+// Resposivenes Breakpoints
+// Extra small    
+$desktop_xm: 0px
+
+@mixin desktop_xm
+    @media (max-width: #{$desktop_xm}) 
+        @content
+    
+// Small
+$desktop_sm: 576px
+
+@mixin desktop_sm
+    @media (max-width: #{$desktop_sm}) 
+        @content
+    
+// Medium
+$desktop_md: 768px
+
+@mixin desktop_md
+    @media (max-width: #{$desktop_md}) 
+        @content
+    
+// Large
+$desktop_lg: 992px
+
+@mixin desktop_lg
+    @media (max-width: #{$desktop_lg}) 
+        @content
+    
+// Extra large
+$desktop_xl: 1200px
+
+@mixin desktop_xl
+    @media (max-width: #{$desktop_xl}) 
+        @content
+
+$bgThrough: rgba(0,0,0,0.2)  
+    
+    
+#mainBody
+    background-color: grayColor(g200)
+    font-family: Montserrat
+
+    -ms-overflow-style: none
+    scrollbar-width: none
+
+::-webkit-scrollbar
+    width: 0px
+    background: transparent
+
+::-webkit-scrollbar-thumb 
+    background-color: brandColor(brandPrimary)
+    width: 1px
+
+.spinner-div
+    margin: auto
+    color: themeColor(info)
+
+
+
+
+
+
+// TOASTR BUG FIX 
+
+.toast-custom-one
+    top: 25%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+#toast-container > div 
+    opacity: 1
+
+.toast 
+    // font-size: initial !important
+    font-size: 12px !important
+    font-family: Montserrat !important
+    border: initial !important
+    backdrop-filter: blur(0) !important
+
+.toast-success 
+    background-color: #51A351 !important
+
+
+.toast-error 
+    background-color: #BD362F !important
+
+.toast-info 
+    background-color: #2F96B4 !important
+
+.toast-warning 
+    background-color: #F89406 !important
+
+
+
+
+
+
+// Imprint loader
+
+.imprint-loader
+    z-index: 1
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: $bgThrough
+
+    &.home
+        position: fixed
+
+    &.login
+        position: absolute
+
+.imprint-loader .imprint-loader-wrap
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    width: 60px
+    height: 60px
+
+.imprint-loader .imprint-loader-wrap .imprint-loader-main
+    width: 60px
+    height: 60px
+    text-align: center
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    grid-gap: 0px
+    animation: 1.5s Spin linear infinite
+
+.imprint-loader .imprint-loader-wrap .imprint-loader-main .imprint-loader-ball
+    width: 12px
+    height: 12px
+    border: 0px solid transparent
+    border-radius: 50%
+    margin: 9px 0 0 9px
+
+    &.ball-one
+        background-color: color(nevyBlueTheme)
+        animation: 1.5s topLeft-bottomRight ease infinite
+    
+    &.ball-two
+        background-color: color(danger)
+        animation: 1.5s topRight-bottomLeft ease infinite
+    
+    &.ball-three
+        background-color: color(orangeTheme)
+        animation: 1.5s bottomLeft-topRight ease infinite
+    
+    &.ball-four 
+        background-color: teal
+        animation: 1.5s bottomRight-topLeft ease infinite
+
+@keyframes Spin
+    35%
+        transform: rotate(360deg)  
+    50%
+        transform: rotate(450deg)  
+    100%
+        transform: rotate(450deg)
+
+@keyframes topLeft-bottomRight 
+    50% 
+        transform: translateY(0px) translateX(0px)    
+    75%
+        transform: translateY(1.8em) translateX(1.8em)
+
+@keyframes topRight-bottomLeft
+    50% 
+        transform: translateY(0px) translateX(0px)      
+    75%
+        transform: translateY(1.8em) translateX(-1.8em)      
+
+@keyframes bottomLeft-topRight
+    50%
+        transform: translateY(0px) translateX(0px)
+    75% 
+        transform: translateY(-1.8em) translateX(1.8em)
+
+@keyframes bottomRight-topLeft
+    50% 
+        transform: translateY(0px) translateX(0px)
+    75%     
+        transform: translateY(-1.8em) translateX(-1.8em)
+
+@keyframes moveUp
+
+    50% 
+        transform: translateY(-1em) translateX(0px)
+
+        
+
+
+
+
+
+
+// Browser compatability
+
+// Android, Chrome, IOS, Safari  -webkit-
+// Firefox   -moz-
+// Internet Explorer   -ms-
+// Opera   -o-
+
+
+
+
+
+
+

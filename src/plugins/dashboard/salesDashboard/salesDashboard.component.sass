@@ -1,0 +1,660 @@
+@import "src/styles.sass"
+
+// ------------------------------------------------
+
+// Title Section
+#title_section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+
+    .head-wrap
+        h4
+            color: themeColor(info)
+            font-size: 14px
+            font-weight: bold
+            text-transform: uppercase
+        
+        p
+            color: color(silk)
+            font-family: Montserrat
+            font-size: 10px
+            padding: 0
+            margin: 0
+
+    .btn-wrap
+        display: flex
+        width: 100%
+
+        button
+            width: 15em
+            font-size: 12px
+            font-family: Montserrat
+            margin: 0 1em 0 0
+            border: 0
+            border-radius: 2px
+            background-color: transparent
+            border-bottom: solid 4px color(warning)
+            outline: none
+
+            &:hover
+                background-color: grayColor(g200)
+
+            &.notCurrent
+                border-bottom: none
+
+            &.current
+                border-bottom: solid 4px color(warning)
+
+
+
+
+
+
+.body-section
+    margin: 1em
+    background-color: transparent
+
+.spinner-div
+    margin: auto
+    color: themeColor(info)
+
+
+
+
+
+
+
+
+
+
+.top-analitics-sections
+    width: 100%
+
+    .card-group 
+        display: flex
+        align-items: stretch
+
+        .card
+            border: none
+            border-radius: 5px
+            min-width: 200px
+            max-width: 50%
+            height: 5em
+            margin: 0 1.5em 1em 0
+            padding: .5em 2em 
+            // background: linear-gradient( themeColor(info) 0%, white 90%), linear-gradient(to right, themeColor(info) 0%, white 90%) 
+            // background-blend-mode: screen, difference, lighten
+
+            @include desktop_md
+                max-width: 100%
+
+            h5 
+                font-size: 13px
+                color: grayColor(g800)
+                margin: 0 0 1em 0
+
+            h6 
+                font-size: 18px
+
+                &.total-one
+                    color: brandColor(brandPrimary)
+
+                &.total-two
+                    color: themeColor(info)
+
+                &.total-three
+                    color: brandColor(brandWarning) 
+
+                &.total-four
+                    color: brandColor(brandSuccess) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.Info-analystics-section
+    width: 100%
+
+    .card-group 
+        display: flex
+        align-items: stretch
+
+        .card
+            border: none
+            border-radius: 5px
+            min-width: 200px
+            max-width: 50%
+            height: 10em
+            margin: 0 1.5em 1em 0
+            padding: 0 
+            background-color: white
+            cursor: pointer
+            display: flex
+            flex-direction: column
+
+            &:hover
+                .info-wrap 
+                    opacity: .2
+
+            @include desktop_md
+                max-width: 100%
+
+
+            canvas 
+                border: none
+                margin: 0
+                padding: 0
+                
+
+
+            .info-wrap 
+                position: absolute
+                width: 100%
+                height: fit-content
+                text-align: center
+                pointer-events: none 
+                opacity: 1
+                transition: 1s opacity
+
+                
+
+                h3
+                    width: 100%
+                    text-align: left
+                    font-size: 12px        
+                    margin: 3em 0 1em 0
+
+                h4 
+
+                    width: 100%
+                    text-align: left
+                    font-size: 13px
+                    padding: 0 0 0 2em
+                    color: grayColor(g800)
+                    margin: 1em 0 1em 0
+
+            .spinner-div 
+                // width: 100%
+                // height: 100%
+                color: themeColor(info)
+                margin: auto
+
+
+
+
+
+
+
+.all-opportunities-sections
+    display: flex
+    align-items: stretch
+    width: 100%
+
+    @include desktop_md
+        display: flex
+        flex-direction: column
+        margin: 0 .5em 0 0
+
+
+    .deals-wrap
+        background-color: white
+        width: 60%
+        border-radius: 5px
+
+        @include desktop_md
+            width: 100%
+            margin: 0 0 1em
+
+
+        .title
+            width: 100%
+            padding: .5em 1em 2em 1em
+            font-size: 12px
+            color: grayColor(g600)
+            font-weight: bold
+
+        .body-title
+            padding: 0 .5em
+            
+            .body-item 
+                width: 100%
+                padding: .5em
+                background-color: grayColor(g100)
+
+                div
+                    font-size: 11px
+                    font-weight: 500px  
+                    text-align: left
+                    padding: 0
+
+                .client-name
+                    width: 15em
+                .project-name
+                    width: 15em
+                .revenue
+                    width: 15em
+                .stage
+                    width: 15em
+
+        .body 
+            padding: .5em
+            height: 300px
+            overflow-x: scroll
+
+            .body-item 
+                width: 100%
+                padding: .5em
+                margin: 0 0 .5em 0
+                background: linear-gradient( white 0%, lighten(themeColor(info), 35%) 90%), linear-gradient(to right, lighten(themeColor(info), 35%) 0%, white 90%)
+                -moz-background: linear-gradient( white 0%, lighten(themeColor(info), 35%) 90%), linear-gradient(to right, lighten(themeColor(info), 35%) 0%, white 90%)
+                -webkit-background: linear-gradient( white 0%, lighten(themeColor(info), 35%) 90%), linear-gradient(to right, lighten(themeColor(info), 35%) 0%, white 90%)
+                -moz-background-blend-mode: screen, difference, lighten
+                -webkit-background-blend-mode: screen, difference, lighten
+                background-blend-mode: screen, difference, lighten
+
+                div
+                    font-size: 11px
+                    font-weight: 500px
+                   
+
+                .client-name
+                    width: 15em
+                .project-name
+                    width: 15em
+                .revenue
+                    width: 15em
+                .stage
+                    width: 15em
+
+
+
+
+
+
+
+    .clients-wrap 
+        background-color: white
+        width: 40%
+        margin: 0 0 0 .5em
+        border-radius: 5px
+
+        @include desktop_md
+            width: 100%
+            margin: 0
+
+        .title
+            width: 100%
+            padding: .5em 1em 2em 1em
+            font-size: 12px
+            color: grayColor(g600)
+            font-weight: bold
+
+        .body-title
+            padding: 0 .5em
+            
+            .body-item 
+                width: 100%
+                padding: .5em
+                background-color: grayColor(g100)
+
+                div
+                    font-size: 11px
+                    font-weight: 500px  
+                    text-align: left
+                    padding: 0 0 0 1em
+                .user-name
+                    width: 50%
+
+                .number
+                    width: 50%
+
+        .body 
+            padding: .5em
+            height: 300px
+            overflow-x: scroll
+
+            .body-item 
+                width: 100%
+                padding: .5em
+                margin: 0 0 .5em 0
+
+                background: linear-gradient( white 0%, lighten(color(orangeTheme), 35%)  90%), linear-gradient(to right, lighten(color(orangeTheme), 35%)  0%, white 90%)
+                -moz-background: linear-gradient( white 0%, lighten(color(orangeTheme), 35%)  90%), linear-gradient(to right, lighten(color(orangeTheme), 35%)  0%, white 90%)
+                -webkit-background: linear-gradient( white 0%, lighten(color(orangeTheme), 35%)  90%), linear-gradient(to right, lighten(color(orangeTheme), 35%)  0%, white 90%)
+                background-blend-mode: screen, difference, lighten
+                -moz-background-blend-mode: screen, difference, lighten
+                -webkit-background-blend-mode: screen, difference, lighten
+
+                div
+                    font-size: 11px
+                    font-weight: 500px  
+                    text-align: left
+                    padding: 0 0 0 1em         
+
+                .user-name
+                    width: 50%
+
+                .number
+                    width: 50%
+
+
+
+
+
+
+.graph-article-wrap
+    border: solid 1px grayColor(g200)
+    border-radius: 5px
+    background-color: white
+     -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.2)
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.2)
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.2)
+    margin: 1em 0 5em 0
+    padding: .5em
+
+    @include desktop_lg
+        height: 550px
+
+    @include desktop_xl
+        height: 600px
+
+    @include desktop_md
+        height: fit-content
+
+.style-section
+    background-color: color(accent)
+    height: 8em
+    transition: 1s
+    -webkit-transition: 1s
+    opacity: 1
+    display: block
+
+    &.hide
+        height: 0
+        opacity: 0
+        display: none
+        z-index: -1
+
+
+    .style-div
+        border: solid 1px grayColor(g400)
+        border-radius: 0
+        padding: 0
+
+        .style-head
+            background-color: color(info)
+            padding: .1em .5em .1em .5em
+            h4
+                font-size: 10px
+                font-family: Montserrat
+                color: white
+
+        .style-options
+            margin: .5em
+            display: flex
+            flex-direction: column
+
+            span
+                margin: .3em
+                cursor: pointer
+                height: 1em
+                width: 1em
+                padding: 0
+                color: transparent
+                border-radius: 50%
+                box-shadow: 0 3px 3px rgba(0, 0, 0, .1)
+
+            .btn
+                font-size: 10px
+                padding: .2em
+                font-family: Montserrat
+
+            .input-group
+                margin: .5em 0 0 0
+
+                label
+                    font-size: 12px
+                    margin: 0 .5em 0 0
+
+
+                input
+                    font-size: 10px
+                    font-family: Montserrat
+                    border: solid 1px grayColor(g100)
+
+                    &:focus
+                      border: solid 1px grayColor(g100)
+
+
+.graph-section
+    // height: 100%
+    height: 480px
+    width: 100%
+    display: flex
+    align-items: stretch
+    
+    @include desktop_md
+        display: flex
+        flex-direction: column
+        height: 780px
+
+
+
+.graph-section .dataset-div
+    height: 100%
+    width: 17%
+    border: solid 1px grayColor(g200)
+    border-radius: 5px
+    padding: .5em
+    display: flex
+    align-items: flex-start
+    flex-direction: column
+    display: block
+
+    @include desktop_md
+        display: none
+
+    h4
+        padding: .1em 1em .1em 1em
+        margin: 0
+        width: 100%
+        text-align: left
+        font-size: 12px
+        font-weight: bold
+        margin: .1em auto
+        color: brandColor(brandPrimary)
+
+        fa-icon.faDiceD6
+            font-size: 12px
+            color: brandColor(brandSuccess)
+
+        fa-icon.faNetworkWired
+            font-size: 10px
+            color: saddlebrown
+
+    button
+        padding: .5em 1em .5em 1em
+        font-size: 12px
+        width: 100%
+        margin: .5em auto
+        text-align: left
+
+        &:hover
+            border: solid 1px grayColor(g400)
+
+        fa-icon.faDiceD6
+            font-size: 12px
+            color: brandColor(brandSuccess)
+
+        fa-icon.faNetworkWired
+            font-size: 10px
+            color: saddlebrown
+
+    fa[name=eraser]
+      color: grayColor(g100)
+      cursor: pointer
+      font-size: 10px
+
+      &:hover
+        color: color(primary)
+
+
+
+.graph-section .visualize-div
+    height: 100%
+    width: 17%
+    border: solid 1px grayColor(g200)
+    border-radius: 5px
+    padding: .5em
+    display: flex
+    flex-direction: column
+
+    @include desktop_md
+        width: 100%
+        display: flex
+        align-items: stretch
+
+    .set-div-wrap
+        border: none
+        padding: .3em
+        background-color: white
+        margin: .5em 0 .5em 0
+        height: 4em
+        width: 100%
+        display: flex
+        cursor: pointer
+        outline: none
+        font-size: 10px
+
+        &.current
+            background-color: grayColor(g100)
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, .3)
+
+        &:hover
+            background-color: grayColor(g200)
+        
+        fa[name=eraser]
+            color: brandColor(brandInfo)
+            cursor: pointer
+            font-size: 16px
+            margin: auto auto auto 0
+
+            &:hover
+                font-size: 20px
+                color: color(primary)
+
+        span
+            color: color(warning)
+            margin: 0 .3em 0 .3em
+
+
+
+.graph-section .display-div
+    height: 100%
+    width: 50%
+    display: flex
+    flex-direction: column
+    border: none
+    border-radius: 5px
+    padding: .5em
+    overflow-y: scroll
+
+    @include desktop_md
+        width: 100%
+
+    canvas
+        max-width: 100%
+        max-height: 100%
+        min-width: 400px
+        margin: 0
+        background-color: transparent
+
+    .spinner-div
+        margin: auto
+        color: themeColor(info)
+
+
+
+
+.graph-section .gallary-div
+    height: 100%
+    width: 16%
+    border: solid 1px grayColor(g200)
+    border-radius: 5px
+    padding: 18em .5em .5em .5em
+    text-align: center
+    display: block
+
+    @include desktop_md
+        display: none
+
+    .choose-color-div .btn
+        font-size: 12px
+        font-family: Montserrat
+        margin: 0 0 .5em 0
+        cursor: pointer
+
+    .head-div
+        margin: 0 0 .5em 0
+       
+            
+        h4
+            font-size: 12px
+            font-family: Montserrat
+
+
+    .choose-chartType-div
+        display: flex
+        flex-direction: column
+
+        .btn
+            margin: .3em
+            border: solid 1px gray
+            font-family: Montserrat
+            font-size: 12px
+            display: flex
+            flex-direction: column
+            text-align: center
+            cursor: pointer
+
+            fa[name=line-chart]
+                color: color(primary)
+                font-size: 14px
+                margin: 0 0 1em 0
+            fa[name=bar-chart]
+                color: color(info)
+                font-size: 14px
+                margin: 0 0 1em 0
+
+            fa[name=pie-chart]
+                color: color(warning)
+                font-size: 14px
+                margin: 0 0 1em 0
+
+            fa[name=area-chart]
+                color: color(success)
+                font-size: 14px
+
+
+
+
+
+
+
+    

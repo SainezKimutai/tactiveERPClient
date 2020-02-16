@@ -1,0 +1,679 @@
+<!-- Title -->
+
+<section id="title_section" class="d-flex">
+    <div class="col-4 head-wrap">
+        <h4>Sales</h4>
+        <p>Creates and lists Incoming Projects </p>
+    </div>
+
+    <div class="col-8 btn-wrap">
+  
+      <button class="btn btn-sm btn-note" (click)="listNoteModal.show()">Notes</button>
+
+      <button class="btn btn-sm btn-email" (click)="listSentEmailModal.show()">Emails</button>
+  
+      <button class="btn btn-sm btn-event" (click)="eventReminder()">Events</button>
+
+    </div>
+    
+</section>
+  
+
+
+
+<!-- Body Section -->
+<section class="body_section">
+<!-- <ngx-spinner></ngx-spinner> -->
+
+
+
+
+<!-- Adding new client Form -->
+
+<div bsModal #addNewOppModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog addNewOppModal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">New Opportunity To <span>{{ProjectStatusToNewOpp}}</span></h4>
+        <button type="button" class="btn close" (click)="addNewOppModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                    
+              <form id="myNewOppForm" #myNewOppForm='ngForm' [formGroup]="newOppForm" class="form">
+
+                <!-- Client Name -->
+                <div class="form-group">
+                    <div class="input-group input-group-sm mb-3">
+
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-sm">Client Name</span>
+                        </div>
+
+                        <input #clientInput type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                        formControlName="clientName" [class.is-invalid]="formNewOpp.clientName.invalid && formNewOpp.clientName.touched"
+                        [ngbTypeahead]="clientAutoComplete" required>
+
+                  </div>
+
+                </div>
+
+                <!-- Projects Type -->
+                <div class="form-group">
+                    <div class="input-group input-group-sm mb-3">
+
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-sm">Project Type</span>
+                        </div>
+
+
+                        <select type="" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                        formControlName="projectName" class="form-control" [class.is-invalid]="formNewOpp.projectName.invalid && formNewOpp.projectName.touched" required>
+                            <option value="" disabled selected hidden >Choose Project</option>
+                            <option *ngFor="let Project of Projects" value='{{Project.serviceName}}'>{{Project.serviceName}}</option>
+                            
+                        </select> 
+
+                  </div>
+                </div>
+
+                <!-- Client Name -->
+                <div class="form-group">
+                  <div class="input-group input-group-sm mb-3">
+
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Exp. Revenue</span>
+                      </div>
+
+                      <input type="number" min="1" class="form-control" 
+                      formControlName="revenue" [class.is-invalid]="formNewOpp.revenue.invalid && formNewOpp.revenue.touched"
+                      [ngbTypeahead]="clientAutoComplete" required>
+
+                </div>
+
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group input-group-sm mb-3">
+
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Priority</span>
+                      </div>
+                  
+                  <div id="radio_wrap" >
+                      <!-- <label>Low</label> -->
+                      <fa name="star"  [ngClass]="projPriority >= '1' ? 'text-primary' : 'text-secondary'" (click)="selectPriority(1)" ></fa> 
+                  </div>
+  
+                  <div id="radio_wrap">
+                      <!-- <label>Medium</label> -->
+                      <fa name="star"  [ngClass]="projPriority >= '2' ? 'text-primary' : 'text-secondary'" (click)="selectPriority(2)" ></fa>
+                  </div>
+  
+                  <div id="radio_wrap" >
+                      <!-- <label>High</label> -->
+                      <fa name="star"  [ngClass]="projPriority >= '3' ? 'text-primary' : 'text-secondary'" (click)="selectPriority(3)" ></fa> 
+                  </div>         
+  
+                </div>
+              </div>
+
+
+            </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" (click)="addNewOppModal.hide()">Cancel</button>
+        <button type="button" [disabled]="!newOppForm.valid"class="btn btn-confirm" (click)="submitNewOppForm(); addNewOppModal.hide()">Save</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="pipeline-section d-flex">
+
+  <button [ngClass]="genaralPipelineActive ? 'gen-pipeline current' : 'gen-pipeline notCurrent' " (click)="switchPipelineToGen()">General Pipeline</button>
+  <button [ngClass]="myPipelineActive ? 'my-pipeline current' : 'my-pipeline notCurrent' " (click)="switchPipelineToMine()">My Pipeline</button>
+
+</section> 
+
+
+
+
+
+
+
+
+
+
+
+<!-- kanban_section -->
+<section id="kanban_section" class="d-flex" *ngIf="kanbanSectionStatus">
+
+
+
+
+  <!-- Sales Category Card-->
+  <article *ngFor='let SalesCategory of SalesCategorysToDisplay; let last = last;  let first = first' [id]="SalesCategory._id"
+   (dragover)="allowDrop($event)" (drop)="drop($event)">
+    
+    <!-- Head Title -->
+    <div id="head" class="" [ngClass]="[last ? 'clearfix d-flex last-category' : '',
+                                        first ? 'clearfix d-flex first-category' : '',
+                                        !last && !first ? 'clearfix d-flex middle-category' : '']">
+        <div class="info-div" *ngIf="!SalesCategory._id2">
+            <h4 class="float-left ml-4">{{SalesCategory.name}} <span>({{SalesCategory.totalLeads}})</span></h4>
+        </div>
+
+        <form class="form" *ngIf="SalesCategory._id4">
+            <div class="form-group" [formGroup]="changeStageNameForm">
+                <input type="text" class="form-control"
+                formControlName="name" [class.is-invalid]="formChangeStageName.name.invalid && formChangeStageName.name.touched">
+            </div>
+        </form>
+        
+    </div>
+    
+    <div id="totals" class="clearfix text-center">
+      <h4 class=""><span>{{SalesCategory.totalRevenue | currency:'KSH ':'symbol-narrow':'1.0-0'}}</span></h4>
+    </div>
+
+    <div id="add_deal_div" [ngClass]="[last ? 'clearfix text-center last-category' : '',
+                                        first ? 'clearfix text-center first-category' : '',
+                                        !last && !first ? 'clearfix text-center middle-category' : '']"
+                                  >
+      <button class="btn btn-sm" (click)="addNewOppModal.show(); setClickedStage(SalesCategory.name)"><fa name="plus"></fa></button>
+    </div>
+
+
+
+
+
+
+
+
+   <div class="card-group" [id]="SalesCategory._id" (dragenter)="highlightcategory($event)"
+   [ngClass]="salesCatHoveredOnDrag === SalesCategory._id ? 'card-group hovered' : 'card-group'" >
+
+
+        <div draggable="true" *ngFor="let Opportunity of OpportunitysToDisplay" [id]="Opportunity._id"  
+        (drop)="drop($event)" (dragover)="allowDrop($event)" (dragstart)="drag($event)" (dragenter)="dragenter($event)" (dragleave)="dragleave($event)"
+        [ngClass]="cardHoveredOnDrag === Opportunity._id && cardBeingDraged !=  Opportunity._id ? 'card hovered-on-drag' : cardBeingDraged ===  Opportunity._id ? 'card beingDragged' : 'card'"
+          [hidden]="Opportunity.projectStatus != SalesCategory.name">
+
+          <div class="card-body">
+
+            <div class="card-info-div">
+              <h4  class="clientN" (click)="seeClient(Opportunity.clientName); clientDetailModal.show()">{{ Opportunity.clientName}}</h4>
+              <h4  class="projectN">{{ Opportunity.projectName}}</h4>
+              <h4  class="revenue">{{Opportunity.revenue | currency:'KSH ':'symbol-narrow':'1.0-0'}}</h4>
+
+              <div  class="rateWarp clearfix">
+                  <fa class="rate1" name="star" [ngClass]="Opportunity.priority >= '1' ? 'rateColor' : ''"></fa>
+
+                  <fa class="rate2" name="star" [ngClass]="Opportunity.priority >= '2' ? 'rateColor' : ''"></fa>
+                  <fa   class="rate3" name="star" [ngClass]="Opportunity.priority >= '3' ? 'rateColor' : ''"></fa>
+              </div>
+            </div><!-- .card-info-div -->
+
+            <div class="card-icon-div">
+              <button class="btn btn-sm" (click)="mailFunction(Opportunity.clientName)"><fa name="envelope"></fa></button>
+              <button class="btn btn-sm" (click)="phoneCall()"><fa name="phone"></fa></button>
+              <button class="btn btn-sm" (click)="writeAnote(Opportunity._id, Opportunity.clientName)"><fa name="book"></fa></button>
+              <button class="btn btn-sm" (click)="toSalesEdit(Opportunity._id)"><fa name="pencil"></fa></button>
+
+            </div><!-- .card-icon-div -->
+
+          </div><!-- .card-body-->
+          
+
+              <div class="card-footer card-icon-div d-flex">
+                <h4 class="mr-auto dropdown" data-toggle="dropdown" >Activities 
+                  <span *ngIf="Events">{{(Events | filterBy: {projectId: Opportunity._id }).length}}</span>
+
+                  <div class="dropdown-menu">
+                      <h4 *ngFor="let event of Events" [hidden]="event.projectId != Opportunity._id ">{{event.title}}</h4>
+                </div>
+
+                </h4>
+                
+                <h4 class="ml-auto schedule" (click)="toScheduleActivity(Opportunity._id)">Schedule</h4>
+              </div>
+              
+
+
+        </div>
+
+    </div>
+
+</article>
+
+
+</section> <!-- kanban_section-->
+
+
+
+
+
+
+
+
+<section class="list-section" *ngIf="listSectionStatus">
+
+ <div class="list-title">
+  
+  <div class="list-title-wrap"><h4>Client</h4></div>
+
+  <div class="list-title-wrap"><h4>Project</h4></div>
+
+  <div class="list-title-wrap"><h4>Stage</h4></div>
+
+  <div class="list-title-wrap"><h4>Revenue</h4></div>
+
+ </div>
+
+
+ <div class="list-item" *ngFor="let Opportunity of OpportunitysToDisplay" [id]="Opportunity._id">
+
+  <div class="list-item-wrap"><h4>{{Opportunity.clientName}}</h4></div>
+
+  <div class="list-item-wrap"><h4>{{Opportunity.projectName}}</h4></div>
+
+  <div class="list-item-wrap"><h4>{{Opportunity.projectStatus}}</h4></div>
+
+  <div class="list-item-wrap"><h4>{{Opportunity.revenue | currency:'KSH ':'symbol-narrow':'1.0-0'}}</h4></div>
+
+ </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<div bsModal #clientDetailModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog clientDetailModal modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Client Detail </h4>
+        <button type="button" class="btn close" (click)="clientDetailModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="info-div">
+              <h4 class="company-name">Company Name: <span>{{ClientOppened.companyName}}</span></h4>
+              <h4 class="manager">Manager: <span>{{ClientOppened.managerName}}</span></h4>
+            </div> 
+            
+            <div class="contact-div">
+              <h4 class="phone">Phone: <span>{{ClientOppened.primaryTelNumber}}</span></h4>
+              <h4 class="altPhone">Alt Number: <span>{{ClientOppened.secondaryTelNumber}}</span></h4>
+              <h4 class="email">Email: <span>{{ClientOppened.email}}</span></h4>
+              <h4 class="website">Website: <span>{{ClientOppened.website}}</span></h4>
+            </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" (click)="clientDetailModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-confirm" (click)="clientDetailModal.hide(); clientEditModal.show()">EDIT</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div bsModal #clientEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog clientEditModal modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> You are Editing <span>{{ClientOppened.companyName}}</span> details </h4>
+        <button type="button" class="btn close" (click)="clientEditModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form [formGroup]="managerNameForm" >
+            <div class="info-div">
+              <h4 class="title">Manager:</h4>
+              <h4 class="value">{{ClientOppened.managerName}}</h4>
+              <button class="btn btn-sm" (click)="managerNameInput=!managerNameInput"><fa name="pencil"></fa></button>
+            </div>
+
+            <div class="input-group input-group-sm mb-3" *ngIf="managerNameInput">
+              <input type="text" class="form-control"
+              formControlName="managerName" [class.is-invalid]="formManagerName.managerName.invalid && formManagerName.managerName.touched">
+
+              <div class="input-group-append">
+                 <button [disabled]="!managerNameForm.valid" class="input-group-text btn btn-sm" (click)="saveManagerName(); managerNameInput=!managerNameInput">Save</button>          
+              </div><!--input-group-append-->
+            </div><!-- input-group -->
+          </form>
+
+          <form [formGroup]="phoneForm" >
+              <div class="info-div">
+                <h4 class="title">Phone:</h4>
+                <h4 class="value">{{ClientOppened.primaryTelNumber}}</h4>
+                <button class="btn btn-sm" (click)="phoneInput=!phoneInput"><fa name="pencil"></fa></button>
+              </div>
+  
+              <div class="input-group input-group-sm mb-3" *ngIf="phoneInput">
+                <input type="number" class="form-control"
+                formControlName="primaryTelNumber" [class.is-invalid]="formPhone.primaryTelNumber.invalid && formPhone.primaryTelNumber.touched">
+  
+                <div class="input-group-append">
+                   <button [disabled]="!phoneForm.valid" class="btn btn-sm" (click)="savePhoneNumber(); phoneInput=!phoneInput">Save</button>          
+                </div><!--input-group-append-->
+              </div><!-- input-group -->
+          </form>
+
+          <form [formGroup]="altPhoneForm" >
+              <div class="info-div">
+                <h4 class="title">Alternative Tel:</h4>
+                <h4 class="value">{{ClientOppened.secondaryTelNumber}}</h4>
+                <button class="btn btn-sm" (click)="altPhoneInput=!altPhoneInput"><fa name="pencil"></fa></button>
+              </div>
+  
+              <div class="input-group input-group-sm mb-3" *ngIf="altPhoneInput">
+                <input type="number" class="form-control"
+                formControlName="secondaryTelNumber" [class.is-invalid]="formAltPhone.secondaryTelNumber.invalid && formAltPhone.secondaryTelNumber.touched">
+  
+                <div class="input-group-append">
+                   <button [disabled]="!altPhoneForm.valid" class="btn btn-sm" (click)="saveAlternativePhoneNumber(); altPhoneInput=!altPhoneInput">Save</button>          
+                </div><!--input-group-append-->
+              </div><!-- input-group -->
+          </form>
+
+          <form [formGroup]="emailForm" >
+              <div class="info-div">
+                <h4 class="title">Email:</h4>
+                <h4 class="value">{{ClientOppened.email}}</h4>
+                <button class="btn btn-sm" (click)="emailInput=!emailInput"><fa name="pencil"></fa></button>
+              </div>
+  
+              <div class="input-group input-group-sm mb-3" *ngIf="emailInput">
+                <input type="email" class="form-control"
+                formControlName="email" [class.is-invalid]="formEmail.email.invalid && formEmail.email.touched">
+  
+                <div class="input-group-append">
+                   <button [disabled]="!emailForm.valid"  class="btn btn-sm" (click)="saveEmail(); emailInput=!emailInput">Save</button>          
+                </div><!--input-group-append-->
+              </div><!-- input-group -->
+          </form>
+          
+
+          <form [formGroup]="websiteForm" >
+              <div class="info-div">
+                <h4 class="title">website:</h4>
+                <h4 class="value">{{ClientOppened.website}}</h4>
+                <button class="btn btn-sm" (click)="websiteInput=!websiteInput"><fa name="pencil"></fa></button>
+              </div>
+  
+              <div class="input-group input-group-sm mb-3" *ngIf="websiteInput">
+                <input type="text" class="form-control"
+                formControlName="website" [class.is-invalid]="formWebsite.website.invalid && formWebsite.website.touched">
+  
+                <div class="input-group-append">
+                   <button [disabled]="!websiteForm.valid"  class="btn btn-sm" (click)="saveWebsite(); websiteInput=!websiteInput">Save</button>          
+                </div><!--input-group-append-->
+              </div><!-- input-group -->
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" (click)="clientEditModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+ 
+
+
+
+<div bsModal #mailToClientModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog mailToClientModal modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Composing Mail To <span *ngIf="mailData">{{mailData.client}}</span> </h4>
+          <button type="button" class="btn close" (click)="mailToClientModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="" *ngIf="mailData" [formGroup]="sendMailForm">
+
+              <div class="sender">
+                  <h4>From:</h4>
+                  <h5>{{mailData.sender}}</h5>
+              </div>
+
+              <div class="reciever">
+                  <h4>To:</h4>
+                  <h5>{{mailData.reciever}}</h5>
+              </div>
+
+              <div class="subject-div">
+                <h4>Subject</h4>
+                <input type="text" class="form-control"
+                formControlName="subject" [class.is-invalid]="formSendMail.subject.invalid && formSendMail.subject.touched">
+              </div>
+
+              <div class="body-div">
+
+                <textarea name="" id="message" cols="30" rows="10"
+                formControlName="message" [class.is-invalid]="formSendMail.message.invalid && formSendMail.message.touched"></textarea>
+
+              </div>
+            </form>
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="mailToClientModal.hide()">Cancel</button>
+          <button type="button" class="btn btn-confirm" (click)=" sendMailToClient();">Send Mail</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+
+
+
+
+
+
+
+<div bsModal #writeNoteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog writeNoteModal modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Composing Note About <span *ngIf="noteWriten">{{noteWriten.name}}</span> </h4>
+        <button type="button" class="btn close" (click)="writeNoteModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form [formGroup]="writeNoteForm">
+
+            <div class="title">
+                <label for="">Title</label>
+                <input type="text" class="form-control form-control-sm"
+                formControlName="title" [class.is-invalid]="formWriteNote.title.invalid && formWriteNote.title.touched">
+            </div>
+
+            <div class="content">
+                <label for="">Content</label>
+                <textarea name="" id="" cols="30" rows="10"
+                formControlName="content" [class.is-invalid]="formWriteNote.content.invalid && formWriteNote.content.touched"></textarea>
+            </div>
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" (click)="writeNoteModal.hide()">Cancel</button>
+        <button type="button" [disabled]="!writeNoteForm.valid" class="btn btn-confirm" (click)="submitNote();">Save</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+
+
+
+<div bsModal #listNoteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog listNoteModal modal-lg" role="document" *ngIf="SalesNotes">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">List of Notes</h4>
+        <button type="button" class="btn close" (click)="listNoteModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="head-div d-flex">
+          <h4>Title</h4>
+          <h4>Content</h4>
+          <h4>Project</h4>
+          <h4>Written By</h4>
+
+        </div>
+
+        <div class="list-div d-flex" *ngFor="let note of SalesNotes" (click)="openNote(note._id);">
+          <h4 class="title">{{note.title}}</h4>     
+          <h4 class="content">{{note.content}}</h4>
+          <h4 class="project">{{note.noteProjectName}}</h4>
+          <h4 class="writtenBy">{{note.createdByUsername}}</h4>
+        </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-close" (click)="listNoteModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+
+
+<div bsModal #detailNoteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog detailNoteModal modal-lg" role="document" *ngIf="noteOpened">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Note Detail on <span class="text-warning">{{noteOpened.noteProjectName}}</span></h4>
+      </div>
+      <div class="modal-body">
+        <div class="head-div">
+          <h4>{{noteOpened.title}}</h4>
+        </div>
+
+        <textarea name="" id="" class="content-div" readonly>{{noteOpened.content}}</textarea>
+
+        <blockquote class="blockquote">
+          <footer class="blockquote-footer">written by {{noteOpened.createdByUsername}} <span>{{noteOpened.createdAt | date:'fullDate' }}</span>  </footer>
+        </blockquote>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button type="button" class="btn btn-close mr-auto" (click)="detailNoteModal.hide()">Close</button>
+        <button type="button" class="btn btn-delete ml-auto" (click)="deleteNote(noteOpened._id);">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div bsModal #listSentEmailModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog listSentEmailModal modal-lg" role="document" *ngIf="SentEmails">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">List of Sent Emails</h4>
+        <button type="button" class="btn close" (click)="listSentEmailModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="head-div d-flex">
+          <h4>Sender</h4>
+          <h4>Reciever</h4>
+          <h4>Subject</h4>
+          <h4>Sent On</h4>
+
+        </div>
+
+        <div class="list-div d-flex" *ngFor="let mail of SentEmails" (click)="openSentEmail(mail._id);">
+          <h4 class="sender">{{mail.sender}}</h4>     
+          <h4 class="reciever">{{mail.reciever}}</h4>
+          <h4 class="subject">{{mail.subject}}</h4>
+          <h4 class="sentOn">{{mail.sentOn | date: 'fullDate'}}</h4>
+        </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-close" (click)="listSentEmailModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+
+
+
+<div bsModal #detailSentEmailModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog detailSentEmailModal modal-lg" role="document" *ngIf="sentEmailOpened">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Email Detail From <span class="">{{sentEmailOpened.sender}}</span> to <span class="">{{sentEmailOpened.reciever}}</span></h4>
+      </div>
+      <div class="modal-body">
+        <div class="head-div">
+          <h4>{{sentEmailOpened.subject}}</h4>
+        </div>
+
+        <textarea name="" id="content" class="content-div" readonly>{{sentEmailOpened.message}}</textarea>
+
+        <blockquote class="blockquote">
+          <footer class="blockquote-footer">sent on <span>{{sentEmailOpened.sentOn | date:'fullDate' }}</span>  </footer>
+        </blockquote>
+
+      </div>
+      <div class="modal-footer d-flex">
+        <button type="button" class="btn btn-close mr-auto" (click)="detailSentEmailModal.hide()">Close</button>
+        <button type="button" class="btn btn-delete ml-auto" (click)="deleteSentMail(sentEmailOpened._id);">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<section class="report-section" *ngIf="reportSectionStatus">
+  <router-outlet></router-outlet>
+</section>
+
+
+
+
+
+
+<!-- End of Body Section -->
+</section>

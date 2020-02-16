@@ -1,0 +1,676 @@
+@import "src/styles.sass"
+
+
+// ------------------------------------------------
+
+// Title Section
+#title_section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+
+    h4
+        color: themeColor(info)
+        font-size: 14px
+        font-weight: bold
+        text-transform: uppercase
+    
+    p
+        color: color(silk)
+        font-family: Montserrat
+        font-size: 10px
+        padding: 0
+        margin: 0
+
+
+
+
+
+
+.body_section
+    margin: 1em
+    background-color: transparent
+
+
+
+
+
+
+// Add Section
+#add_section
+    margin: 0 0 1em 0
+    width: 100%
+
+    @include desktop_md
+        margin: 0 auto 1em auto
+        width: 100%
+ 
+    #add_section_row
+        
+        .div_wrap
+            text-align: start
+            width: 100%
+            
+            @include desktop_md
+                text-align: center           
+            
+            .btn
+                color: white
+                width: 100%
+                height: 100%
+                font-size: 10px
+                font-family: Montserrat
+                box-shadow: 0 0 10px rgba(0,0,0,.3)
+                text-transform: uppercase
+                
+
+            #btn_teams
+                background-color: themeColor(info)
+            #btn_sales
+                background-color: brandColor(brandWarning)
+                color: black
+            #btn_services
+                background-color: brandColor(brandSuccess)
+
+
+
+
+
+
+// Preview section
+#preview_section.hide
+    background-color: transparent
+    height: 0
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    opacity: 0
+
+
+#preview_section
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    height: fit-content
+    width: 100%
+    margin: 0 0 .5em 0
+   
+    @include desktop_md
+        margin: 0 auto .5em auto
+        width: 95%
+
+    .list-group
+        background-color: whitesmoke
+        box-shadow: 0 0 5px rgba(0,0,0,.3)
+        border-radius: 2px
+        width: 100%
+
+        #service_name
+
+            h4
+                margin: .5em
+                color: color(silk)
+                font-weight: bold
+                text-transform: uppercase
+                font-size: 12px
+                font-family: Montserrat
+
+        .list-group-item
+            border: none
+            background-color: white
+
+            .div_wrap
+                padding: 5px    
+                
+                h4
+                    margin: auto 0 auto 0
+                    font-size: 10px
+                    font-family: Montserrat
+                    text-transform: capitalize
+
+
+
+
+
+
+// Form section
+#customServiceSection.hide
+    background-color: transparent
+    height: 0
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    opacity: 0
+
+#customServiceSection
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    height: fit-content
+    margin: 0
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: 100%
+
+    @include desktop_md
+        margin: 0 auto 0 auto
+        width: 95%
+        
+
+    #myCustomServiceForm.hide
+        background-color: transparent
+        height: 0
+        -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+        transition: all 2s
+        opacity: 0
+
+    #myCustomServiceForm
+        background-color: white
+        -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+        transition: all 2s
+        border-radius: 2px
+        box-shadow: 0 0 7px rgba(0, 0, 0, .3)
+        padding: 1em
+        width: 70%
+        border: none
+
+        @include desktop_md
+            width: 100%
+
+        #form_header
+            h4
+                font-weight: bold
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandSuccess)
+ 
+        .form-group
+            margin: 0 0 2em 0
+
+
+            input
+
+                font-size: 10px
+                font-family: Montserrat
+
+            .btn
+                font-size: 10px
+                font-family: Montserrat
+                background-color: brandColor(brandDark)
+                color: brandColor(brandLight)
+
+
+
+
+
+
+// Add Task Section
+#addTaskSection.hide
+    background-color: transparent
+    height: 0
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    opacity: 0
+
+#addTaskSection
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    height: fit-content
+    margin: 0
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: 100%
+
+    @include desktop_md
+        margin: 0 auto 0 auto
+        width: 95%
+       
+
+    #defineTaskForm.hide
+        background-color: transparent
+        height: 0
+        -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+        transition: all 2s
+        opacity: 0
+
+    #mydefineTaskForm
+        background-color: white
+        -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+        transition: all 2s
+        border-radius: 2px
+        box-shadow: 0 0 7px rgba(0, 0, 0, .3)
+        padding: 1em
+        width: 70%
+
+        @include desktop_md
+            width: 100%
+
+        #head
+
+            h4
+                font-size: 11px
+                font-family: Montserrat
+
+                span
+                    text-transform: capitalize
+                    color: color(orangeTheme)
+
+        input
+            font-size: 12px
+            font-family: Montserrat
+            margin: .5em 0
+            cursor: pointer
+
+            &:hover
+                border: solid 1px brandColor(brandPrimary)
+        
+        select
+            text-transform: capitalize
+            font-size: 12px
+            font-family: Montserrat
+            margin: .5em 0
+            cursor: pointer
+            
+            &:hover
+                border: solid 1px brandColor(brandPrimary)
+
+        .btn
+            font-size: 10px
+            font-family: Montserrat
+
+
+// List Add Teams
+
+#listAddTeams.hide
+    background-color: transparent
+    height: 0
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    opacity: 0
+
+#listAddTeams
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    margin: 0
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: 100%
+
+    @include desktop_md
+        margin: 0 auto 0 auto
+        width: 95%
+        
+
+    #myAddTeamForm
+        background-color: white
+        border-radius: 2px
+        box-shadow: 0 0 7px rgba(0, 0, 0, .3)
+        padding: 1em
+        width: 70%
+        border: none
+
+        #form_header
+            h4
+                font-weight: bold
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandPrimary)
+
+        @include desktop_md
+            width: 100%
+
+        .input-group-text
+            font-size: 10px
+            font-family: Montserrat
+
+        input
+            font-size: 10px
+            font-family: Montserrat      
+
+    .list-group
+        box-shadow: 0 0 5px rgba(0,0,0,.3)
+        border-radius: 2px
+        width: 70%
+
+        @include desktop_md
+            width: 100%
+
+        .list-group-item
+            padding: 5px
+            border: solid 1px white
+            background-color: whitesmoke
+            margin: auto 0 auto 0    
+
+            h4
+                margin: auto 0 auto 0 
+                font-size: 10px
+                font-family: Montserrat
+
+            .btn-wrap
+                margin: 0 0 0 auto
+
+                button
+                    fa
+                        margin: 0 .5em 0 .5em
+                        font-size: 10px
+                        font-family: Montserrat
+                        text-transform: capitalize
+                        &[name=pencil]
+                            color: brandColor(brandPrimary)
+                        &[name=trash]
+                            color: brandColor(brandDanger)
+    
+    .editTeamModal
+        .modal-header
+            background-color: brandColor(brandPrimary)
+            .modal-title
+                font-size: 15px
+                font-family: Montserrat
+
+                span
+                    margin: 0 .5em 0 .5em
+                    color: white
+                    text-transform: uppercase
+               
+
+        .modal-body
+            font-size: 12px
+            font-family: Montserrat
+
+            input
+                font-size: 10px
+                font-family: Montserrat  
+
+        .modal-footer
+            .btn-cancel
+                background-color: brandColor(brandSecondary)
+                font-size: 10px
+                font-family: Montserrat
+            .btn-confirm
+                background-color: brandColor(brandSuccess)
+                font-size: 10px
+                font-family: Montserrat
+
+
+    .deleteTeamModal   
+        .modal-header
+            background-color: brandColor(brandDanger) !important
+            .modal-title
+                font-size: 15px
+                font-family: Montserrat
+               
+
+        .modal-body
+            font-size: 12px
+            font-family: Montserrat
+            text-align: center
+
+            p
+                color: black
+
+                span
+                    text-transform: capitalize
+                    margin: 0 .2em 0 .2em
+                    color: brandColor(brandPrimary)
+                    text-transform: uppercase
+
+
+        .modal-footer
+            .btn-cancel
+                background-color: brandColor(brandSecondary)
+                font-size: 10px
+                font-family: Montserrat
+            .btn-confirm
+                background-color: brandColor(brandDanger)
+                font-size: 10px
+                font-family: Montserrat
+
+
+
+
+
+
+
+
+
+
+
+// List Add Sales Category
+
+#listAddSalesCategory.hide
+    background-color: transparent
+    height: 0
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    opacity: 0
+
+#listAddSalesCategory
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    margin: 0
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: 100%
+
+    @include desktop_md
+        margin: 0 auto 0 auto
+        width: 95%
+        
+
+    #myAddSalesCategoryForm
+        background-color: white
+        border-radius: 2px
+        box-shadow: 0 0 7px rgba(0, 0, 0, .3)
+        padding: 1em
+        width: 70%
+        border: none
+
+        #form_header
+            h4
+                font-weight: bold
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandWarning)
+
+        @include desktop_md
+            width: 100%
+
+        .input-group-text
+            font-size: 10px
+            font-family: Montserrat
+
+        input
+            font-size: 10px
+            font-family: Montserrat      
+
+    .list-group
+        box-shadow: 0 0 5px rgba(0,0,0,.3)
+        border-radius: 2px
+        width: 70%
+
+        @include desktop_md
+            width: 100%
+
+        .list-group-item
+            padding: 5px
+            border: solid 1px white
+            background-color: whitesmoke
+            margin: auto 0 auto 0    
+
+            h4
+                margin: auto 0 auto 0 
+                font-size: 10px
+                font-family: Montserrat
+
+            .btn-wrap
+                margin: 0 0 0 auto
+
+                button
+                    fa
+                        margin: 0 .5em 0 .5em
+                        font-size: 10px
+                        font-family: Montserrat
+                        text-transform: capitalize
+                        &[name=pencil]
+                            color: brandColor(brandPrimary)
+                        &[name=trash]
+                            color: brandColor(brandDanger)
+
+
+    .editSalesCatModal
+        .modal-header
+            background-color: brandColor(brandPrimary)
+            .modal-title
+                font-size: 15px
+                font-family: Montserrat
+
+                span
+                    margin: 0 .5em 0 .5em
+                    color: white
+                    text-transform: uppercase
+               
+
+        .modal-body
+            font-size: 12px
+            font-family: Montserrat
+
+            input
+                font-size: 10px
+                font-family: Montserrat  
+
+        .modal-footer
+            .btn-cancel
+                background-color: brandColor(brandSecondary)
+                font-size: 10px
+                font-family: Montserrat
+            .btn-confirm
+                background-color: brandColor(brandSuccess)
+                font-size: 10px
+                font-family: Montserrat
+
+
+
+    .deleteSalesCatModal  
+        .modal-header
+            background-color: brandColor(brandDanger) !important
+            .modal-title
+                font-size: 15px
+                font-family: Montserrat
+               
+
+        .modal-body
+            font-size: 12px
+            font-family: Montserrat
+            text-align: center
+
+            p
+                color: black
+
+                span
+                    text-transform: capitalize
+                    margin: 0 .2em 0 .2em
+                    color: brandColor(brandPrimary)
+                    text-transform: uppercase
+
+
+        .modal-footer
+            .btn-cancel
+                background-color: brandColor(brandSecondary)
+                font-size: 10px
+                font-family: Montserrat
+            .btn-confirm
+                background-color: brandColor(brandDanger)
+                font-size: 10px
+                font-family: Montserrat
+
+
+
+
+
+
+
+
+
+// List section
+#list_section.hide
+    background-color: transparent
+    -webkit-transition: all 0s // For Safari 3.1 to 6.0 
+    transition: all 0s
+    height: fit-content
+    opacity: 1
+
+    @include desktop_md
+        opacity: 0
+        height: 0
+        
+
+
+#list_section
+    -webkit-transition: all 2s // For Safari 3.1 to 6.0 
+    transition: all 2s
+    height: fit-content
+    margin: 0 0 1em 0
+    width: 100%
+    background-color: transparent
+
+    @include desktop_md
+        width: 95%
+        margin: 1em auto 1em auto
+            
+
+    #list_title
+        text-align: left
+        h4
+            color: color(nevyBlueTheme)
+            font-size: 12px
+            font-weight: bold
+            font-family: Montserrat
+
+    #custom_service_wrapper
+        // border: solid 2px white
+        padding: 5px
+        background: transparent
+        height: 450px
+        overflow-y: scroll
+
+        .list-group
+            box-shadow: 0 0 5px rgba(0,0,0,.3)
+            border-radius: 2px
+            width: 100%
+            background-color: whitesmoke
+            margin: 0 0 1em 0
+
+            #custom_service_name
+                
+                h4
+                    margin: .5em
+                    color: color(silk)
+                    font-weight: bold
+                    font-size: 12px
+                    font-family: Montserrat
+
+                .btn
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    color: white
+                    margin: .3em 1em .3em .3em 
+                    width: 7em
+                    background-color: brandColor(brandPrimary)
+
+
+            .list-group-item
+                border: none
+                background-color: white
+
+                .div_wrap
+                    padding: 5px    
+                    
+                    h4
+                        margin: auto 0 auto 0
+                        font-size: 10px
+                        font-family: Montserrat
+                        
+

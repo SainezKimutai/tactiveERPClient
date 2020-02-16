@@ -1,0 +1,446 @@
+<!-- Title -->
+<section id="title_section">
+    <h4>Editorial</h4>
+    <p>Create New Project, Tasks and Teams </p>
+</section>
+<!-- <ngx-spinner></ngx-spinner> -->
+
+
+
+
+<!-- div -->
+<div class="row body_section">
+
+<article class="col-md-6">
+
+
+
+
+
+<!-- add Section -->
+<section id="add_section">
+  <div id="add_section_row" class="row">
+
+    <div class="col-4 div_wrap">
+        <button id="btn_teams" class="btn btn-sm" (click)="openTeamForm()">Teams</button>
+      </div>
+
+    <div class="col-4 div_wrap">
+      <button id="btn_sales" class="btn btn-sm" (click)="openSalesCatForm()">Sales Categories</button>
+    </div>
+
+    <div class="col-4 div_wrap">
+        <button id="btn_services" class="btn btn-sm" (click)="openCustomServiceForm()">Custom Service</button>
+      </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+<!-- Preview section -->
+<section id="preview_section" [ngClass]="previewSectionStatus ? '' : 'hide'">
+
+    <!-- List the project and its Tasks-->
+    <ul class="list-group">
+  
+        <div id="service_name">
+          <h4>{{namedCustomService}}</h4>
+        </div>
+        <!-- List of Task -->
+        <li class="list-group-item d-flex p-0" *ngFor="let Task of Tasks">
+          
+          <div class="d-flex col-6 div_wrap">
+              <h4 class="">{{Task.taskName}}</h4>
+          </div>
+  
+          <div class="d-flex col-6 div_wrap">
+              <h4>{{Task.assignedTeam}}</h4>
+          </div>
+        
+        </li>
+  
+    </ul>
+  
+  </section>
+
+
+
+
+
+
+
+
+<!-- Form Section -->
+<section id="customServiceSection" [ngClass]="customServiceSectionStatus ? '' : 'hide'">
+
+    <!-- Define Custom Service -->
+  <form id="myCustomServiceForm"  #myCustomServiceForm='ngForm' [formGroup]="customServiceForm" [ngClass]="customServiceFormStatus ? '' : 'hide'">
+
+    <div id="form_header">
+      <h4>Add Custom Service</h4>
+    </div>
+
+      <div class="form-group">
+          <div class="input-group input-group-sm">
+    
+              <input type="text" #customServiceInput class="form-control"
+              formControlName="customServiceName" [class.is-invalid]="formCustomService.customServiceName.invalid && formCustomService.customServiceName.touched"
+              required placeholder="Service Name">
+            
+          </div>
+      </div>
+
+
+      <div class="form-group">
+
+        <div class="input-group input-group-sm">
+  
+            <input #serviceTargetRevInput type="number" class="form-control"
+            formControlName="targetRevenue" min="1" [class.is-invalid]="formCustomService.targetRevenue.invalid && formCustomService.targetRevenue.touched"
+            required placeholder="Service Target Revenue">
+        
+          <div class="input-group-append">
+            <button [disabled]="!customServiceForm.valid" class="btn btn-sm btm-warning input-group-text" (click)="moveToTaskForm()">Next</button>
+          </div>
+          
+        </div>
+      </div>
+
+
+  </form>
+
+</section>
+
+
+
+
+
+
+
+<!-- Define Tasks Section -->
+<section id="addTaskSection" [ngClass]="addTaskSectionStatus ? '' : 'hide'">
+
+  <!-- Define Tasks -->
+  <form id="mydefineTaskForm" #mydefineTaskForm='ngForm' [formGroup]="defineTaskForm"  [ngClass]="defineTaskFormStatus ? '' : 'hide'">
+
+      <div id="head">
+        <h4>Creating and asigning task to service <span>{{namedCustomService}}</span></h4>
+      </div>
+
+      <div class="form-group">
+          <input type="text" #taskDefineInput class="form-control"
+          formControlName="taskName" [class.is-invalid]="formAddTask.taskName.invalid && formAddTask.taskName.touched" 
+          required placeholder="Task" (focusout)="moveToRevenueInput()">
+      </div>
+  
+      <div class="form-group">
+          <select type="text" class="form-control" #assignTeamToTask
+          formControlName="assignedTeam"
+           required>
+       
+            <option value="" disabled selected hidden >Asign Team</option>
+            <option *ngFor="let Team of Teams" value='{{Team.name}}'>{{Team.name}}</option>
+         
+          </select> 
+      </div>
+
+      <div class="d-flex">
+          <button [disabled]="!defineTaskForm.valid" class="btn btn-sm btn-secondary mr-auto" (click)="addAnotherTask()">Save Add Another Tasks</button>
+          <button [disabled]="!defineTaskForm.valid" class="btn btn-sm btn-success mx-auto" (click)="saveAndClose()">Save and Close</button>
+      </div>
+
+     
+  
+  </form>
+
+
+</section>
+
+
+
+
+
+
+
+ <!-- list Add Teams -->
+<section id="listAddTeams"  [ngClass]="listAddTeamStatus ? '' : 'hide'">
+
+
+  <form id="myAddTeamForm" #myAddTeamForm='ngForm' [formGroup]="addNewTeamForm"   class="form">
+
+      <div id="form_header">
+          <h4>Teams</h4>
+      </div>
+
+
+    <div class="form-group">
+      <div class="input-group input-group-sm">
+
+          <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+          formControlName="teamName" [class.is-invalid]="formAddNewTeam.teamName.invalid && formAddNewTeam.teamName.touched" required placeholder="Type">
+      
+        <div class="input-group-append">
+          <button [disabled]="!addNewTeamForm.valid" class="btn btn-sm btm-warning input-group-text" (click)="addTeam()">Add New Team</button>
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+
+  <ul class="list-group">
+      <!-- List of Teams -->
+      <li class="list-group-item d-flex" *ngFor="let Team of Teams">
+        <h4>{{Team.name}}</h4>
+        <div class="btn-wrap">
+            <button class="btn btn-sm" data-toggle="modal" (click)="editTeamModal.show(); identifyTeamToBeEdited(Team)">
+                <fa name="pencil"></fa>
+            </button>
+            <button [disabled]="!toAdmin" class="btn btn-sm" data-toggle="modal" (click)="deleteTeamModal.show(); identifyTeamToBeDeleted(Team)">
+                <fa name="trash"></fa>
+            </button>
+        </div>
+        
+      </li>
+
+  </ul>
+
+
+
+  <div bsModal #editTeamModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog editTeamModal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" *ngIf="teamToBeEdited">You are Editing<span>{{teamToBeEdited.name}}</span></h4>
+            <button type="button" class="btn close" (click)="editTeamModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form" [formGroup]="editTeamForm">
+              <div class="form-group">
+                  <input type="text" class="form-control"
+                  formControlName="name" [class.is-invalid]="formEditTeam.name.invalid && formEditTeam.name.touched">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" (click)="editTeamModal.hide()">No</button>
+            <button type="button" [disabled]="!editTeamForm.valid"class="btn btn-confirm" (click)="editTeam(); editTeamModal.hide()">YES</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+  <div bsModal #deleteTeamModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog deleteTeamModal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Are you sure ?</h4>
+            <button type="button" class="btn close" (click)="deleteTeamModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" *ngIf="teamToBeDeleted">
+            <p>You are about to delete<span>{{teamToBeDeleted.name}}</span></p>
+            <p>This action is IRREVERSIBLE.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" (click)="deleteTeamModal.hide()">No</button>
+            <button type="button" class="btn btn-confirm" (click)="deleteTeam(); deleteTeamModal.hide()">YES</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->  
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+ <!-- list Add Sales Categories -->
+ <section id="listAddSalesCategory"  [ngClass]="listAddSalesCategoryStatus ? '' : 'hide'">
+
+
+    <form id="myAddSalesCategoryForm" #myAddSalesCategoryForm='ngForm' [formGroup]="addSalesCategoryForm"   class="form">
+  
+        <div id="form_header">
+            <h4>Sales Stages</h4>
+        </div>
+  
+  
+      <div class="form-group">
+        <div class="input-group input-group-sm">
+  
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+            formControlName="name" [class.is-invalid]="formAddSalesCategory.name.invalid && formAddSalesCategory.name.touched" required placeholder="Type">
+        
+          <div class="input-group-append">
+            <button [disabled]="!addSalesCategoryForm.valid" class="btn btn-sm btm-warning input-group-text" (click)="addSalesCategory()">Add Sales Category </button>
+          </div>
+  
+        </div>
+      </div>
+  
+    </form>
+  
+    <ul class="list-group">
+        <li class="list-group-item d-flex" *ngFor="let SalesCategory of SalesCategorys">
+          <h4>{{SalesCategory.name}}</h4>
+          <div class="btn-wrap">
+              <button class="btn btn-sm" data-toggle="modal" (click)="identifySalesCatBeEdited(SalesCategory)">
+                  <fa name="pencil"></fa>
+              </button>
+              <button [disabled]="!toAdmin" class="btn btn-sm" data-toggle="modal" (click)="identifySalesCatToBeDeleted(SalesCategory)">
+                  <fa name="trash"></fa>
+              </button>
+          </div>
+        
+        </li>
+  
+    </ul>
+
+
+
+
+
+
+
+    <div bsModal #editSalesCatModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog editSalesCatModal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" *ngIf="salesCategoryToBeEdited">You are Editing<span>{{salesCategoryToBeEdited.name}}</span></h4>
+            <button type="button" class="btn close" (click)="editSalesCatModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form" [formGroup]="editSalesCatForm">
+              <div class="form-group">
+                  <input type="text" class="form-control"
+                  formControlName="name" [class.is-invalid]="formSalesCatTeam.name.invalid && formSalesCatTeam.name.touched">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" (click)="editSalesCatModal.hide()">No</button>
+            <button type="button" [disabled]="!editSalesCatForm.valid"class="btn btn-confirm" (click)="editSalesCategory(); editSalesCatModal.hide()">YES</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+  <div bsModal #deleteSalesCatModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog deleteSalesCatModal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Are you sure ?</h4>
+            <button type="button" class="btn close" (click)="deleteSalesCatModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" *ngIf="salesCategoryToBeDeleted">
+            <p>You are about to delete<span>{{salesCategoryToBeDeleted.name}}</span></p>
+            <p>This action is IRREVERSIBLE.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" (click)="deleteSalesCatModal.hide()">No</button>
+            <button type="button" class="btn btn-confirm" (click)="deleteSalesCategory(); deleteSalesCatModal.hide()">YES</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->  
+
+
+
+
+
+
+
+
+
+  
+  </section>
+  
+
+
+
+
+
+
+
+
+
+</article>
+
+<!-- Article wrap -->
+<article id="listArticle" class="col-md-6">
+
+
+
+
+
+
+
+
+
+<section id="list_section" [ngClass]="listStatus ? '' : 'hide'">
+
+  <div id="list_title">
+     <h4>Our Custom Services</h4>
+  </div>
+
+  <div id="custom_service_wrapper">
+
+
+  <!-- Listing of the Projects and tasks -->
+  <ul class="list-group" *ngFor='let Service of Services'>
+
+      <div id="custom_service_name" class="d-flex">
+        <h4>{{Service.serviceName}}</h4>
+        <button class="btn btn-sm ml-auto" (click)="editCustomService(Service._id)">Edit</button>
+      </div>
+      
+      <!-- List of Task -->
+      <li class="list-group-item d-flex p-0" *ngFor='let task of Service.task'>
+        
+        <div class="d-flex col-6 div_wrap">
+            <h4 class="">{{task.taskName}}</h4>
+        </div>
+
+        <div class="d-flex col-6 div_wrap">
+            <h4>{{task.assignedTeam}}</h4>
+        </div>
+      
+      </li>
+
+
+
+  </ul>
+  </div>
+
+</section>
+</article>
+
+
+
+
+</div>

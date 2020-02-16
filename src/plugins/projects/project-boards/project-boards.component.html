@@ -1,0 +1,146 @@
+
+<!-- Title Section -->
+<section id="title_section" class="">
+  <h4>Projects</h4>
+  <p>Track performance and progress of all active projects</p>
+</section>
+
+
+
+
+<!-- Body Section -->
+<section class="body_section">
+
+
+
+
+
+<!-- Search Section -->
+<section id="search_section">
+  <form class="form form-inline mr-auto">
+
+    <input type="text" class="form-control form-control-sm">
+    <fa name="search"></fa>
+
+  </form>
+  <button class="btn btn-sm ml-auto" (click)="openAddLocalProjectModal()">Add Local Project</button>
+</section>
+
+
+
+
+
+
+<!-- Cards Sections -->
+<section id="card_section" class="card-group"  *ngIf="Projects">
+
+    <div class="card mx-auto" *ngFor="let Project of Projects" (click)="toModifyCard(Project._id)">
+      
+        <div class="card-body" >    
+
+            <fa hidden name="comment" class="float-right text-secondary mr-2"></fa>
+
+            <div class="card-img">
+                <img src="assets/images/logo.png" alt="card-logo">
+                
+            </div>   
+            
+            
+            
+            <div id="clientName" class="card-text">{{Project.clientName}}</div>
+            <div id="projectName" class="card-text">{{Project.projectName}}</div>
+            <div id="revenue" class="card-text">{{Project.revenue | currency:'KSH ':'symbol-narrow':'1.0-0'}}</div>
+            <div id="rateWarp" class="clearfix">
+                    <fa id="rate1" name="star" [ngClass]="Project.priority >= '1' ? 'rateColor' : ''"></fa>
+                    <fa id="rate2" name="star" [ngClass]="Project.priority >= '2' ? 'rateColor' : ''"></fa>
+                    <fa id="rate3" name="star" [ngClass]="Project.priority >= '3' ? 'rateColor' : ''"></fa>
+            </div>
+            
+            
+
+            <div class="d-flex justify-content-end">
+                <span class="fetched-data">{{Project.progress}}%</span>
+            </div>
+           
+            <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" 
+                  [style.width.%]="Project.progress"></div>              
+           </div>
+
+           <div id="timeLineDiv" class="clearfix d-flex">
+                <h4 class="mr-auto" *ngIf="Project.projectStartDate">Start: <span>
+                  {{Project.projectStartDate.day}} /
+                  {{Project.projectStartDate.month}} /
+                  {{Project.projectStartDate.year}}
+                </span> </h4>
+                <h4 class="ml-auto" *ngIf="Project.projectEndDate">End: <span>
+                  {{Project.projectEndDate.day}} /
+                  {{Project.projectEndDate.month}} /
+                  {{Project.projectEndDate.year}}
+                </span> </h4>
+           </div>
+     
+           
+            
+        </div>
+        
+  </div>
+
+
+
+</section>
+
+
+<!-- End of Body Section -->
+</section>
+
+
+
+
+
+
+
+
+
+<div bsModal #localProjectModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog localProjectModal modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> Add Local Project </h4>
+        <button type="button" class="btn close" (click)="localProjectModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+              <form id="addNewProjectForm" [formGroup]="newProjectForm" class="form">
+
+                <!-- Project Name -->
+                <div class="form-group">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-sm">Project Name</span>
+                        </div>
+                        <input #projectName type="text"  aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                        formControlName="projectName" [class.is-invalid]="formNewProject.projectName.invalid && formNewProject.projectName.touched">
+                    </div>
+                </div>
+
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-confirm" (click)=" addLocalProject()">ADD</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+

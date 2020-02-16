@@ -1,0 +1,1153 @@
+@import "src/styles.sass"
+
+@keyframes appear
+    50% 
+        opacity: 0
+    100%
+        opacity: 1
+
+// ------------------------------------------------
+
+// Title Section
+#title_section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+
+    .head-wrap
+        h4
+            color: themeColor(info)
+            font-size: 14px
+            font-weight: bold
+            text-transform: uppercase
+        
+        p
+            color: color(silk)
+            font-family: Montserrat
+            font-size: 10px
+            padding: 0
+            margin: 0
+
+    .btn-wrap
+        display: flex
+        width: 100%
+
+        .btn
+            color: black
+            margin: auto
+            border: none
+            width: 10em
+            font-size: 10px
+            font-size: 10px
+            font-family: Montserrat
+            box-shadow:  2px 2px 0px whitesmoke
+            -moz-box-shadow:  2px 2px 0px whitesmoke
+            -webkit-box-shadow:  2px 2px 0px whitesmoke
+            -ms-box-shadow:  2px 2px 0px whitesmoke
+            -o-box-shadow:  2px 2px 0px whitesmoke
+            text-transform: uppercase
+                
+
+            &.btn-note
+                &:hover
+                    background-color: brandColor(brandPrimary)
+                    color: white
+                    
+            &.btn-email
+                &:hover
+                    background-color: brandColor(brandSuccess)
+                    color: black
+            
+            &.btn-event
+                &:hover
+                    background-color: orange
+                    color: white
+
+
+
+
+
+.body_section
+    margin: 1em
+    background-color: transparent
+
+
+.addNewOppModal, .addNewStageModal
+    .modal-header
+        background-color: brandColor(brandSuccess)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+
+        .form-group
+            padding: .5em
+            margin: 0
+
+            .input-group-text
+                font-size: 10px
+                background-color: white
+                border: none
+                width: 10em
+
+            input
+                background-color: white
+                font-family: Montserrat
+                font-size: 10px
+                color: color(info)
+                border: none
+                border-radius: 4px
+                border-bottom: solid 1px color(secondary)
+                cursor: pointer
+                outline: none 
+
+                &:hover
+                    border-bottom: solid 1px brandColor(brandPrimary)
+                
+                &:focus
+                    outline: none              
+
+            
+            select
+                background-color: white
+                font-family: Montserrat
+                font-size: 10px
+                color: color(info)
+                border: none
+                border-radius: 4px
+                border-bottom: solid 1px color(secondary)
+                cursor: pointer
+                outline: none 
+
+                &:hover
+                    border-bottom: solid 1px brandColor(brandPrimary)
+                
+                &:focus
+                    outline: none
+
+            #radio_wrap
+                padding: auto
+                margin: 0 2em 0 0
+                font-size: 12px
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandSuccess)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+
+
+
+.pipeline-section
+    border: solid 1px grayColor(g200)
+    border-radius: 5px
+    background-color: transparent
+    margin: 0
+    padding: 0 1em 0 1em
+
+    .gen-pipeline, .my-pipeline
+        width: 10em
+        font-size: 12px
+        font-family: Montserrat
+        margin: 0 1em 0 0
+        border: none
+        border-radius: 2px
+        background-color: grayColor(g300)
+        outline: none
+
+        &:hover
+            background-color: grayColor(g400)
+        
+        &.notCurrent
+            border-bottom: none
+
+        &.current
+            border-bottom: solid 2px color(warning)
+
+
+
+
+
+#kanban_section    
+    font-size 11px
+    background-color: transparent
+    border: none
+    padding: 0
+    overflow-y: scroll
+    padding: 1em
+    
+    article
+        background-color: transparent
+        height: fit-content
+        min-width: 250px
+        width: 50%
+        border: none
+        margin: 0 2em 0 0
+            
+
+        #head
+            margin: 0 0 0 0
+            border: none
+            // box-shadow: 0 0 5px rgba(0,0,0,.3)
+            width: 100%         
+            height: 30px
+            position: relative
+
+            &.first-category
+                background-color: lighten(themeColor(info), 5%)
+
+                &:after
+                    content: ''
+                    position: absolute
+                    right: -15px
+                    bottom: 0
+                    width: 0
+                    height: 0
+                    border-left: 15px solid lighten(themeColor(info), 5%)
+                    border-top: 15px solid transparent
+                    border-bottom: 15px solid transparent
+                    
+
+            &.middle-category
+                background-color: themeColor(info)
+
+                &:before
+                    content: ''
+                    position: absolute
+                    left: 0px          
+                    bottom: 0
+                    width: 0
+                    height: 0
+                    border-left: 15px solid grayColor(g200)
+                    border-top: 15px solid transparent
+                    border-bottom: 15px solid transparent
+
+                &:after
+                    content: ''
+                    position: absolute
+                    right: -15px
+                    bottom: 0
+                    width: 0
+                    height: 0
+                    border-left: 15px solid themeColor(info)
+                    border-top: 15px solid transparent
+                    border-bottom: 15px solid transparent
+
+            &.last-category
+                background-color: brandColor(brandSuccess)
+
+                &:before
+                    content: ''
+                    position: absolute
+                    left: 0px
+                    bottom: 0
+                    width: 0
+                    height: 0
+                    border-left: 15px solid grayColor(g200)
+                    border-top: 15px solid transparent
+                    border-bottom: 15px solid transparent
+
+
+
+
+            &:hover
+                button fa
+                    opacity: 1
+    
+            
+            .info-div    
+                margin: 4px  
+                width: 75% 
+
+                h4
+                    margin: 1em 0 auto 1em
+                    // color: black
+                    font-size: 10px
+                    font-weight: bold
+                    font-family: Montserrat
+                    text-transform: uppercase
+                    letter-spacing: 2px
+
+            .form
+                margin: 4px  
+                width: 75% 
+
+                input
+                    font-size: 12px
+                    color: grayColor(g700)
+                    font-weight: bold
+                    font-family: Montserrat
+                    background-color: grayColor(g200)
+
+
+
+            button
+                margin: auto 0 auto 0     
+                cursor: pointer
+
+                fa
+                    font-size: 11px
+                    color: brandColor(brandSecondary)
+                    opacity: 0
+
+                fa[name=check]
+                    font-size: 16px
+                    color: lime
+                    text-shadow: 0 0 5px rgba(0,0,0,.3)
+                    opacity: 1
+
+                fa[name=times]
+                    font-size: 16px
+                    color: brandColor(brandDark)
+                    text-shadow: 0 0 5px rgba(0,0,0,.3)
+                    opacity: 1
+                
+
+        #totals
+            background-color: white
+            padding: .5em
+            margin: 0 0 0 0
+            border: none
+            border-top: none
+            
+            h4
+                margin: auto 0 auto 0
+                color: color(info)
+                font-size: 10px
+                font-family: Montserrat
+                text-transform: uppercase
+                letter-spacing: 2px
+                color: grayColor(g500)
+
+                span
+                    // text-shadow: 2px 2px 1px rgba(0,0,0,.3)
+                    margin: auto .5em auto .5em
+                    font-size: 10px
+                    font-weight: bold
+                    color: color(orangeTheme)
+                    cursor: pointer
+
+        #add_deal_div
+
+            .btn
+                width: 100%
+                background-color: transparent
+
+                // &:hover
+                //     background-color: brandColor(brandInfo)
+
+                fa
+                    color: white
+                    font-size: 14px
+
+            &.first-category .btn:hover
+                background-color: lighten(themeColor(info), 5%)
+            &.middle-category .btn:hover
+                background-color: brandColor(brandInfo)
+            &.last-category .btn:hover
+                background-color: brandColor(brandSuccess)
+
+
+
+            
+
+        .card-group
+            min-height: 140px
+            height: fit-content
+            max-height: 500px
+            padding: 1em 0 0 0
+            display: grid
+            grid-template-columns: repeat(1, 1fr)
+            grid-gap: 0px
+            // display: flex
+            // flex-direction: column
+            background-color: transparent
+            box-shadow: 0 0 5px rgba(0,0,0,.3)
+            overflow-x: scroll
+
+
+            &.hovered
+                box-shadow: 0 0 5px brandColor(brandPrimary)
+                border: solid 1px brandColor(brandPrimary)
+
+            .card
+                background-color: white
+                padding: .5em
+                margin: 0 0 1em 0 
+                border: solid 1px grayColor(g300)
+                border-radius: 2px
+                cursor: pointer
+                width: 100%
+
+                &:hover
+                    border: solid 2px brandColor(brandPrimary)
+
+                &.hovered-on-drag
+                    margin: 140px 0 0 0 
+
+                &.beingDragged
+                    border: solid 2px brandColor(brandWarning)
+                    opacity: 1
+
+                .card-body
+                    display: flex
+                    align-items: stretch
+                    padding: 0
+
+                    .card-info-div
+                        width: 70%
+                        flex-direction: column
+                        align-items: flex-start
+
+                        .clientN
+                            font-family: Montserrat
+                            font-size: 10px
+                            color: themeColor(info)
+                            margin: 0 0 1em 0
+
+                            &:hover
+                                color: brandColor(brandPrimary)
+                                zoom: 1.1
+                                font-weight: bold
+                                text-decoration: underline
+                                text-transform: uppercase
+
+                        .projectN
+                            font-family: Montserrat
+                            font-size: 10px
+                            color: color(secondary)
+                            margin: 0 0 1em 0
+                            
+
+                        .revenue
+                            font-family: Montserrat
+                            font-size: 10px
+                            color: color(silk)
+                            margin: 0 0 1em 0
+                        
+                        .rateWarp
+                            font-size: 10px
+                            color: gray
+                            margin: 0 0 1em 0
+
+                            .rateColor
+                                color: color(orangeTheme)  
+
+
+                    .card-icon-div
+                        display: none
+
+                    &:hover .card-icon-div
+                        width: 30%
+                        display: flex
+                        flex-direction: column
+                        align-items: flex-end
+
+                        .btn
+                            margin: 0
+                            float: right      
+                            width: fit-content
+                            padding: 0 .5em 0 1em
+                            
+                            &:hover
+                                fa
+                                    color: brandColor(brandPrimary)
+                            fa
+                                font-size: 10px
+                                margin: 0
+                                color: brandColor(brandSecondary)
+
+                .card-footer
+                    margin: .3em 0 0 0
+                    padding: .4em 0 0 0
+                    h4
+                        font-family: Montserrat
+                        font-size: 10px
+                        color: color(secondary)
+
+                        &:hover
+                            color: black
+                            text-decoration: underline
+                            font-size: 12px
+                            font-weight: bold
+
+                        &.schedule
+                            cursor: pointer
+
+                            &:hover
+                                color: brandColor(brandPrimary)
+                                zoom: 1.1
+                                font-weight: bold
+                                text-decoration: underline
+                                
+                        span
+                            color: brandColor(brandPrimary)
+                            font-weight: bold
+                            text-shadow: 0 0 3px rgba(0,0,0,.3)
+
+                        .dropdown-menu
+                            border: solid 1px grayColor(g200)
+                            border-radius: 5px
+                            padding: 1em
+                            background-color: brandColor(brandInfo)
+
+                            h4
+                                font-size: 11px
+                                color: black
+
+
+
+
+.list-section
+    background-color: white
+    border-radius: 5px
+    margin: 1em 0 0 0
+
+
+    .list-title
+        display: flex
+        align-items: stretch
+        background-color: themeColor(info)
+        padding: 1em
+
+        .list-title-wrap
+            width: 100%
+
+            h4
+                font-size: 12px
+                font-family: Montserrat 
+                text-transform: capitalize
+
+    .list-item   
+        display: flex
+        align-items: stretch
+        padding: 1em
+        margin: 0 0 .5em 0
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .1)
+
+        .list-item-wrap
+            width: 100%
+
+            h4
+                font-size: 12px
+                font-family: Montserrat 
+                text-transform: capitalize
+
+
+.clientDetailModal
+
+    .modal-header
+        background-color: themeColor(info)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+        
+        .info-div
+            display: flex
+            align-items: stretch
+            border-bottom: solid 1px grayColor(g200)
+
+            .company-name
+                margin: 0 0 0 1em
+                width: 50%
+                font-family: Montserrat
+                font-size: 10px
+                span
+                    font-size: 14px
+                    color: color(warning)
+            .manager
+                margin: 0 1em 0 0
+                width: 50%
+                font-size: 10px
+                font-family: Montserrat
+
+                span
+                    font-size: 14px
+                    color: color(warning)
+
+
+        
+        .contact-div
+            border-radius: 5px
+            background-color: grayColor(g200)
+            margin: 1em
+            padding: 1em
+            
+            .phone, .altPhone, .email, .website
+                font-size: 10px
+                font-family: Montserrat
+                margin: 0 0 1em 0
+
+                span
+                    font-size: 11px
+                    color: color(warning)
+        
+
+        
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandInfo)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+
+
+
+.clientEditModal
+    .modal-header
+        background-color: themeColor(info)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+        
+        form
+            display: flex
+            align-items: stretch
+
+            .info-div
+                display: flex
+                align-items: stretch
+                width: 50%
+                padding: .5em 0 .5em
+                margin: 0 0 1em 0
+
+                .title
+                    font-size: 12px
+                    font-family: Montserrat
+                    width: 30%
+                .value
+                    font-size: 10px
+                    font-family: Montserrat
+                    width: 30%
+                    color: brandColor(brandWarning)
+                .btn
+                    font-size: 10px
+                    font-family: Montserrat
+                    width: 5rem
+
+                    &:hover
+                        fa
+                            color: brandColor(brandPrimary)
+
+                    fa
+                        font-size: 10px
+
+
+            .input-group
+                width: 50%
+
+                input
+                    // font-size: 10px
+                    font-family: Montserrat
+
+                .input-group-append
+                    // font-size: 10px
+
+                    .btn
+                        // font-size: 10px
+                        font-family: Montserrat
+                        background-color: brandColor(brandSuccess)
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandSuccess)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+.mailToClientModal
+    .modal-header
+        background-color: themeColor(info)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+        
+        form
+            .sender, .reciever    
+                display: flex
+                align-items: stretch
+                margin: 0 1em 1em 0
+                
+                h4
+                    font-size: 12px
+                    font-family: Montserrat
+                    width: 60px
+                    margin: 0 0 0 0 
+                
+                h5 
+                    font-size: 12px
+                    font-family: Montserrat
+                    margin: 0
+                    padding: 0
+
+            .subject-div
+                display: flex
+                align-items: stretch
+
+                h4
+                    font-size: 12px
+                    font-family: Montserrat
+                    width: 60px
+                    margin: auto 1em auto 0
+
+                input
+                    font-size: 12px
+                    font-family: Montserrat
+                    margin: auto 0
+
+                    span
+                        font-size: 10px
+                        margin: 0 0 0 1em
+
+            .body-div
+                margin: 1em 0 1em 0
+                
+                textarea
+                    border-radius: 5px
+                    font-size: 12px
+                    font-family: Montserrat
+                    background-color: grayColor(g100)
+                    width: 100%
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandSuccess)
+            font-size: 10px
+            font-family: Montserrat
+
+.writeNoteModal
+    .modal-header
+        background-color: themeColor(info)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+        
+        form
+            label
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandPrimary)
+
+            input
+                font-size: 12px
+                font-family: Montserrat
+                margin: auto 0
+
+            
+            textarea
+                border-radius: 5px
+                font-size: 12px
+                font-family: Montserrat
+                background-color: grayColor(g100)
+                width: 100%
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandSuccess)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+.listNoteModal
+    .modal-header
+        background-color: themeColor(info)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+        
+        .head-div
+            background-color: brandColor(brandSecondary)
+            font-size: 14px
+            font-family: Montserrat
+            color: color(Primary)
+            padding: 1em .5em 1em .5em
+
+            h4
+                font-size: 12px
+                font-family: Montserrat
+                margin: auto 0
+                width: 100%
+
+        .list-div  
+            margin: .2em 0 .2em 0        
+            padding: 1em .5em 1em .5em
+            cursor: pointer
+
+            &:hover
+                border: solid 1px brandColor(brandInfo)
+            .title
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandPrimary)
+                width: 100%
+            
+            .content
+                font-size: 10px
+                font-family: Montserrat
+                margin: auto 2em auto 0
+                width: 100%
+                white-space: nowrap
+                overflow: hidden !important
+                text-overflow: ellipsis
+
+            .project
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandPrimary)
+                width: 100%
+
+            .writtenBy
+                font-size: 10px
+                font-family: Montserrat
+                // color: brandColor(brandSecondary)
+                font-style: italic
+                width: 100%
+
+    .modal-footer
+        .btn-close
+            background-color: themeColor(info)
+            font-size: 10px
+            font-family: Montserrat
+
+
+.detailNoteModal
+    .modal-header
+        background-color: brandColor(brandPrimary)
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+            text-align: center
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+        
+        .head-div
+            text-align: center            
+            padding: 1em .5em 1em .5em
+
+            h4
+                font-size: 12px
+                font-family: Montserrat
+                color: color(primary)
+                margin: auto 0
+            h5
+                font-size: 12px
+                font-family: Montserrat
+                margin: auto 0
+        .content-div
+            margin: 0 1em 0 1em
+            padding: 1em
+            border-radius: 5px
+            font-size: 12px
+            font-family: Montserrat
+            background-color: grayColor(g100)
+            width: 96%
+            height: 350px
+            
+        
+        .blockquote
+            margin: 0 1em 0 1em
+            padding: 1em
+
+            .blockquote-footer
+                font-size: 10px
+                font-family: Montserrat
+                color: color(info)
+                font-style: italic
+
+                span
+                    font-size: 10px
+                    font-family: Montserrat
+                    color: color(warning)
+                    font-style: italic
+
+    .modal-footer
+        .btn-close
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+
+        .btn-edit
+            background-color: brandColor(brandPrimary)
+            font-size: 10px
+            font-family: Montserrat
+
+        .btn-delete
+            background-color: brandColor(brandDanger)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+.listSentEmailModal
+    .modal-header
+        background-color: orange
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+
+            span
+                margin: 0 .5em 0 .5em
+                color: white
+                text-transform: uppercase
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+        
+        .head-div
+            background-color: brandColor(brandSecondary)
+            font-size: 14px
+            font-family: Montserrat
+            color: color(Primary)
+            padding: 1em .5em 1em .5em
+
+            h4
+                font-size: 12px
+                font-family: Montserrat
+                margin: auto 0
+                width: 100%
+
+        .list-div  
+            margin: .2em 0 .2em 0        
+            padding: 1em .5em 1em .5em
+            cursor: pointer
+
+            &:hover
+                border: solid 1px brandColor(brandInfo)
+            .sender
+                padding-left: .5em
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandPrimary)
+                width: 100%
+
+            .reciever
+                padding-left: .5em
+                font-size: 12px
+                font-family: Montserrat
+                color: brandColor(brandPrimary)
+                width: 100%
+            
+            .subject
+                font-size: 10px
+                font-family: Montserrat
+                margin: auto 2em auto 0
+                padding-left: .5em
+                width: 100%
+                white-space: nowrap
+                overflow: hidden !important
+                text-overflow: ellipsis
+
+            .sentOn
+                padding-left: .5em
+                font-size: 10px
+                font-family: Montserrat
+                // color: brandColor(brandSecondary)
+                font-style: italic
+                width: 100%
+
+    .modal-footer
+        .btn-close
+            background-color: orange
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+.detailSentEmailModal
+    .modal-header
+        background-color: orange
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+            text-align: center
+
+            span
+                text-shadow: 1px 2px 3px rgba(0,0,0,.2)
+                color: teal
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+        
+        .head-div
+            text-align: center            
+            padding: 1em .5em 1em .5em
+
+            h4
+                font-size: 12px
+                font-family: Montserrat
+                color: color(primary)
+                margin: auto 0
+            h5
+                font-size: 12px
+                font-family: Montserrat
+                margin: auto 0
+        .content-div
+            margin: 0 1em 0 1em
+            padding: 1em
+            border-radius: 5px
+            font-size: 12px
+            font-family: Montserrat
+            background-color: grayColor(g100)
+            width: 96%
+            height: 350px
+            
+        
+        .blockquote
+            margin: 0 1em 0 1em
+            padding: 1em
+
+            .blockquote-footer
+                font-size: 10px
+                font-family: Montserrat
+                color: color(info)
+                font-style: italic
+
+                span
+                    font-size: 10px
+                    font-family: Montserrat
+                    color: color(warning)
+                    font-style: italic
+
+    .modal-footer
+        .btn-close
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+
+        .btn-edit
+            background-color: brandColor(brandPrimary)
+            font-size: 10px
+            font-family: Montserrat
+
+        .btn-delete
+            background-color: brandColor(brandDanger)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+
+
+
+
+
+
+.generate-sales-categories
+    position: fixed
+    bottom: 0px
+    display: flex
+    align-items: stretch
+
+    &.hide
+        display: none
+
+    .gen-category-div
+        height: 4em
+        width: 16em
+        display: flex
+        background-color: teal
+        opacity: .6
+        margin: 0 1em 0 1em
+
+        h4
+            margin: auto
+            color: white
+            font-size: 12px
+            font-family: Montserrat
+
+
+

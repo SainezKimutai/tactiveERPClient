@@ -1,0 +1,326 @@
+@import "src/styles.sass"
+
+
+// ------------------------------------------------
+
+// Title Section
+#title_section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+
+    h4
+        color: themeColor(info)
+        font-size: 14px
+        font-weight: bold
+        text-transform: uppercase
+    
+    p
+        color: color(silk)
+        font-family: Montserrat
+        font-size: 10px
+        padding: 0
+        margin: 0
+
+
+
+
+
+
+.body_section
+    margin: 1em
+    background-color: white
+
+#custom_service_edit_section
+    width: 100%
+    border-radius: 2px
+    box-shadow: 0 0 7px rgba(0, 0, 0, .3)
+
+    @include desktop_lg
+        width: 100%
+
+    .section_title
+        padding: .5em 1em .3em 1em
+        background-color: brandColor(brandSecondary)
+        
+        h4
+            font-size: 10px
+            color: color(nevyBlueTheme)
+            font-weight: bold
+            font-family: Montserrat  
+
+
+    #service_name_form, #target_revenue_form
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .1)
+        margin: 0 0 .2em 0
+
+        .info-wrap
+
+            .name-wrap
+                padding: .5em 0 0 1em  
+                background-color: grayColor(g100)
+                h4
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    margin: 1em auto 
+
+            .value-wrap  
+                padding: .5em 0 0 1em  
+                h4
+                    font-size: 10px
+                    font-family: Montserrat             
+                    margin: 1em auto 
+                    color: black
+
+            .btn-wrap 
+                  
+                .btn-edit
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    margin: 1em auto
+                    background-color: brandColor(brandLight) !important
+                    color: black
+                    width: 7em
+    
+                    &:hover
+                        width: 7em
+                        background-color: brandColor(brandPrimary) !important
+                        border: none
+                        color: white
+                .btn-close
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    margin: 1em auto
+                    background-color: brandColor(brandDanger) !important
+                    color: black
+                    width: 7em
+
+        .form-group
+            
+            input
+                margin: auto 0 auto 0
+                font-size: 10px
+                font-family: Montserrat 
+
+            .btn-wrap
+
+                .btn
+                    font-size: 10px
+                    font-family: Montserrat             
+                    text-transform: uppercase
+                    color: white
+                    margin: 1em auto
+                    width: 7em
+                    background-color: brandColor(brandSuccess) !important
+
+
+
+    #task_form
+        padding: 1em
+        background-color: white
+
+
+        #task_head
+            padding: 0 0 0 1em
+
+            h4
+                font-size: 10px
+                font-family: Montserrat
+                font-weight: bold
+
+        li
+            padding: 0
+            margin: 0
+            list-style-type: none
+            margin: 0 0 .2em 0
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .1)
+
+            .info-wrap
+                padding: 0
+
+                .task-div
+                    padding: 0 !important
+
+
+                    .task-wrap
+                        margin: 0
+                        padding: .5em 0 0 1em 
+                        background-color: grayColor(g100)
+                        h4
+                            font-size: 10px
+                            font-family: Montserrat             
+                            text-transform: uppercase
+                            margin: 1em auto 
+
+                    .value-wrap  
+                        padding: .5em 0 0 1em  
+                        h4
+                            font-size: 10px
+                            font-family: Montserrat             
+                            margin: 1em auto 
+                            color: black
+
+                    .btn-wrap   
+                        .btn-edit
+                            font-size: 10px
+                            font-family: Montserrat             
+                            text-transform: uppercase
+                            margin: 1em auto
+                            background-color: brandColor(brandLight) !important
+                            color: black
+                            width: 7em
+            
+                            &:hover
+                                width: 7em
+                                background-color: brandColor(brandPrimary) !important
+                                border: none
+                                color: white
+                        .btn-close
+                            font-size: 10px
+                            font-family: Montserrat             
+                            text-transform: uppercase
+                            margin: 1em auto
+                            background-color: brandColor(brandDanger) !important
+                            color: black
+                            width: 7em
+                                
+            .input-wrap
+                
+                .form-group
+                    padding: 0
+
+                    input, select
+                        font-size: 10px
+                        font-family: Montserrat  
+                        margin: auto 0 auto 0
+
+                    .btn-wrap
+                        margin: 1em auto 
+
+                        .btn
+                            font-size: 10px
+                            font-family: Montserrat             
+                            text-transform: uppercase                        
+                            margin: 1em auto
+                            width: 7em
+                            background-color: brandColor(brandSuccess) !important
+                            color: white
+
+                                
+
+
+.more_section
+    background-color: white
+    padding: 1em
+    margin: 0 0 1em 0
+    border-radius: 2px
+    border: none
+    text-align: center
+    display: flex
+    align-items: stretch
+
+    @include desktop_md
+        display: flex
+        flex-direction: column
+
+
+    .add_task_btn_div
+        width: 100%
+
+        .btn
+            font-size: 10px
+            font-family: Montserrat
+            box-shadow: 0 0 10px rgba(0,0,0,.3)
+            text-transform: uppercase
+            width: 10em
+            color: black
+            background-color: brandColor(brandSecondary)
+
+    .delete_btn_div
+        width: 100%
+
+        .btn
+            font-size: 10px
+            font-family: Montserrat
+            box-shadow: 0 0 10px rgba(0,0,0,.3)
+            text-transform: uppercase
+            width: 10em
+            color: white
+            background-color: brandColor(brandDanger)
+
+
+
+
+.addTaskModal  
+    .modal-header
+        background-color: brandColor(brandPrimary) !important
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+
+        form
+            padding: 1em
+            border: solid 1px grayColor(g200)
+
+            input, select
+                margin: 0 0 1em 0
+
+
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandPrimary)
+            font-size: 10px
+            font-family: Montserrat
+
+
+
+
+
+
+
+.modal-danger   
+    .modal-header
+        background-color: brandColor(brandDanger) !important
+        .modal-title
+            font-size: 15px
+            font-family: Montserrat
+            
+
+    .modal-body
+        font-size: 12px
+        font-family: Montserrat
+
+        p
+            color: black
+
+            span
+                text-transform: uppercase
+                margin: 0 .2em 0 .2em
+                color: brandColor(brandPrimary)
+
+
+    .modal-footer
+        .btn-cancel
+            background-color: brandColor(brandSecondary)
+            font-size: 10px
+            font-family: Montserrat
+        .btn-confirm
+            background-color: brandColor(brandDanger)
+            font-size: 10px
+            font-family: Montserrat
+

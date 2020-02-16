@@ -1,0 +1,159 @@
+<article *ngIf="ImprintLoader" class="imprint-loader home">
+    <div class="imprint-loader-wrap">
+      <div class="imprint-loader-main">
+        <div class="imprint-loader-ball ball-one"></div>
+        <div class="imprint-loader-ball ball-two"></div>
+        <div class="imprint-loader-ball ball-three"></div>
+        <div class="imprint-loader-ball ball-four"></div>
+      </div>
+    </div>
+</article>
+
+<header class="sticky-top">
+
+  <nav id="navbar" class="navbar navbar-expand-md navbar-light">
+
+      <a class="navbar-brand">
+        <img src="../../../assets/images/logo.png">
+        <fa id="sideBarToggler" class="" (click)="toggleSideBar()" name="{{sideBarStatus ? 'bars' : 'angle-double-left'}}"></fa>
+      </a>
+
+      <button class="navbar-toggler btn-outline-info" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+
+          <ul class="navbar-nav nav-pills ml-auto">
+
+              <!-- <li class="nav-item"><a href="#" data-target="#" class="nav-link">News</a></li> -->
+              <!-- <li class="nav-item"><a href="#" data-target="#" class="nav-link">Chats</a></li> -->
+              <li id="user_dropdown" class="nav-item dropdown">
+
+                  <a href="#" class="nav-link " data-toggle="dropdown">
+                      <fa name="user"></fa>
+                  </a>
+
+                  <div class="dropdown-menu">
+                        <h4 id="loggedUser" class="dropdown-item">{{loggedUserName}}</h4>
+                        <hr>
+                        <a id="logout" class="dropdown-item" (click)="logout()" >LogOut</a>
+                  </div>
+
+              </li>
+
+          </ul>
+
+        </div>
+
+
+
+  </nav>
+
+</header>
+
+
+
+
+
+<!-- Sidebar -->
+<nav id="sidebar" class="" [ngClass]="sideBarStatus ? 'active' : ''">
+
+
+
+    <ul class="navbar-nav nav-pills">
+
+      <li [ngClass]="dashboardNavBarActive ? 'nav-item active' : 'nav-item'">
+          <a [ngClass]="dashboardNavBarActive ? 'nav-link active' : 'nav-link'" (click)="toggleDashboardDropdown()">
+            <fa name="dashboard"></fa> <span>DashBoard</span> 
+            <fa *ngIf="dashboardDropdownActive" class="ml-auto" name="sort-up"></fa> 
+            <fa *ngIf="!dashboardDropdownActive" class="ml-auto" name="sort-down"></fa>
+          </a>
+
+          <div [ngClass]="dashboardDropdownActive ? 'sidebar-dropdown-menu active' : 'sidebar-dropdown-menu'">
+            <a class="dropdown-item" *ngIf="toAdmin" routerLink="/home/main_dashboard">Main DashBoard</a>
+            <a class="dropdown-item" routerLink="/home/sales_dashboard">Sales DashBoard</a>
+            <a class="dropdown-item" routerLink="/home/projects_dashboard">Projects DashBoard</a>
+          </div>
+      </li>
+
+
+      
+
+      <li [ngClass]="salesNavBarActive ? 'nav-item active' : 'nav-item'" *ngIf="toAdminManagerUser">
+          <a routerLink="/home/sales_board" [ngClass]=" salesNavBarActive ? 'nav-link active' : 'nav-link'">
+            <fa-icon [icon]="faChartLine"></fa-icon> <span>Sales</span>
+          </a>
+        </li>
+    
+
+      <li [ngClass]=" projectsNavBarActive ? 'nav-item active' : 'nav-item'" *ngIf="toAdminManagerUser">
+        <a routerLink="/home/projects" [ngClass]=" projectsNavBarActive ? 'nav-link active' : 'nav-link'">
+          <fa-icon [icon]="faProjectDiagram"></fa-icon><span>Projects</span>
+        </a>
+      </li>
+
+
+      <li hidden [ngClass]="inventoryNavBarActive ? 'nav-item active' : 'nav-item'" *ngIf="toAdminManagerUser">
+        <a [ngClass]="inventoryNavBarActive ? 'nav-link active d-flex' : 'nav-link d-flex'" (click)="toggleInventoryDropdown()">
+          <fa-icon [icon]="faWarehouse"></fa-icon> <span>Inventory</span> 
+          <fa *ngIf="inventoryDropdownActive" class="ml-auto" name="sort-up"></fa> 
+          <fa *ngIf="!inventoryDropdownActive" class="ml-auto" name="sort-down"></fa>
+        </a>
+
+        <div [ngClass]="inventoryDropdownActive ? 'sidebar-dropdown-menu active' : 'sidebar-dropdown-menu'">
+          <a class="dropdown-item" routerLink="/home/inventoryStock">Products Stock</a>
+          <a class="dropdown-item" routerLink="/home/inventoryPO">Puchase Order</a>
+          <a class="dropdown-item" routerLink="/home/inventoryOrder">Orders</a>
+        </div>
+      </li>
+
+
+      <li [ngClass]=" editorialNavBarActive ? 'nav-item active' : 'nav-item'" *ngIf="toAdminManager">
+        <a routerLink="/home/editorial" [ngClass]=" editorialNavBarActive ? 'nav-link active' : 'nav-link'">
+          <fa-icon [icon]="faEdit"></fa-icon> <span>Editorial</span>
+        </a>
+      </li>
+
+      <li [ngClass]=" documentNavBarActive ? 'nav-item active' : 'nav-item'" *ngIf="toAdminManager">
+        <a routerLink="/home/document" [ngClass]=" documentNavBarActive ? 'nav-link active' : 'nav-link'">
+            <fa name='book'></fa> <span>Documents</span>
+        </a>
+      </li>
+
+      <li hidden [ngClass]=" invoiceNavBarActive ? 'nav-item active' : 'nav-item'" *ngIf="toAdminManager">
+        <a routerLink="/home/invoice" [ngClass]="invoiceNavBarActive ? 'nav-link active' : 'nav-link'">
+          <fa-icon [icon]="faFileInvoice"></fa-icon>  <span>Invoicing</span>
+        </a>
+      </li>
+
+      <li [ngClass]="calendarNavBarActive ? 'nav-item active' : 'nav-item'" *ngIf="toAdminManagerUser">
+        <a routerLink="/home/ngCalendar" [ngClass]="calendarNavBarActive ? 'nav-link active' : 'nav-link'">
+          <fa-icon [icon]="faCalendar"></fa-icon>  <span>Calendar</span>
+        </a>
+      </li>
+      
+      <li [ngClass]=" usersNavBarActive ? 'nav-item active' : 'nav-item'" *ngIf="toAdmin">
+        <a routerLink="/home/users"  [ngClass]=" usersNavBarActive ? 'nav-link active' : 'nav-link'">
+          <fa-icon [icon]="faUsers"></fa-icon> <span>Users</span>
+        </a>
+      </li>
+    
+    
+    </ul>
+
+
+</nav>
+
+
+
+<!--  Main Section -->
+
+<main id="main" class="" [ngClass]="sideBarStatus ? 'expand' : ''">
+
+    <router-outlet></router-outlet>
+
+</main>
+
+

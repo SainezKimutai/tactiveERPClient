@@ -1,0 +1,72 @@
+@import "src/styles.sass"
+
+// ------------------------------------------------
+
+// Title Section
+#title_section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+
+    .head-wrap
+        h4
+            color: themeColor(info)
+            font-size: 14px
+            font-weight: bold
+            text-transform: uppercase
+        
+        p
+            color: color(silk)
+            font-family: Montserrat
+            font-size: 10px
+            padding: 0
+            margin: 0
+
+    .btn-wrap
+        display: flex
+        width: 100%
+
+        button
+            width: 15em
+            font-size: 12px
+            font-family: Montserrat
+            margin: 0 1em 0 0
+            border: 0
+            border-radius: 2px
+            background-color: transparent
+            border-bottom: solid 4px color(warning)
+            outline: none
+
+            &:hover
+                background-color: grayColor(g200)
+
+            &.notCurrent
+                border-bottom: none
+
+            &.current
+                border-bottom: solid 4px color(warning)
+
+
+
+
+
+.place
+    margin: 6em auto
+    width: 100%
+    max-width: 500px
+    text-align: center
+    height: 200px
+    display: flex
+    border-radius: 5px
+    background-color: themeColor(info)
+    border: solid 1px brandColor(brandPrimary)
+
+    h4
+        margin: auto
+        font-size: 15px
+        font-weight: bold
+        font-family: Montserrat
+        color: white
+    

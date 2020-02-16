@@ -1,0 +1,97 @@
+
+<section class="section">
+<!-- <ngx-spinner></ngx-spinner> -->
+<article *ngIf="ImprintLoader" class="imprint-loader login">
+  <div class="imprint-loader-wrap">
+    <div class="imprint-loader-main">
+      <div class="imprint-loader-ball ball-one"></div>
+      <div class="imprint-loader-ball ball-two"></div>
+      <div class="imprint-loader-ball ball-three"></div>
+      <div class="imprint-loader-ball ball-four"></div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Image logo -->
+  <div class="image-card">
+    <img src="../../assets/images/logo.png" alt="Imprint Africa Logo">
+  </div>
+
+
+  <!-- Title -->
+  <div class="title">
+    <h4>Sign In</h4>
+  </div>
+
+
+  <!-- Login Form -->
+
+  <form #myForm='ngForm' [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+
+
+        <!-- email -->
+        <div class="form-group">
+
+            <div class="input-group input-group-sm mb-3">
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="envelope"></fa></span>
+                </div>
+
+                <input type="email" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                formControlName="email"  [class.is-invalid]="form.email.invalid && form.email.touched" placeholder="Email">
+
+                <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+                    <div  *ngIf="form.email.errors.required">Email is Required</div> 
+                    <div *ngIf="form.email.errors.email">Email format is incorrect</div>    
+                </div>
+          </div>
+
+        </div>
+
+
+
+
+
+       <!-- Password -->
+        <div class="form-group">   
+
+            <div class="input-group input-group-sm mb-3">
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm"><fa name="key"></fa></span>
+                </div>
+
+                <input [type]="togglePassword" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                formControlName="password" class="form-control" [class.is-invalid]="form.password.invalid && form.password.touched" placeholder="Password">
+
+                <div class="input-group-append">
+                        <span class="input-group-text" id="inputGroup-sizing-sm" [hidden]="showPasswordIcon" (click)="showPassword()"><fa name="eye"></fa></span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm" [hidden]="hidePasswordIcon" (click)="hidePassword()"><fa name="eye-slash"></fa></span>
+                </div>
+                
+                <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+                    <div *ngIf="form.password.errors.required">Password is required</div>
+                </div>
+
+
+          </div>
+
+      </div>
+
+
+          <button [disabled]="!loginForm.valid" [ngClass]="loginForm.valid ? 'btn btn-button-theme active' : 'btn btn-button-theme'" >Login</button>
+ 
+
+
+  </form>
+
+</section>
+
+
+
+
+<!-- =============================================================
+ -->

@@ -1,0 +1,213 @@
+<section class="title-section">
+  <h4>Users</h4>
+  <p>View, Edit, and Invite Users</p>
+</section>
+
+
+
+
+
+
+<section class="body-section row">
+
+
+<article class="article-list col-md-8 col-sm-12 mb-4">
+
+  <section class="list-users-section" *ngIf="Users">
+      <div class="title-div">
+        <h4>List of Users</h4>
+      </div>
+      <div class="list-div">
+        <li *ngFor="let User of Users">
+          <div class="info-div d-flex">
+            <div class="name-wrap d-flex col-3">
+                <h4>{{User.name}}</h4>
+                <button class="btn btn-sm ml-auto" (click)="editNameModal.show(); editName(User)">
+                  <fa name="pencil"></fa>
+                </button>
+            </div>
+            <div class="role-wrap d-flex col-2">
+                <h4>{{User.role}}</h4>
+                <button class="btn btn-sm ml-auto" (click)="editRoleModal.show(); editRole(User)">
+                  <fa name="pencil"></fa>
+                </button>
+            </div>
+            <div class="email-wrap col-4">
+                <h4>{{User.email}}</h4>
+            </div>
+            <div class="btn-wrap col-3 d-flex">
+                <button class="btn btn-sm" (click)="editPasswordModal.show(); editPassword(User)">Change Password</button>
+                
+                <fa name="trash" (click)="deleteUserModal.show(); deleteUser(User)"></fa>
+               
+            </div>
+            
+          </div>
+        </li>
+      </div>
+  </section>
+
+
+
+
+
+  <div bsModal #editNameModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog editNameModal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="UserToBeEdited">You are editing the name of <span>{{UserToBeEdited.name}}</span></h4>
+          <button type="button" class="btn close" (click)="editNameModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form" [formGroup]="editNameForm">
+            <div class="form-group">
+                <input type="text" class="form-control"
+                formControlName="name" [class.is-invalid]="formEditName.name.invalid && formEditName.name.touched">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="editNameModal.hide()">No</button>
+          <button type="button" [disabled]="!editNameForm.valid"class="btn btn-confirm" (click)="submitEditedName(); editNameModal.hide()">YES</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div bsModal #editRoleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog editRoleModal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="UserToBeEdited">You are Editing Role Of <span>{{UserToBeEdited.name}}</span></h4>
+        <button type="button" class="btn close" (click)="editRoleModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="editRoleForm">
+          <div class="form-group">
+              <select type="text" class="form-control"
+              formControlName="role" [class.is-invalid]="formEditRole.role.invalid && formEditRole.role.touched">
+
+                    <option value="" disabled selected hidden >Role</option>
+                    <option value="user">Normal User</option>
+                    <option value="manager">Manager</option>
+                    <option value="admin">Admin</option>
+
+              </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" (click)="editRoleModal.hide()">No</button>
+        <button type="button" [disabled]="!editRoleForm.valid"class="btn btn-confirm" (click)="submitEditedRole(); editRoleModal.hide()">YES</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div bsModal #editPasswordModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog editPasswordModal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="UserToBeEdited">You are editing Password to<span>{{UserToBeEdited.name}}</span></h4>
+        <button type="button" class="btn close" (click)="editPasswordModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="editPasswordForm">
+          <div class="form-group">
+
+            <div class="input-group input-group-sm">
+
+                <input [type]="togglePassword" class="form-control"
+                formControlName="password" [class.is-invalid]="formEditPassword.password.invalid && formEditPassword.password.touched">
+
+
+                <div class="input-group-append">
+                    <span class="input-group-text input-group-text-sm" id="inputGroup-sizing-sm" [hidden]="hidePasswordIcon" (click)="showPassword()"><fa name="eye"></fa></span>
+                    <span class="input-group-text input-group-text-sm" id="inputGroup-sizing-sm" [hidden]="showPasswordIcon" (click)="hidePassword()"><fa name="eye-slash"></fa></span>
+                </div>
+
+            </div>
+             
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" (click)="editPasswordModal.hide()">No</button>
+        <button type="button" [disabled]="!editPasswordForm.valid"class="btn btn-confirm" (click)="submitEditedPassword(); editPasswordModal.hide()">YES</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+<div bsModal #deleteUserModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog deleteUserModal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Are you sure ?</h4>
+          <button type="button" class="btn close" (click)="deleteUserModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="UserToBeEdited">
+          <p>You are about to delete User<span>{{UserToBeEdited.name}}</span></p>
+          <p>This action is IRREVERSIBLE.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="deleteUserModal.hide()">No</button>
+          <button type="button" class="btn btn-confirm" (click)="submitDeletedUser(); deleteUserModal.hide()">YES</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->  
+
+
+
+</article> <!-- .article-list -->
+
+
+
+
+
+
+<article class="article-invite col-md-4 col-sm-12">
+
+  <section class="invite-section">
+
+    <div class="title-div">
+      <h4>Total users <span *ngIf="Users">{{Users.length}}</span></h4>
+    </div>
+
+    <form class="form" [formGroup]="inviteForm">
+      <div class="form-group">
+        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+        formControlName="email"  [class.is-invalid]="formInvite.email.invalid && formInvite.email.touched" placeholder="Email">
+      </div>
+      <button [disabled]="!inviteForm.valid" class="btn btn-sm" (click)="inviteUser()">Invite</button>
+    </form>
+
+
+  </section>
+  
+</article><!-- .article-invite -->
+
+
+
+</section><!-- .body_section -->

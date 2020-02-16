@@ -1,0 +1,297 @@
+<!-- Title -->
+<section id="title_section" class="d-flex">
+  <div class="col-4 head-wrap">
+      <h4>Main Dashboard</h4>
+      <p>View, Create Reports and Stats</p>
+  </div>
+  
+</section>
+
+
+
+<!-- Body Section -->
+<section class="body-section">
+
+
+
+
+<section id="cards_section" class="card-group">
+
+  <div class="card first">
+      <div class="card-title">
+          <h4 *ngIf="SalesCategorys">{{SalesCategorys[SalesCategorys.length - 1].totalLeads}}</h4>
+          <fa-icon [icon]="faChartLine"></fa-icon>
+      </div>
+      <div class="card-info">
+          <h4 *ngIf="SalesCategorys">sales {{SalesCategorys[SalesCategorys.length - 1].name}}</h4>
+      </div>
+      <div class="card-body">
+          <canvas id="sales_canvas" *ngIf="salesType" baseChart class="chart"
+          [chartType]="salesType"
+          [labels]="salesLabels"
+          [datasets]="salesDatasets"
+          [options]="salesOptions"          
+          ></canvas>
+
+      </div>
+  </div>
+
+  <div class="card second">
+      <div class="card-title">
+          <h4 *ngIf="Projects">{{Projects.length}}</h4>
+          <fa-icon [icon]="faProjectDiagram" ></fa-icon>
+
+      </div>
+      <div class="card-info">
+        <h4>Projects</h4>
+      </div>
+      <div class="card-body">
+        <canvas id="projects_canvas" *ngIf="projectsType" baseChart class="chart"
+          [chartType]="projectsType"
+          [labels]="projectsLabels"
+          [datasets]="projectsDatasets"
+          [options]="projectsOptions"          
+          ></canvas>
+      </div>
+  </div>
+
+  <div class="card third">
+      <div class="card-title">
+          <h4 *ngIf="SalesCategorys">{{SalesCategorys[SalesCategorys.length - 1].totalRevenue | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h4>
+          <fa-icon [icon]="faDollarSign"></fa-icon>
+
+      </div>
+      <div class="card-info">
+        <h4 *ngIf="SalesCategorys">{{SalesCategorys[SalesCategorys.length - 1].name}} revenue</h4>
+      </div>
+      <div class="card-body">
+        <canvas id="revenue_canvas" *ngIf="revenueType" baseChart class="chart"
+          [chartType]="revenueType"
+          [labels]="revenueLabels"
+          [datasets]="revenueDatasets"
+          [options]="revenueOptions"          
+          ></canvas>
+      </div>
+  </div>
+
+  <div class="card forth">
+      <div class="card-title">
+          <h4 *ngIf="clientsLabels">{{clientsLabels.length}}</h4>
+          <fa-icon [icon]="faUsers"></fa-icon>
+      </div>
+      <div class="card-info">
+        <h4>Our Clients</h4>
+      </div>
+      <div class="card-body">
+        <canvas id="clients_canvas" *ngIf="clientsType" baseChart class="chart"
+          [chartType]="clientsType"
+          [labels]="clientsLabels"
+          [datasets]="clientsDatasets"
+          [options]="clientsOptions"          
+          ></canvas>
+      </div>
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<section class="sales-sections">
+
+
+    <div class="deals-wrap ">
+
+      <div class="title">Customer Convertion Rate</div>
+
+      <div class="body-title" >
+
+        <div  class="body-item d-flex">
+          <div class="mx-auto client-name">Client Name</div>
+          <div class="mx-auto project-name">Project Name</div>
+          <div class="mx-auto progress-rate">Rate</div>
+          <div class="rate">%</div>
+        </div>
+
+      </div>
+
+      <div class="body d-flex" *ngIf="!CustomerConvertionRate">
+        <div class="spinner-div spinner-border mx-auto" role="status"></div>
+      </div>
+
+      <div class="body" *ngIf="CustomerConvertionRate">
+
+        <div *ngFor="let Cli of CustomerConvertionRate" class="body-item d-flex">
+          <div class="mx-auto client-name">{{Cli.clientName}}</div>
+          <div class="mx-auto project-name">{{Cli.projectName}}</div>
+          <div class="mx-auto progress">
+                  <div [ngClass]="Cli.rate > 99 ? 'progress-bar progress-bar-striped progress-bar-animated complete' : 'progress-bar progress-bar-striped progress-bar-animated Uncomplete'"
+                   role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" 
+                  [style.width.%]="Cli.rate"></div>              
+           </div>
+          <div *ngIf="99 > Cli.rate" class="rate">{{Cli.rate | number:'1.0-0'}} %</div>
+          <div *ngIf="Cli.rate > 99" class="rate"><fa name="check"></fa></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    
+    <div class="services-wrap ">
+      <div class="title">Our Services</div>
+      <div class="body-title" >
+        <div class="body-item d-flex">
+          <div class="mr-auto name">Name</div> 
+          <div class="ml-auto number">No. Of Projects</div>
+           <div class="ml-auto revenue">Revenue</div>
+        </div>
+      </div>
+      <div class="body d-flex" *ngIf="!ServicesProgressBar">
+        <div class="spinner-div spinner-border mx-auto" role="status"></div>
+      </div>
+
+      <div class="body" *ngIf="ServicesProgressBar">
+        <div *ngFor="let Service of ServicesProgressBar" class="body-item d-flex">
+          <div class="mr-auto name">{{Service.name}}</div> 
+          <div class="ml-auto number">{{Service.number}}</div>
+           <div class="ml-auto revenue">{{Service.revenue | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</div>
+        </div>
+        
+
+      </div>
+      
+    </div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+<section class="projects-sections">
+
+
+    <div class="deals-wrap ">
+
+      <div class="title">Projects Progress</div>
+
+      <div class="body-title">
+
+        <div  class="body-item d-flex">
+          <div class="mx-auto client-name">Client Name</div>
+          <div class="mx-auto project-name">Project Name</div>
+          <div class="mx-auto progress-div">Progress </div>
+          <div class="rate">%</div>
+          <div class="projectManager">Manager</div>
+    
+        </div>
+
+
+      </div>
+      <div class="body d-flex" *ngIf="!CustomerConvertionRate">
+        <div class="spinner-div spinner-border mx-auto" role="status"></div>
+      </div>
+
+      <div class="body" *ngIf="Projects">
+
+        <div *ngFor="let Prj of Projects" class="body-item d-flex">
+          <div class="mx-auto client-name">{{Prj.clientName}}</div>
+          <div class="mx-auto project-name">{{Prj.projectName}}</div>
+          <div class="mx-auto progress">
+                  <div [ngClass]="Prj.progress > 99 ? 'progress-bar progress-bar-striped progress-bar-animated complete' : 'progress-bar progress-bar-striped progress-bar-animated Uncomplete'"
+                   role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" 
+                  [style.width.%]="Prj.progress"></div>              
+           </div>
+          <div class="rate">{{Prj.progress}} %</div>
+          <div class="projectManager">{{Prj.projectManager}}</div>
+    
+        </div>
+
+
+      </div>
+
+    </div>
+
+    
+    <div class="teams-wrap ">
+      <div class="title">Project Managers</div>
+
+      <div class="body-title">
+        <div class="body-item d-flex">
+          <div class="mr-auto name">Username</div> 
+          <div class="ml-auto department">Department</div>
+           <div class="ml-auto number">No. of Projects</div>
+        </div>   
+      </div>
+
+      <div class="body d-flex" *ngIf="!TeamsScale">
+        <div class="spinner-div spinner-border mx-auto" role="status"></div>
+      </div>
+
+      <div class="body" *ngIf="TeamsScale">
+
+        <div *ngFor="let user of TeamsScale" class="body-item d-flex">
+          <div class="mr-auto name">{{user.name}}</div> 
+          <div class="ml-auto department">{{user.department}}</div>
+           <div class="ml-auto number">{{user.number}}</div>
+        </div>
+        
+      </div>
+      
+    </div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<section hidden id="graph_section">
+
+    <div id="graph_wrap" class="">
+    <canvas id="targets_canvas" *ngIf="targetsType" baseChart class="chart"
+    [chartType]="targetsType"
+    [labels]="targetsLabels"
+    [datasets]="targetsDatasets"
+    [options]="targetsOptions"          
+    ></canvas>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+</section>
+

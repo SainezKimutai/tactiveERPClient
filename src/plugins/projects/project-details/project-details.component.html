@@ -1,0 +1,148 @@
+<!-- Title -->
+<section id="title_section" class="projectsNav">
+  <h4>Project Details</h4>
+  <p>View information about the project</p>
+</section>
+
+
+
+
+
+
+<!-- Body Section -->
+<section class="body_section" >
+
+
+
+
+
+  <!-- project complete details -->
+<section id="detail_section" *ngIf="oppennedProject">
+
+  
+
+    <div id="detail_section_title">
+        <h4> Projects Details </h4>
+        <button id="toEditProject" class="btn btn-sm" (click)="toEditProject()">Edit Project</button>
+        <button id="backToTeams" class="btn btn-sm" (click)="moveBackToTeams()">Back To Teams</button>
+    </div>
+
+    <div class="item-wrap card-group">
+
+    <div class="detail_section_item">
+        <h4>Client Name :<span>{{oppennedProject.clientName}}</span></h4>
+    </div>
+
+    <div class="detail_section_item">
+      <h4>Project Name :<span>{{oppennedProject.projectName}}</span></h4>
+    </div>
+
+    <div class="detail_section_item">
+      <h4>Project Manager :<span>{{oppennedProject.projectManager}}</span></h4>
+    </div>
+
+    <div class="detail_section_item">
+        <h4>Revenue :<span>{{oppennedProject.revenue}}</span></h4>
+    </div>
+
+    <div class="detail_section_item">
+        <h4>Priority :
+            <span *ngIf="oppennedProject.priority === 3">High</span>
+            <span *ngIf="oppennedProject.priority === 2">Medium</span>
+            <span *ngIf="oppennedProject.priority === 1">Low</span>
+      </h4>
+    </div>
+
+    <div class="detail_section_item">
+        <h4 *ngIf="oppennedProject.projectStartDate">Comencement :<span>
+            {{oppennedProject.projectStartDate.day}}/
+          {{oppennedProject.projectStartDate.month}}/
+            {{oppennedProject.projectStartDate.year}}
+          </span></h4>
+    </div>
+
+    <div class="detail_section_item">
+        <h4 *ngIf="oppennedProject.projectEndDate">Complition :<span>
+              {{oppennedProject.projectEndDate.day}}/
+              {{oppennedProject.projectEndDate.month}}/
+            {{oppennedProject.projectEndDate.year}}
+          </span></h4>
+    </div>
+
+    <div class="detail_section_item">
+        <h4>project Status :<span>{{oppennedProject.projectStatus}}</span></h4>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+<section id="task_section" *ngIf="oppennedProject">
+
+<div id="task_title">
+    <h4>Tasks</h4>
+</div>
+
+
+
+<ul class="list-group">
+
+    <li class="list-group-item d-flex" *ngFor="let task of oppennedProject.task"
+    [ngClass]="task.taskStatus === 'done' ? 'list-group-item d-flex done' : 'list-group-item d-flex' ">
+  
+            <div class="d-flex col-3 div_wrap">
+                <h4 class="">{{task.taskName}}</h4>
+            </div>
+    
+            <div class="d-flex col-3 div_wrap">
+                <h4>{{task.assignedTeam}}</h4>
+            </div>
+
+            <div class="d-flex col-3 div_wrap">
+              <h4>{{task.assignedUser}}</h4>
+            </div>
+
+            <div class="d-flex col-3 div_wrap">
+                <h4><span>{{task.taskDuration}}</span>Days
+                  <span>{{task.taskStartDate.day}}/{{task.taskStartDate.month}}/{{task.taskStartDate.year}}</span>
+                  To<span>{{task.taskEndDate.day}}/{{task.taskEndDate.month}}/{{task.taskEndDate.year}}</span> 
+                </h4>
+            </div>
+
+    </li>
+
+</ul>
+
+  <div class="d-flex justify-content-end progress-head" *ngIf="oppennedProject.task">
+      <span class="fetched-data">{{oppennedProject.progress}}%</span>
+  </div>
+
+  <div class="progress" *ngIf="oppennedProject.task">
+      <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" 
+      [style.width.%]="oppennedProject.progress"></div>               
+  </div>
+
+</section>
+
+
+<section id="ganttChart_section">
+
+    <div id="info_section" class="clearfix">
+            <h4>Gantt Chart</h4>
+    </div>
+
+    <app-gantt></app-gantt>
+
+  
+</section>
+
+
+
+
+<!-- --- End ---   -->
+</section>

@@ -1,0 +1,467 @@
+
+<section id="title_section" class="d-flex">
+  <div class="col-4 head-wrap">
+      <h4>Sales Dashboard</h4>
+      <p>View, Create Reports and Stats</p>
+  </div>
+  
+</section>
+
+
+
+
+
+
+<!-- Body Section -->
+<section class="body-section">
+
+
+
+
+
+
+
+<section class="top-analitics-sections">
+
+
+  <div class="card-group">
+
+    <div class="card">
+      <h5 *ngIf="SalesCategorys">{{SalesCategorys[SalesCategorys.length - 1].name}}</h5>
+      <h6 class="total-four" *ngIf="TopSectionCurrentCustomers"> <fa name="building"  class="mr-3"></fa>{{TopSectionCurrentCustomers.length}}</h6>
+    </div>
+
+    <div class="card">
+      <h5 *ngIf="SalesCategorys">{{SalesCategorys[0].name}}</h5>
+      <h6 class="total-two" *ngIf="TopSectionNewClients"> <fa name="building" class="mr-3"></fa>{{TopSectionNewClients.length}}</h6>
+    </div>
+
+    <div class="card">
+      <h5>Current Revenue</h5>
+      <h6 class="total-one" *ngIf="TopSectionTotalRevenue"> <fa name="money"  class="mr-3"></fa> {{TopSectionTotalRevenue |  currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h6>
+    </div>
+
+    <div class="card">
+      <h5>Target Revenue</h5>
+      <h6 class="total-three" *ngIf="TopSectionTargetRevenue"> <fa name="money"  class="mr-3"></fa> {{TopSectionTargetRevenue |  currency:'Ksh ':'symbol-narrow':'1.0-0'}}</h6>
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="Info-analystics-section">
+
+  <div class="card-group">
+
+    <div class="card one">
+      <div  *ngIf="!CardsChart" class="spinner-div spinner-border" role="status"></div>
+      <div *ngIf="CardsChart"  class="info-wrap">
+        <!-- <h3>Services</h3> -->
+        <h4>Services</h4>
+      </div>
+      <canvas baseChart *ngIf="CardsChart" class="chart"
+      [chartType]="card1ChartType"
+      [labels]="card1ChartLabels"
+      [datasets]="card1ChartDatasets"
+      [options]="AllCardChartOptions"
+      ></canvas>
+
+    </div>
+
+    <div class="card two">
+      <div  *ngIf="!CardsChart" class="spinner-div spinner-border" role="status"></div>
+      <div *ngIf="CardsChart"  class="info-wrap">
+        <!-- <h3>Sales Categories</h3> -->
+        <h4>Sales Categories</h4>
+      </div>
+      <canvas baseChart *ngIf="CardsChart" class="chart"
+      [chartType]="card2ChartType"
+      [labels]="card2ChartLabels"
+      [datasets]="card2ChartDatasets"
+      [options]="AllCardChartOptions"
+      ></canvas>
+    </div>
+
+
+    <div class="card four">
+      <div  *ngIf="!CardsChart" class="spinner-div spinner-border" role="status"></div>
+      <div *ngIf="CardsChart"  class="info-wrap">
+        <!-- <h3>Our Revenue Vs Target Revenue</h3> -->
+        <h4 *ngIf="RevenueProgress > 100 " class="text-success">Above Target</h4>
+        <h4 *ngIf="100 >= RevenueProgress"><fa name="arrow-up" class="text-success"></fa> {{RevenueProgress}} %</h4>
+      </div>
+      <canvas baseChart *ngIf="CardsChart" class="chart"
+      [chartType]="card3ChartType"
+      [labels]="card3ChartLabels"
+      [datasets]="card3ChartDatasets"
+      [options]="AllCardChartOptions"
+      ></canvas>
+    </div>
+
+
+  </div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="all-opportunities-sections">
+
+
+
+
+
+    <div class="deals-wrap ">
+
+      <div class="title">All Deals</div>
+
+
+      <div class="body-title" >
+        <div  class="body-item d-flex">
+          <div class="mr-auto client-name">Client Name</div>
+          <div class="mr-auto project-name">Project Name</div>
+          <div class="ml-auto revenue">Revenue</div>
+          <div class="ml-auto stage">Sales Stage</div>
+        </div>
+      </div>
+
+
+      <div class="body d-flex" *ngIf="!Opportunitys">
+        <div class="spinner-div spinner-border mx-auto" role="status"></div>
+      </div>
+
+      <div class="body" *ngIf="Opportunitys">
+        <div *ngFor="let Opp of Opportunitys" class="body-item d-flex">
+          <div class="mr-auto client-name">{{Opp.clientName}}</div>
+          <div class="mr-auto project-name">{{Opp.projectName}}</div>
+          <div class="ml-auto revenue">{{Opp.revenue | currency:'Ksh ':'symbol-narrow':'1.0-0'}}</div>
+          <div class="ml-auto stage">{{Opp.projectStatus}}</div>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="clients-wrap ">
+      <div class="title">Sales Users</div>
+
+      <div class="body-title">
+        <div class="body-item d-flex">
+          <div class="user-name">Username</div> 
+          <div class="number">Created Deals</div>
+        </div>
+
+      </div>
+
+      <div class="body d-flex" *ngIf="!SalesUserPerformance">
+        <div class="spinner-div spinner-border mx-auto" role="status"></div>
+      </div>
+
+      <div class="body" *ngIf="SalesUserPerformance">
+        <div *ngFor="let User of SalesUserPerformance" class="body-item d-flex">
+          <div class="user-name">{{User.name}}</div> 
+          <div class="number">{{User.number}}</div>
+        </div>
+        
+
+      </div>
+      
+    </div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+  <article class="graph-article-wrap">
+        <div class="style-section d-flex" [ngClass]="styleSectionStatus ? 'style-section d-flex' : 'style-section hide d-flex'">
+          <!-- <div class="style-section d-flex" class="style-section d-flex"> -->
+      
+            <div class="col-2 style-div">
+                <div class="style-head">
+                    <h4>Background Color</h4>
+                </div>
+                <div class="style-options">
+                  <div class="w-100">
+                    <span class="badge bg-primary" (click)="bgToPrimary()">.</span>
+                    <span class="badge bg-info" (click)="bgToInfo()">.</span>
+                    <span class="badge bg-warning" (click)="bgToWarning()">.</span>
+                    <span class="badge bg-danger" (click)="bgToDanger()">.</span>
+                    <span class="badge bg-success" (click)="bgToSuccess()">.</span>
+                    <span class="badge border border-info bg-light" (click)="bgToLight()">.</span>
+                    <span class="badge border border-info bg-secondary" (click)="bgToSecondary()">.</span>
+                  </div>
+                </div>
+            </div>
+      
+            <div class="col-2 style-div">
+                <div class="style-head">
+                    <h4>Area Color/Opacity</h4>
+                </div>
+                <div class="style-options">
+                    <div class="w-100">
+                      <span class="badge bg-primary" (click)="areaToPrimary()">.</span>
+                      <span class="badge bg-info" (click)="areaToInfo()">.</span>
+                      <span class="badge bg-warning" (click)="areaToWarning()">.</span>
+                      <span class="badge bg-danger" (click)="areaToDanger()">.</span>
+                      <span class="badge bg-success" (click)="areaToSuccess()">.</span>
+                      <span class="badge border border-info bg-light" (click)="areaToLight()">.</span>
+                      <span class="badge border border-info bg-secondary" (click)="areaToSecondary()">.</span>
+                    </div>
+      
+                    <div>
+                        <div class="input-group d-flex">
+      
+                            <label for="">Opacity</label>
+                            <input type="number" [(ngModel)]="areaOpacity" (change)="areaOpacityChanged()" min="0" max="100" step="10" class="form-control form-control-sm" placeholder="">
+      
+                        </div>
+      
+                    </div>
+      
+                </div>
+            </div>
+      
+            <div class="col-2 style-div">
+                <div class="style-head">
+                    <h4>Line/Point</h4>
+                </div>
+                <div class="style-options">
+                  <div class="w-100">
+                      <span class="badge bg-primary" (click)="lineToPrimary()">.</span>
+                      <span class="badge bg-info" (click)="lineToInfo()">.</span>
+                      <span class="badge bg-warning" (click)="lineToWarning()">.</span>
+                      <span class="badge bg-danger" (click)="lineToDanger()">.</span>
+                      <span class="badge bg-success" (click)="lineToSuccess()">.</span>
+                      <span class="badge border border-info bg-light" (click)="lineToLight()">.</span>
+                      <span class="badge border border-info bg-secondary" (click)="lineToSecondary()">.</span>
+                  </div>
+      
+                  <div class="w-100 ">
+                    <span class="badge bg-primary" (click)="pointToPrimary()">.</span>
+                    <span class="badge bg-info" (click)="pointToInfo()">.</span>
+                    <span class="badge bg-warning" (click)="pointToWarning()">.</span>
+                    <span class="badge bg-danger" (click)="pointToDanger()">.</span>
+                    <span class="badge bg-success" (click)="pointToSuccess()">.</span>
+                    <span class="badge border border-info bg-light" (click)="pointToLight()">.</span>
+                    <span class="badge border border-info bg-secondary" (click)="pointToSecondary()">.</span>
+                  </div>
+                </div>
+            </div>
+      
+            <div class="col-2 style-div">
+                <div class="style-head">
+                    <h4>Y-axis</h4>
+                </div>
+                <div class="style-options">
+                    <button class="btn btn-sm btn-outline-primary" (click)="displayYaxis()">Display</button>
+                    <button class="btn btn-sm btn-outline-warning" (click)="stackedYaxis()">Stacked</button>
+                    <button class="btn btn-sm btn-outline-success" (click)="linegridYaxis()">LineGrid</button>
+                </div>
+            </div>
+            <div class="col-2 style-div">
+                <div class="style-head">
+                    <h4>X-axis</h4>
+                </div>
+                <div class="style-options">
+                    <button class="btn btn-sm btn-outline-primary"(click)="displayXaxis()">Display</button>
+                    <button class="btn btn-sm btn-outline-warning"(click)="stackedXaxis()">Stacked</button>
+                    <button class="btn btn-sm btn-outline-success"(click)="linegridXaxis()">LineGrid</button>
+                </div>
+            </div>
+      
+            <div class="col-2 style-div">
+                <div class="style-head">
+                    <h4>Legend</h4>
+                </div>
+                <div class="style-options">
+                  <button class="btn btn-sm btn-outline-primary" (click)="displayLegendFunction()">Display</button>
+                  <div class="w-100">
+                    <span class="badge text-info" (click)="displayLegendTop()">T</span>
+                    <span class="badge text-info"(click)="displayLegendRight()">R</span>
+                    <span class="badge text-info"(click)="displayLegendBottom()">B</span>
+                    <span class="badge text-info"(click)="displayLegendLeft()">L</span>
+                  </div>
+                  <div class="w-100">
+                    <span class="badge bg-primary" (click)="legendToPrimary()">.</span>
+                    <span class="badge bg-info" (click)="legendToInfo()">.</span>
+                    <span class="badge bg-warning" (click)="legendToWarning()">.</span>
+                    <span class="badge bg-danger" (click)="legendToDanger()">.</span>
+                    <span class="badge bg-success" (click)="legendToSuccess()">.</span>
+                    <span class="badge border border-info bg-light" (click)="legendToLight()">.</span>
+                    <span class="badge border border-info bg-secondary" (click)="legendToSecondary()">.</span>
+                  </div>
+                </div>
+            </div>
+      
+      
+        </div>
+      
+      
+        <section class="graph-section">
+      
+      
+        <div class="dataset-div" >
+      
+      
+      
+      
+            <!-- Datasets -->
+            <button class="btn btn-sm" (click)="setLabelServices()"><fa-icon class="faDiceD6" [icon]="faDiceD6"></fa-icon>&nbsp;&nbsp;Services</button>
+            <button class="btn btn-sm" (click)="setLabelClients()"><fa-icon class="faDiceD6" [icon]="faDiceD6"></fa-icon>&nbsp;&nbsp;Clients</button>
+            <button class="btn btn-sm" (click)="setLabelSalesStages()"><fa-icon class="faDiceD6" [icon]="faDiceD6"></fa-icon>&nbsp;&nbsp;Sales Stages</button>
+            <button class="btn btn-sm" (click)="setLabelOpportunities()"><fa-icon class="faDiceD6" [icon]="faDiceD6"></fa-icon>&nbsp;&nbsp;Opportunities</button>
+            <button class="btn btn-sm" (click)="setLabelSalesUsers()"><fa-icon class="faDiceD6" [icon]="faDiceD6"></fa-icon>&nbsp;&nbsp;Sales Users</button>
+      
+            <!-- Metrics -->
+      
+            <div class="d-flex w-100">
+              <button class="btn btn-sm" (click)="setDatasetExpectedRevenue()"><fa-icon class="faNetworkWired" [icon]="faNetworkWired"></fa-icon>&nbsp;&nbsp;Expected Revenue</button>
+              <!-- <fa class="ml-4 mt-auto mb-auto mr-auto " name="eraser" (click)="removeDatasetExpectedRevenue()"></fa> -->
+              </div>
+      
+              <div class="d-flex w-100">
+                <button class="btn btn-sm" (click)="setDatasetRevenue()"><fa-icon class="faNetworkWired" [icon]="faNetworkWired"></fa-icon>&nbsp;&nbsp;Revenue</button>
+                <!-- <fa class="ml-4 mt-auto mb-auto mr-auto " name="eraser" (click)="removeDatasetRevenue()"></fa> -->
+                </div>
+      
+      
+            <div class="d-flex w-100">
+              <button class="btn btn-sm" (click)="setDatasetOpportunities()"><fa-icon class="faNetworkWired" [icon]="faNetworkWired"></fa-icon>&nbsp;&nbsp;Opportunities</button>
+              <!-- <fa class="ml-4 mt-auto mb-auto mr-auto " name="eraser" (click)="removeDatasetGeneralPipeline()"></fa> -->
+              </div>
+
+      
+        </div>
+      
+        <div class="visualize-div">
+      
+          <div class="set-div-wrap"> 
+              <fa class="m-auto" name="eraser" (click)="removeAllDataSets()"></fa>
+          </div>
+      
+          <button [ngClass]="definedDataSet === 1 ? 'set-div-wrap current' : 'set-div-wrap'" (click)="set_services_vs_revenue()">
+            Services <span>vs</span> Revenue
+          </button>
+
+          <button  [ngClass]="definedDataSet === 2 ? 'set-div-wrap current' : 'set-div-wrap'" (click)="set_salesStages_vs_revenue()">
+              Sales Stages <span>vs</span> Revenue
+          </button>
+      
+          <button [ngClass]="definedDataSet === 3 ? 'set-div-wrap current' : 'set-div-wrap'" (click)="set_clients_vs_revenue()">
+            Clients <span>vs</span> Revenue
+
+          </button>
+      
+          <button [ngClass]="definedDataSet === 4 ? 'set-div-wrap current' : 'set-div-wrap'" (click)="set_opportunities_vs__revenue()">
+            Opportunities <span>vs</span> Revenue
+          </button>
+      
+          <button [ngClass]="definedDataSet === 5 ? 'set-div-wrap current' : 'set-div-wrap'" (click)="set_salesUser_vs_opportunities_and_revenue()">
+            SalesUser <span>vs</span> Opp No
+          </button>
+      
+          <button [ngClass]="definedDataSet === 6 ? 'set-div-wrap current' : 'set-div-wrap'" (click)="set_totalRevenue_vs_TargetRevenue()">
+              Total Revenue <span>vs</span>  Target Revenue
+          </button>
+      
+        </div>
+      
+      
+        <div class="display-div" [style.backgroundColor]="backgroundColor">
+          <div  *ngIf="!CardsChart" class="spinner-div spinner-border" role="status"></div>
+            <canvas id="chart_canvas" *ngIf="chartType" baseChart class="chart"
+            [chartType]="chartType"
+            [labels]="chartLabels"
+            [datasets]="chartDatasets"
+            [options]="chartOptions"
+            ></canvas>
+      
+        </div>
+      
+      
+        <div class="gallary-div">
+      
+      
+            <div class="choose-color-div">
+                <button class="btn btn-sm btn-outline-info" (click)="styleSectionStatus=!styleSectionStatus">Styling</button>
+            </div>
+      
+            <div class="head-div">
+                <h4>Gallary</h4>
+            </div>
+      
+            <div class="choose-chartType-div">
+      
+      
+                <button class="btn btn-sm" (click)="changeChartType('line')"><fa name="area-chart"></fa>Line Graph</button>
+                <button class="btn btn-sm"  (click)="changeChartType('bar')"><fa name="bar-chart"></fa>Bar Graph</button>
+
+      
+      
+            </div>
+      
+      
+        </div>
+      
+        </section>
+      
+      
+</article>
+      
+
+
+
+  
+
+
+
+
+
+
+</section> 
+<!-- body Section -->

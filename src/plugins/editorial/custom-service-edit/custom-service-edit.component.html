@@ -1,0 +1,266 @@
+<!-- Title -->
+<section id="title_section">
+  <h4>Custom Service Edit</h4>
+  <p>Edit Custom Service fields</p>
+</section>
+
+
+<section class="body_section">
+
+
+
+
+
+
+
+<section id="custom_service_edit_section" *ngIf="serviceTobeEdited">
+
+    <div class="section_title">
+        <h4>Edit Section</h4>
+    </div>
+
+
+
+
+
+
+    <form id="service_name_form" class="form" #myEditServiceNameForm='ngForm' [formGroup]="serviceNameForm"
+    [ngClass]="serviceNameFormGroup ? 'border border-info' : ''">
+
+      <div class="d-flex info-wrap">
+            <div class="col-3 name-wrap">
+              <h4>Service Name</h4>
+            </div>
+            <div class="col-6 value-wrap">
+                <h4>{{serviceTobeEdited.serviceName}}</h4>
+            </div>
+            <div class="col-3 btn-wrap">
+                <button type="button" class="btn btn-sm btn-edit" *ngIf="!serviceNameFormGroup" (click)="serviceNameFormGroup=!serviceNameFormGroup">Edit</button>
+                <button type="button" class="btn btn-sm btn-close" *ngIf="serviceNameFormGroup" (click)="serviceNameFormGroup=!serviceNameFormGroup">Close</button>
+            </div>
+      </div>
+  
+      <div id="service_name_form_group" class="form-group d-flex" *ngIf="serviceNameFormGroup">
+            <input type="text" class="form-control col-6 ml-auto"
+            formControlName="serviceName" [class.is-invalid]="formChangeServiceName.serviceName.invalid && formChangeServiceName.serviceName.touched">
+            <div class="col-3 btn-wrap">
+                <button class="btn btn-sm" (click)="submitServiceNameChange(); serviceNameFormGroup=!serviceNameFormGroup">Save</button>
+            </div>
+      </div>  
+
+    </form>
+
+
+
+
+
+
+
+
+    <form id="target_revenue_form" class="form" [formGroup]="targetRevenueForm"
+    [ngClass]="targetRevenueFormGroup ? 'border border-info' : ''">
+
+      <div class="d-flex info-wrap">
+            <div class="col-3 name-wrap">
+              <h4>Target Revenue</h4>
+            </div>
+            <div class="col-6 value-wrap">
+                <h4>{{serviceTobeEdited.targetRevenue}}</h4>
+            </div>
+            <div class="col-3 btn-wrap">
+                <button type="button"  class="btn btn-sm btn-edit" *ngIf="!targetRevenueFormGroup" (click)="targetRevenueFormGroup=!targetRevenueFormGroup">Edit</button>
+                <button type="button"  class="btn btn-sm btn-close" *ngIf="targetRevenueFormGroup"(click)="targetRevenueFormGroup=!targetRevenueFormGroup">Close</button>
+            </div>
+      </div>
+  
+      <div class="form-group d-flex" *ngIf="targetRevenueFormGroup">
+            <input type="number" min="1" class="form-control col-6 ml-auto"
+            formControlName="targetRevenue" [class.is-invalid]="formChangeTargetRevenue.targetRevenue.invalid && formChangeTargetRevenue.targetRevenue.touched">
+            <div class="col-3 btn-wrap">
+                <button class="btn btn-sm" (click)="submitTargetRevenueChange(); targetRevenueFormGroup=!targetRevenueFormGroup">Save</button>
+            </div>
+      </div>  
+       
+    </form>
+
+
+
+
+
+  
+
+
+
+
+
+      <form id="task_form" [formGroup]="taskForm">
+
+          <div id="task_head">
+              <h4>Tasks</h4>
+          </div>
+  
+
+  
+        <li class="" *ngFor='let task of serviceTobeEdited.task; let i=index' [ngClass]="task._id1 || task._id2 ? 'border border-info' : ''">
+
+          <div class="info-wrap d-flex">
+            <div class="task-div col-6  d-flex">
+                <div class="task-wrap col-3">
+                  <h4>Task Name</h4>
+                </div>
+                <div class="col-6 value-wrap">
+                    <h4>{{task.taskName}}</h4>
+                </div>
+                <div class="col-3 btn-wrap">
+                    <button type="button"  class="btn btn-sm btn-edit" *ngIf="!task._id1" (click)="task._id1=!task._id1">Edit</button>
+                    <button type="button"  class="btn btn-sm btn-close" *ngIf="task._id1" (click)="task._id1=!task._id1">Close</button>
+                </div>
+          </div>
+
+          <div class="task-div col-6  d-flex">
+              <div class="col-3 task-wrap">
+                <h4>Assigned Team</h4>
+              </div>
+              <div class="col-6 value-wrap">
+                  <h4>{{task.assignedTeam}}</h4>
+              </div>
+              <div class="col-3 btn-wrap">
+                  <button type="button" class="btn btn-sm btn-edit" *ngIf="!task._id2" (click)="task._id2=!task._id2">Edit</button>
+                  <button type="button" class="btn btn-sm btn-close" *ngIf="task._id2" (click)="task._id2=!task._id2">Close</button>
+              </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="input-wrap d-flex">
+
+            <div class="form-group col-6 mr-auto d-flex" *ngIf="task._id1">
+                <input type="text" class="form-control" formControlName="taskName"
+                [class.is-invalid]="formChangeTasks.taskName.invalid && formChangeTasks.taskName.touched">
+                <div class="btn-wrap">
+                    <button type="button" class="btn btn-sm" (click)="submitTaskNameChange(task._id); task._id1=!task._id1">Save</button>
+                </div>
+          </div>  
+
+          <div class="form-group col-6 ml-auto d-flex" *ngIf="task._id2">
+              <select type="" class="form-control" class="form-control"  formControlName="assignedTeam"
+              [class.is-invalid]="formChangeTasks.assignedTeam.invalid && formChangeTasks.assignedTeam.touched"> 
+                 
+                  <option *ngFor="let Team of Teams" value='{{Team.name}}'>{{Team.name}}</option>
+               
+                </select> 
+
+              <div class="btn-wrap">
+                  <button type="button" class="btn btn-sm" (click)="submitAssignedTeamChange(task._id); task._id2=!task._id2">Save</button>
+              </div>
+          </div>  
+
+        </div>
+
+  
+
+        </li>
+
+    </form>
+  </section>
+
+
+
+
+
+<!-- // Modals -->
+<section class="more_section">
+
+  <div class="add_task_btn_div">
+      <button type="button" class="btn" (click)="addTaskModal.show()">
+          Add Task
+      </button>
+    </div>
+  
+
+  <div class="delete_btn_div" *ngIf="toAdmin">
+    <button type="button" class="btn" data-toggle="modal" (click)="dangerModal.show()">
+        Delete Service
+    </button>
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div bsModal #addTaskModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog addTaskModal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Task</h4>
+          <button type="button" class="btn close" (click)="addTaskModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="serviceTobeEdited">
+          <form [formGroup]="addTaskForm" >
+            <input class="form-control form-control-sm"
+            formControlName="taskName" [class.is-invalid]="formAddTask.taskName.invalid && formAddTask.taskName.touched">
+            <select class="form-control form-control-sm"
+            formControlName="assignedTeam" [class.is-invalid]="formAddTask.assignedTeam.invalid && formAddTask.assignedTeam.touched">
+
+              <option *ngFor="let Team of Teams" value='{{Team.name}}'>{{Team.name}}</option>
+            </select>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="addTaskModal.hide()">No</button>
+          <button type="button" class="btn btn-confirm" (click)="addTask(); addTaskModal.hide()">YES</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Are you sure ?</h4>
+          <button type="button" class="btn close" (click)="dangerModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="serviceTobeEdited">
+          <p>You are about to delete<span>{{serviceTobeEdited.serviceName}}</span>Service</p>
+          <p>This action is IRREVERSIBLE.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="dangerModal.hide()">No</button>
+          <button type="button" class="btn btn-confirm" (click)="deleteService(); dangerModal.hide()">YES</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+</section>

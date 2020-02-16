@@ -1,0 +1,118 @@
+<!-- Title -->
+<section id="title_section" class="projectsNav">
+    <h4>Project Update</h4>
+    <p>Updating of the project's Tasks</p>
+</section>
+  
+
+
+<!-- Body Section -->
+<section class="body_section">
+
+
+<article id="teams_article" [hidden]="hideTeamSectionStatus">
+
+
+
+
+<div id="info_section" class="clearfix">
+    <fa routerLink="/home/projects" name="angle-double-left" ></fa>
+    <h4>Teams in<span>{{currentProject}}</span>project for<span>{{currentClient}}</span></h4>
+    <button class="btn btn-sm" (click)="moveToDetails()">View Details</button>
+</div>
+
+
+
+
+
+<!-- Cards Sections -->
+<section id="card_section" class="card-group"  *ngIf="involvedTeams">
+
+
+  <div class="card mx-auto" *ngFor="let involvedTeam of involvedTeams" (click)="toDetails(involvedTeam)">
+                  
+      <div class="card-body">    
+          <div class="card-img">
+              <img src="assets/images/logo.png" alt="card-logo">
+          </div>                
+          
+          <div id="teamName" class="card-text">{{involvedTeam}}</div>
+
+          <div id="teamNumOfTask" class="card-text" *ngFor="let teamAndTask of teamAndTasks" 
+                [hidden]="teamAndTask.team != involvedTeam">Task Number: <span>{{teamAndTask.taskNum}}</span></div>
+
+            <div class="progress-head" 
+            *ngFor="let teamAndTask of teamAndTasks" [hidden]="teamAndTask.team != involvedTeam">
+                <span class="fetched-data">{{teamAndTask.compTaskNum * 100 / teamAndTask.taskNum | number : '2.0-0'}}%</span>
+            </div>
+
+            <div class="progress" *ngFor="let teamAndTask of teamAndTasks" [hidden]="teamAndTask.team != involvedTeam">
+                <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"
+                [style.width.%]="teamAndTask.compTaskNum * 100 / teamAndTask.taskNum"></div>               
+            </div>
+
+      </div>
+      
+</div>
+
+  
+
+</section>
+
+</article>
+<article id="detail_article" class="" [hidden]="hideDetailSectionStatus">
+
+
+
+
+
+
+<section id="info_section" class="col-12">
+    <div>     
+        <h4><fa name="angle-double-left" (click)="backToTeams()"></fa>Details on<span>{{currentProject}}</span>project for<span>{{currentClient}}</span></h4>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- Teams Tasks -->
+<section id="update_section" >
+
+    <div id="update_section_title">
+        <h4>Update<span>{{currentTeam}}</span>Tasks </h4>
+    </div>
+
+    <ul class="list-group" *ngFor="let teamAndTask of teamAndTasks" [hidden]="teamAndTask.team != currentTeam">
+        <!-- List of Tasks -->
+        <li class="list-group-item" *ngFor="let task of teamAndTask.task" [id]="task._id"
+        [ngClass]=" taskClickDoneId.indexOf(task._id) !== -1 ? 'list-group-item done' : ''" (click)="clickToUpdateTasks(task._id)">{{task.taskName}}</li>
+
+    </ul>
+
+
+    <div class="progress-head" 
+    *ngFor="let teamAndTask of teamAndTasks" [hidden]="teamAndTask.team != currentTeam">
+        <span class="fetched-data">{{teamAndTask.compTaskNum * 100 / teamAndTask.taskNum | number : '2.0-0'}}%</span>
+    </div>
+
+    <div class="progress" *ngFor="let teamAndTask of teamAndTasks" [hidden]="teamAndTask.team != currentTeam">
+        <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"
+        [style.width.%]="teamAndTask.compTaskNum * 100 / teamAndTask.taskNum"></div>               
+    </div>
+
+    <div id="update_button">
+        <button class="btn btn-sm btn-outline-info" (click)="updateProjectsTasks()">Update</button>
+    </div>
+
+</section>
+
+
+</article> 
+
+
+
+<!-- Body section end -->
+</section>

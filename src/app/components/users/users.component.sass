@@ -1,0 +1,234 @@
+@import "src/styles.sass"
+
+// ------------------------------------------------
+
+// Title Section    
+.title-section
+    background-color: white
+    text-align: left
+    padding: .3em 1em .1em 1em
+    font-family: Montserrat
+    border-bottom: solid 1px grayColor(g300)
+
+    h4
+        color: themeColor(info)
+        font-size: 14px
+        font-weight: bold
+        text-transform: uppercase
+        text-shadow: 5px 5px 5px rgba(0,0,0,.3)
+    
+    p
+        color: color(silk)
+        font-family: Montserrat
+        font-size: 10px
+        padding: 0
+        margin: 0
+        text-shadow: 5px 5px 5px rgba(0,0,0,.3)
+
+
+
+.body-section
+    margin: 1em
+    background-color: transparent
+
+
+.article-list
+
+    .list-users-section   
+        background-color: white
+        border-radius: 2px
+
+        .title-div
+            margin: 0 0 0 0
+            background-color: brandColor(brandSecondary)
+            padding: .5em  
+
+            h4
+                font-family: Montserrat
+                font-size: 12px
+                color: color(silk)
+                font-weight: bold
+
+        .list-div
+
+            li
+                padding: 0
+                margin: 0
+                list-style-type: none
+                margin: 0 0 .2em 0
+                box-shadow: 0 1px 1px rgba(0, 0, 0, .1)
+
+                .name-wrap, .role-wrap
+                    margin: 0
+                    padding: .5em 0 0 1em 
+                    text-align: left
+
+                    h4
+                        margin: auto 0
+                        font-size: 10px
+                        font-family: Montserrat             
+                        text-transform: capitalize
+
+                    .btn
+                        margin: 0 2em 0 auto 
+
+                        fa
+                            font-size: 10px
+                            color: grayColor(g100)
+                            &:hover
+                                color: brandColor(brandPrimary)
+                                
+
+                            
+
+
+                .email-wrap  
+                    padding: .5em 0 0 1em  
+                    h4
+                        font-size: 10px
+                        font-family: Montserrat             
+                        margin: 1em auto 
+                        color: black
+
+                .btn-wrap   
+                    .btn
+                        font-size: 10px
+                        font-family: Montserrat             
+                        text-transform: capitalize
+                        margin: 1em auto
+                        background-color: grayColor(g100)
+                        color: black
+                        width: 12em
+
+                    fa
+                        margin: auto 0 
+                        font-size: 10px
+                        color: grayColor(g100)
+                        cursor: pointer
+                    
+
+                        &:hover
+                            color: brandColor(brandDanger)
+
+
+    .editNameModal, .editRoleModal, .editPasswordModal
+        .modal-header
+            background-color: themeColor(info)
+            .modal-title
+                font-size: 15px
+                font-family: Montserrat
+
+                span
+                    margin: 0 .5em 0 .5em
+                    color: white
+                    text-transform: uppercase
+               
+
+        .modal-body
+            font-size: 12px
+            font-family: Montserrat
+
+            input, select
+                font-size: 10px
+                font-family: Montserrat  
+
+                option
+                    font-size: 10px
+                    font-family: Montserrat
+
+            .input-group-text
+                cursor: pointer
+                width: 3em
+                color: brandColor(brandInfo)
+                font-family: Montserrat
+
+                fa
+                    font-size: 10px
+
+
+        .modal-footer
+            .btn-cancel
+                background-color: brandColor(brandSecondary)
+                font-size: 10px
+                font-family: Montserrat
+            .btn-confirm
+                background-color: brandColor(brandSuccess)
+                font-size: 10px
+                font-family: Montserrat
+
+
+
+    .deleteUserModal  
+        .modal-header
+            background-color: brandColor(brandDanger) !important
+            .modal-title
+                font-size: 15px
+                font-family: Montserrat
+               
+
+        .modal-body
+            font-size: 12px
+            font-family: Montserrat
+            text-align: center
+
+            p
+                color: black
+
+                span
+                    text-transform: capitalize
+                    margin: 0 .2em 0 .2em
+                    color: brandColor(brandPrimary)
+                    text-transform: uppercase
+
+
+        .modal-footer
+            .btn-cancel
+                background-color: brandColor(brandSecondary)
+                font-size: 10px
+                font-family: Montserrat
+            .btn-confirm
+                background-color: brandColor(brandDanger)
+                font-size: 10px
+                font-family: Montserrat
+                            
+
+
+
+
+
+        
+.article-invite
+    .invite-section
+        background-color: white
+        border-radius: 2px
+        padding: 1em
+
+        .title-div
+            h4
+                font-size: 12px
+                font-family: Montserrat 
+                font-weight: bold 
+
+                span
+                    text-shadow: 5px 5px 5px rgba(0,0,0,.3)
+                    font-size: 14px
+                    color: themeColor(info)
+
+        .form
+            border: solid 1px grayColor(g200)
+            padding: 1em
+
+            input
+                font-size: 10px
+                font-family: Montserrat
+
+            button
+                width: 100%
+                font-size: 10px
+                text-transform: uppercase
+                color: white
+                font-weight: bold
+                font-family: Montserrat
+                text-shadow: 5px 5px 5px rgba(0,0,0,.3)
+                background-color: themeColor(info)
+
